@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "The ultimate web animation toolkit. GSAP + Framer Motion + Lenis + Three.js + 50+ premium components. Build Awwwards-worthy sites.",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
@@ -23,7 +23,8 @@
     "clsx": "^2.1.0",
     "tailwind-merge": "^2.3.0",
     "class-variance-authority": "^0.7.0",
-    "mini-svg-data-uri": "^1.4.4"
+    "mini-svg-data-uri": "^1.4.4",
+    "schema-dts": "^1.1.2"
   },
   "devDependencies": {
     "@types/node": "^20.12.0",
@@ -35,7 +36,8 @@
     "postcss": "^8.4.0",
     "autoprefixer": "^10.4.0",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.0"
+    "eslint-config-next": "^14.2.0",
+    "next-sitemap": "^4.2.3"
   },
   "keywords": [
     "animation",
@@ -51,8 +53,9 @@
     "motion-design",
     "scroll-animations",
     "3d-web",
-    "premium-ui"
+    "premium-ui",
+    "seo"
   ],
-  "author": "",
+  "author": "itsjwill",
   "license": "MIT"
 }

@@ -18,3 +18,9 @@ export * from "./effects";
 
 // Layout components
 export * from "./layout";
+
+// SEO components
+export * from "./seo";
+
+// Page templates
+export * from "./templates";

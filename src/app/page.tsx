@@ -361,8 +361,8 @@ export default function HomePage() {
       <CTASection
         title="Ready to Build Something Insane?"
         description="Stop settling for basic. Start building websites that make people stop and stare."
-        primaryCTA={{ text: "Get Started Free", href: "#" }}
-        secondaryCTA={{ text: "View on GitHub", href: "#" }}
+        primaryCTA={{ text: "Get Started Free", href: "https://github.com/itsjwill/awwwards-ui" }}
+        secondaryCTA={{ text: "View on GitHub", href: "https://github.com/itsjwill/awwwards-ui" }}
       />
 
       {/* Footer */}
@@ -376,34 +376,19 @@ export default function HomePage() {
         }
         columns={[
           {
-            title: "Components",
+            title: "Product",
             links: [
-              { label: "Backgrounds", href: "#" },
-              { label: "Text Effects", href: "#" },
-              { label: "Cards", href: "#" },
-              { label: "3D Elements", href: "#" },
+              { label: "GitHub", href: "https://github.com/itsjwill/awwwards-ui" },
             ],
           },
           {
-            title: "Resources",
+            title: "Support",
             links: [
-              { label: "Documentation", href: "#" },
-              { label: "Examples", href: "#" },
-              { label: "GitHub", href: "#" },
-              { label: "Changelog", href: "#" },
-            ],
-          },
-          {
-            title: "Community",
-            links: [
-              { label: "Discord", href: "#" },
-              { label: "Twitter", href: "#" },
-              { label: "Discussions", href: "#" },
-              { label: "Contributing", href: "#" },
+              { label: "Issues", href: "https://github.com/itsjwill/awwwards-ui/issues" },
             ],
           },
         ]}
-        bottomText="Built for developers who refuse to settle for basic."
+        bottomText="MIT © itsjwill. Built for developers who refuse to settle for basic."
       />
     </main>
   );

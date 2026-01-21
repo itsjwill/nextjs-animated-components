@@ -1,4 +1,4 @@
-# Awwwards UI ⚡
+# Awwwards UI
 
 > The ultimate web animation toolkit. Build Awwwards-worthy sites without hiring a $50k agency.
 
@@ -25,7 +25,7 @@ And call it a day.
 
 ## What's Inside
 
-### 🎨 Backgrounds
+### Backgrounds
 - `AuroraBackground` - Animated aurora borealis effect
 - `Spotlight` / `Spotlights` - Dramatic spotlight overlays
 - `Meteors` / `ShootingStars` - Falling meteor animations
@@ -33,7 +33,7 @@ And call it a day.
 - `GradientBlob` / `GradientBackground` - Animated gradient meshes
 - `Particles` / `Sparkles` - Canvas-based particle systems
 
-### ✨ Text Animations
+### Text Animations
 - `TextGenerateEffect` - Word-by-word text reveal
 - `TypewriterEffect` - Classic typewriter with cursor
 - `FlipWords` - Rotating word carousel
@@ -42,7 +42,7 @@ And call it a day.
 - `NeonText` - Neon glow effect
 - `ShinyText` - Shimmer text effect
 
-### 🃏 Cards
+### Cards
 - `TiltCard` / `Card3D` - 3D perspective on hover
 - `GlowCard` - Cursor-following glow effect
 - `BorderBeam` / `BeamCard` - Animated border gradient
@@ -52,7 +52,7 @@ And call it a day.
 - `DirectionalHoverCard` - Direction-aware overlay
 - `WobbleCard` / `FloatingCard` - Physics-based movement
 
-### 📜 Scroll Animations
+### Scroll Animations
 - `InfiniteScroll` / `LogoScroll` / `TestimonialScroll` - Marquee effects
 - `Parallax` / `ParallaxGallery` - Depth effects
 - `TextParallax` / `VelocityText` - Large scrolling text
@@ -63,12 +63,12 @@ And call it a day.
 - `ScrollProgress` - Progress indicator bar
 - `ZoomParallax` - Image zoom on scroll
 
-### 🌐 3D Components
+### 3D Components
 - `FloatingShapes` - Distorted spheres, toruses, icosahedrons
 - `ParticleField` - 3D particle systems
 - `Globe` - Wireframe/dotted interactive globe
 
-### 🎯 Interactive Effects
+### Interactive Effects
 - `MagneticButton` - Cursor-following button
 - `ShinyButton` - Shine on hover
 - `GradientBorderButton` - Animated gradient border
@@ -82,7 +82,7 @@ And call it a day.
 - `GlowingSearch` - Search with glow effect
 - `AnimatedCheckbox` - Animated checkmark
 
-### 📐 Layouts
+### Layouts
 - `SpotlightHero` - Hero with spotlight background
 - `GradientHero` - Hero with gradient mesh
 - `AnimatedWordsHero` - Hero with rotating words
@@ -93,11 +93,48 @@ And call it a day.
 - `CTASection` - Call-to-action section
 - `Footer` - Multi-column footer
 
-### 🪝 Hooks
+### SEO Components (Auto-SEO Built In!)
+- `AutoSEO` - **DROP-IN AUTOMATIC SEO** - Extracts keywords from your content, generates metadata, creates JSON-LD
+- `SEOSetup` - Beautiful setup wizard that asks users for site details on first visit
+- `extractKeywords` - Automatically extract keywords from any text content
+- `generateAutoMetadata` - Generate metadata with automatic keyword extraction
+- `SEOHead` - Auto-generates Organization, Website, Software, and Breadcrumb schemas
+- `JsonLd` - Type-safe JSON-LD component using Google's schema-dts
+- `OrganizationJsonLd` - Organization structured data
+- `WebsiteJsonLd` - Website structured data with search action
+- `ArticleJsonLd` - Article/blog post structured data
+- `ProductJsonLd` - Product structured data with offers
+- `FAQJsonLd` - FAQ page structured data
+- `BreadcrumbJsonLd` - Breadcrumb navigation
+- `VideoJsonLd` - Video structured data
+- `LocalBusinessJsonLd` - Local business structured data
+- `EventJsonLd` - Event structured data
+- `CourseJsonLd` - Course structured data
+- `SoftwareJsonLd` - Software application structured data
+- `generateMetadata` - Next.js metadata generator utility
+
+### Theme System
+- `ThemeProvider` - Context provider with light/dark/system mode support
+- `ThemeToggle` - Animated sun/moon toggle button
+- `ThemeToggleSwitch` - Pill-style toggle switch
+- `ThemeSelector` - Dropdown with Light/Dark/System options
+- `useTheme` - Hook to access and control theme state
+
+### Page Templates
+- `LandingTemplate` - Complete landing page with hero, features, stats, testimonials, CTA
+- `PricingTemplate` - Pricing page with tier cards, billing toggle, FAQ accordion
+- `AboutTemplate` - About page with team, timeline, values, mission sections
+
+### Hooks
 - `useLenis` / `useLenisScroll` - Smooth scroll integration
 - `useGsap` / `useScrollTrigger` / `useParallax` - GSAP helpers
 - `useTextReveal` / `useMagnetic` - Animation hooks
 - `useMousePosition` / `useSmoothMouse` / `useMouseVelocity` - Mouse tracking
+- `useWebVitals` - Track Core Web Vitals (CLS, FCP, FID, INP, LCP, TTFB)
+- `WebVitalsReporter` - Drop-in component for Web Vitals tracking
+
+### API Routes
+- `/api/og` - Dynamic OG Image generator for social sharing
 
 ---
 
@@ -105,7 +142,7 @@ And call it a day.
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/awwwards-ui.git
+git clone https://github.com/itsjwill/awwwards-ui.git
 cd awwwards-ui
 
 # Install dependencies
@@ -129,7 +166,9 @@ import {
   TextGenerateEffect,
   TiltCard,
   MagneticButton,
-  FadeIn
+  FadeIn,
+  SEOHead,
+  ArticleJsonLd
 } from "@/components";
 ```
 
@@ -212,6 +251,395 @@ export function ScrollDemo() {
 }
 ```
 
+### Example: SEO with Structured Data
+
+```tsx
+// app/blog/[slug]/page.tsx
+import { ArticleJsonLd, generateMetadata } from "@/components/seo";
+
+export const metadata = generateMetadata({
+  title: "How to Build Awwwards-Worthy Sites",
+  description: "Learn the secrets behind award-winning web design",
+  canonical: "/blog/awwwards-secrets"
+});
+
+export default function BlogPost() {
+  return (
+    <>
+      <ArticleJsonLd
+        headline="How to Build Awwwards-Worthy Sites"
+        description="Learn the secrets behind award-winning web design"
+        url="https://awwwards-ui.com/blog/awwwards-secrets"
+        datePublished="2024-01-15"
+        author={{ name: "itsjwill" }}
+        image="/blog/hero.jpg"
+      />
+      <article>
+        {/* Your content */}
+      </article>
+    </>
+  );
+}
+```
+
+### Example: Product Page with SEO
+
+```tsx
+import { ProductJsonLd, FAQJsonLd } from "@/components/seo";
+
+export default function ProductPage() {
+  return (
+    <>
+      <ProductJsonLd
+        name="Awwwards UI Pro"
+        description="Premium animation components for React"
+        brand="Awwwards UI"
+        offers={{
+          price: 99,
+          priceCurrency: "USD",
+          availability: "InStock"
+        }}
+        aggregateRating={{
+          ratingValue: 4.9,
+          reviewCount: 127
+        }}
+      />
+
+      <FAQJsonLd
+        items={[
+          {
+            question: "What frameworks are supported?",
+            answer: "Awwwards UI works with Next.js 13+ and React 18+"
+          },
+          {
+            question: "Is it TypeScript compatible?",
+            answer: "Yes! Full TypeScript support with auto-complete."
+          }
+        ]}
+      />
+
+      {/* Page content */}
+    </>
+  );
+}
+```
+
+### Example: Theme Toggle
+
+```tsx
+// app/layout.tsx - Wrap your app with ThemeProvider
+import { ThemeProvider } from "@/components/effects";
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        <ThemeProvider defaultTheme="dark">
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+
+// In any component - Add a theme toggle
+import { ThemeToggle, ThemeSelector } from "@/components/effects";
+
+export function Navbar() {
+  return (
+    <nav>
+      {/* Animated sun/moon button */}
+      <ThemeToggle size="md" />
+
+      {/* Or use a dropdown selector */}
+      <ThemeSelector />
+    </nav>
+  );
+}
+```
+
+### Example: Web Vitals Tracking
+
+```tsx
+// Track Core Web Vitals with custom handler
+import { useWebVitals, WebVitalsReporter } from "@/hooks";
+
+// Option 1: Hook for custom handling
+function MyApp() {
+  useWebVitals({
+    onReport: (metric) => {
+      // Send to your analytics
+      console.log(`${metric.name}: ${metric.value} (${metric.rating})`);
+    },
+    debug: true, // Log to console in development
+  });
+
+  return <App />;
+}
+
+// Option 2: Drop-in component
+function Layout({ children }) {
+  return (
+    <>
+      <WebVitalsReporter
+        endpoint="/api/analytics"
+        debug={process.env.NODE_ENV === "development"}
+      />
+      {children}
+    </>
+  );
+}
+```
+
+### Example: Dynamic OG Images
+
+```tsx
+// Generate OG images dynamically
+// URL: /api/og?title=My%20Title&description=Subtitle&theme=gradient
+
+// In your page metadata:
+export const metadata = {
+  openGraph: {
+    images: [
+      {
+        url: '/api/og?title=My%20Page&description=Amazing%20content',
+        width: 1200,
+        height: 630,
+      }
+    ]
+  }
+};
+
+// Available parameters:
+// - title: Main heading text
+// - description: Subtitle text
+// - theme: "dark" | "light" | "gradient"
+// - badge: Small badge text above title
+```
+
+### Example: Page Templates
+
+```tsx
+// Landing Page - Complete landing page in one component
+import { LandingTemplate } from "@/components/templates";
+
+export default function Home() {
+  return (
+    <LandingTemplate
+      hero={{
+        badge: "Now in Beta",
+        title: "Build Something Amazing",
+        subtitle: "The ultimate toolkit for modern web development",
+        primaryCTA: { text: "Get Started", href: "/signup" },
+        secondaryCTA: { text: "Learn More", href: "/docs" },
+      }}
+      features={{
+        badge: "Features",
+        title: "Everything You Need",
+        items: [
+          { title: "Fast", description: "Blazing fast performance", icon: <ZapIcon /> },
+          { title: "Secure", description: "Enterprise-grade security", icon: <ShieldIcon /> },
+        ],
+      }}
+      stats={[
+        { value: "50+", label: "Components" },
+        { value: "100%", label: "TypeScript" },
+      ]}
+      cta={{
+        title: "Ready to Start?",
+        description: "Join thousands of developers building with Awwwards UI",
+        primaryCTA: { text: "Get Started Free", href: "/signup" },
+      }}
+      footer={{
+        columns: [
+          { title: "Product", links: [{ label: "Features", href: "/features" }] },
+        ],
+        bottomText: "© 2024 Your Company",
+      }}
+    />
+  );
+}
+
+// Pricing Page
+import { PricingTemplate } from "@/components/templates";
+
+export default function Pricing() {
+  return (
+    <PricingTemplate
+      tiers={[
+        {
+          name: "Starter",
+          description: "Perfect for side projects",
+          monthlyPrice: 0,
+          features: [
+            { text: "5 projects", included: true },
+            { text: "Community support", included: true },
+            { text: "Priority support", included: false },
+          ],
+          ctaText: "Get Started",
+          ctaHref: "/signup",
+        },
+        {
+          name: "Pro",
+          description: "For professional developers",
+          monthlyPrice: 29,
+          yearlyPrice: 290,
+          popular: true,
+          badge: "Most Popular",
+          features: [
+            { text: "Unlimited projects", included: true },
+            { text: "Priority support", included: true },
+            { text: "Custom domains", included: true },
+          ],
+          ctaText: "Start Free Trial",
+          ctaHref: "/signup/pro",
+        },
+      ]}
+      faq={[
+        { question: "Can I cancel anytime?", answer: "Yes, cancel anytime with no fees." },
+      ]}
+      footer={{ bottomText: "© 2024 Your Company" }}
+    />
+  );
+}
+```
+
+---
+
+## SEO Features
+
+Awwwards UI includes enterprise-grade SEO capabilities **that work automatically**.
+
+### Auto-SEO (Zero Config!)
+
+Just drop `<AutoSEO />` into any page and it:
+1. **Scans your page content** automatically
+2. **Extracts keywords** using NLP (no manual entry!)
+3. **Generates JSON-LD** based on page type
+4. **Creates metadata** from your actual content
+
+```tsx
+// That's it. Seriously.
+import { AutoSEO } from "@/components/seo";
+
+export default function AnyPage() {
+  return (
+    <>
+      <AutoSEO />
+      <h1>My Amazing Product</h1>
+      <p>This content will be analyzed for keywords...</p>
+    </>
+  );
+}
+```
+
+The component reads your page content and extracts keywords like:
+- "product", "amazing", "react", "animation" (from your text)
+- Tech keywords get boosted (react, nextjs, gsap, etc.)
+- Stop words are filtered out automatically
+
+### SEO Setup Wizard
+
+First time a user installs your site, they see a beautiful wizard:
+
+```tsx
+import { SEOSetup } from "@/components/seo";
+
+export default function Layout({ children }) {
+  return (
+    <>
+      <SEOSetup onComplete={(config) => console.log(config)} />
+      {children}
+    </>
+  );
+}
+```
+
+The wizard asks for:
+1. Site name
+2. Site URL
+3. Twitter handle (optional)
+
+Then saves it to localStorage. Users can also add env vars to skip the wizard.
+
+### Automatic Sitemap Generation
+
+Sitemaps are auto-generated on build using `next-sitemap`:
+
+```bash
+npm run build  # Generates sitemap.xml and robots.txt
+```
+
+Configure in `next-sitemap.config.js`:
+
+```js
+module.exports = {
+  siteUrl: 'https://your-domain.com',
+  generateRobotsTxt: true,
+  // Custom priority for important pages
+  transform: async (config, path) => ({
+    loc: path,
+    priority: path === '/' ? 1.0 : 0.7,
+    lastmod: new Date().toISOString()
+  })
+};
+```
+
+### Type-Safe Structured Data
+
+Built on Google's `schema-dts` for full TypeScript support:
+
+```tsx
+import { JsonLd } from "@/components/seo";
+import type { WithContext, Product } from "schema-dts";
+
+// Full autocomplete and type checking
+const product: WithContext<Product> = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: "Premium UI Kit",
+  offers: {
+    "@type": "Offer",
+    price: "99.00",
+    priceCurrency: "USD"
+  }
+};
+
+<JsonLd data={product} />
+```
+
+### Metadata Generator
+
+Generate consistent metadata across pages:
+
+```tsx
+// app/components/page.tsx
+import { generateMetadata } from "@/components/seo";
+
+export const metadata = generateMetadata({
+  title: "Components",
+  description: "Browse 50+ premium animation components",
+  keywords: ["react components", "animation"],
+  canonical: "/components"
+});
+```
+
+### Available Schemas
+
+| Component | Schema Type | Use Case |
+|-----------|-------------|----------|
+| `OrganizationJsonLd` | Organization | Company info |
+| `WebsiteJsonLd` | WebSite | Site-wide data + search |
+| `ArticleJsonLd` | Article | Blog posts |
+| `ProductJsonLd` | Product | E-commerce |
+| `FAQJsonLd` | FAQPage | FAQ sections |
+| `BreadcrumbJsonLd` | BreadcrumbList | Navigation |
+| `VideoJsonLd` | VideoObject | Video content |
+| `LocalBusinessJsonLd` | LocalBusiness | Physical locations |
+| `EventJsonLd` | Event | Events |
+| `CourseJsonLd` | Course | Educational content |
+| `SoftwareJsonLd` | SoftwareApplication | Apps/tools |
+
 ---
 
 ## Tech Stack
@@ -224,6 +652,8 @@ export function ScrollDemo() {
 | **React Three Fiber** | 3D scenes | Three.js for React |
 | **Tailwind CSS** | Styling | Utility-first, fast iteration |
 | **TypeScript** | Type safety | Full autocomplete, fewer bugs |
+| **next-sitemap** | Sitemap generation | Auto sitemaps on build |
+| **schema-dts** | JSON-LD types | Google's official schema types |
 
 ---
 
@@ -232,25 +662,52 @@ export function ScrollDemo() {
 ```
 src/
 ├── app/
-│   ├── globals.css      # Global styles + CSS variables
-│   ├── layout.tsx       # Root layout
-│   └── page.tsx         # Demo page
+│   ├── api/
+│   │   └── og/
+│   │       └── route.tsx    # Dynamic OG image generator
+│   ├── globals.css          # Global styles + CSS variables
+│   ├── layout.tsx           # Root layout with SEO metadata
+│   └── page.tsx             # Demo page
 ├── components/
-│   ├── backgrounds/     # Aurora, spotlight, meteors, etc.
-│   ├── text/            # Text animations
-│   ├── cards/           # Card components
-│   ├── scroll/          # Scroll animations
-│   ├── three/           # 3D components
-│   ├── effects/         # Buttons, cursors, inputs
-│   ├── layout/          # Hero sections, layouts
-│   └── index.ts         # All exports
-├── hooks/               # Custom hooks
+│   ├── backgrounds/         # Aurora, spotlight, meteors, etc.
+│   ├── text/                # Text animations
+│   ├── cards/               # Card components
+│   ├── scroll/              # Scroll animations
+│   ├── three/               # 3D components
+│   ├── effects/             # Buttons, cursors, inputs, theme toggle
+│   │   └── theme-toggle.tsx # Dark/light mode system
+│   ├── layout/              # Hero sections, layouts
+│   ├── seo/                 # SEO components & JSON-LD
+│   │   ├── json-ld.tsx      # Type-safe structured data
+│   │   ├── auto-seo.tsx     # Automatic keyword extraction
+│   │   ├── seo-setup.tsx    # Setup wizard component
+│   │   ├── seo-head.tsx     # Auto-generated schemas
+│   │   └── index.ts         # All SEO exports
+│   ├── templates/           # Pre-built page templates
+│   │   ├── landing-template.tsx
+│   │   ├── pricing-template.tsx
+│   │   ├── about-template.tsx
+│   │   └── index.ts
+│   └── index.ts             # All exports
+├── hooks/                   # Custom hooks
 │   ├── use-lenis.ts
 │   ├── use-gsap.ts
 │   ├── use-mouse-position.ts
+│   ├── use-web-vitals.ts    # Core Web Vitals tracking
 │   └── index.ts
 └── lib/
-    └── utils.ts         # Utility functions
+    ├── utils.ts             # Utility functions
+    ├── seo.ts               # SEO utilities & config
+    └── auto-seo.ts          # Auto keyword extraction engine
+```
+
+---
+
+## Environment Variables
+
+```env
+# Required for SEO
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
 ```
 
 ---
@@ -336,6 +793,8 @@ Built with:
 - [Framer Motion](https://framer.com/motion/)
 - [Lenis](https://lenis.studiofreight.com/)
 - [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)
+- [next-sitemap](https://github.com/iamvishnusankar/next-sitemap)
+- [schema-dts](https://github.com/google/schema-dts)
 
 ---
 
