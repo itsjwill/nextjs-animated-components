@@ -167,8 +167,6 @@ function SynapticConnection({
   activation: number;
   baseColor: THREE.Color;
 }) {
-  const lineRef = useRef<THREE.Line>(null);
-
   const points = useMemo(() => {
     const mid = from.clone().add(to).multiplyScalar(0.5);
     const direction = to.clone().sub(from);
@@ -185,7 +183,6 @@ function SynapticConnection({
 
   return (
     <Line
-      ref={lineRef}
       points={points}
       color={baseColor}
       lineWidth={1 + activation * 2}
@@ -384,6 +381,45 @@ function EnergyField({ radius = 6, color }: { radius?: number; color: THREE.Colo
   );
 }
 
+// Preset color configurations (defined outside component to avoid recreation)
+const PRESETS = {
+  mind: {
+    baseColor: "#8B5CF6",
+    activeColor: "#F472B6",
+    impulseColor: "#22D3EE",
+    particleColor: "#A78BFA",
+    bgColor: "#0F0F1A",
+  },
+  synapse: {
+    baseColor: "#06B6D4",
+    activeColor: "#FBBF24",
+    impulseColor: "#F472B6",
+    particleColor: "#22D3EE",
+    bgColor: "#0A1628",
+  },
+  dream: {
+    baseColor: "#EC4899",
+    activeColor: "#8B5CF6",
+    impulseColor: "#34D399",
+    particleColor: "#F9A8D4",
+    bgColor: "#1A0A14",
+  },
+  electric: {
+    baseColor: "#22D3EE",
+    activeColor: "#FFFFFF",
+    impulseColor: "#3B82F6",
+    particleColor: "#67E8F9",
+    bgColor: "#030712",
+  },
+  void: {
+    baseColor: "#374151",
+    activeColor: "#F3F4F6",
+    impulseColor: "#6B7280",
+    particleColor: "#4B5563",
+    bgColor: "#030303",
+  },
+};
+
 // Main neural network scene
 function NeuralNetworkScene({
   preset,
@@ -392,45 +428,17 @@ function NeuralNetworkScene({
   preset: "mind" | "synapse" | "dream" | "electric" | "void";
   onActivity?: (level: number) => void;
 }) {
-  const presets = {
-    mind: {
-      baseColor: new THREE.Color("#8B5CF6"),
-      activeColor: new THREE.Color("#F472B6"),
-      impulseColor: new THREE.Color("#22D3EE"),
-      particleColor: new THREE.Color("#A78BFA"),
-      bgColor: new THREE.Color("#0F0F1A"),
-    },
-    synapse: {
-      baseColor: new THREE.Color("#06B6D4"),
-      activeColor: new THREE.Color("#FBBF24"),
-      impulseColor: new THREE.Color("#F472B6"),
-      particleColor: new THREE.Color("#22D3EE"),
-      bgColor: new THREE.Color("#0A1628"),
-    },
-    dream: {
-      baseColor: new THREE.Color("#EC4899"),
-      activeColor: new THREE.Color("#8B5CF6"),
-      impulseColor: new THREE.Color("#34D399"),
-      particleColor: new THREE.Color("#F9A8D4"),
-      bgColor: new THREE.Color("#1A0A14"),
-    },
-    electric: {
-      baseColor: new THREE.Color("#22D3EE"),
-      activeColor: new THREE.Color("#FFFFFF"),
-      impulseColor: new THREE.Color("#3B82F6"),
-      particleColor: new THREE.Color("#67E8F9"),
-      bgColor: new THREE.Color("#030712"),
-    },
-    void: {
-      baseColor: new THREE.Color("#374151"),
-      activeColor: new THREE.Color("#F3F4F6"),
-      impulseColor: new THREE.Color("#6B7280"),
-      particleColor: new THREE.Color("#4B5563"),
-      bgColor: new THREE.Color("#030303"),
-    },
-  };
-
-  const colors = presets[preset];
+  // Create color objects that update when preset changes
+  const colors = useMemo(() => {
+    const p = PRESETS[preset];
+    return {
+      baseColor: new THREE.Color(p.baseColor),
+      activeColor: new THREE.Color(p.activeColor),
+      impulseColor: new THREE.Color(p.impulseColor),
+      particleColor: new THREE.Color(p.particleColor),
+      bgColor: new THREE.Color(p.bgColor),
+    };
+  }, [preset]);
 
   const neurons = useMemo(() => generateNeuralNetwork([6, 12, 18, 24, 18, 12, 6], 3.5, 10), []);
   const [activations, setActivations] = useState<Map<number, number>>(new Map());

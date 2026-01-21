@@ -8,12 +8,14 @@ interface MagneticButtonProps {
   children: React.ReactNode;
   className?: string;
   strength?: number;
+  onClick?: () => void;
 }
 
 export function MagneticButton({
   children,
   className,
   strength = 0.4,
+  onClick,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLButtonElement>(null);
 
@@ -51,6 +53,7 @@ export function MagneticButton({
       style={{ x: springX, y: springY }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
       whileTap={{ scale: 0.95 }}
     >
       {children}
@@ -91,18 +94,21 @@ interface GradientBorderButtonProps {
   children: React.ReactNode;
   className?: string;
   gradient?: string;
+  onClick?: () => void;
 }
 
 export function GradientBorderButton({
   children,
   className,
   gradient = "from-purple-500 via-pink-500 to-red-500",
+  onClick,
 }: GradientBorderButtonProps) {
   return (
     <motion.button
       className={cn("relative p-[2px] rounded-full group", className)}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
+      onClick={onClick}
     >
       {/* Gradient border */}
       <span

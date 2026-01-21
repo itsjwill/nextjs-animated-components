@@ -295,6 +295,7 @@ export function useWebVitals(options: UseWebVitalsOptions = {}) {
           }
         }
       });
+      // @ts-expect-error - durationThreshold is supported in modern browsers but not in TS types
       inpObserver.observe({ type: "event", buffered: true, durationThreshold: 16 });
       observers.push(inpObserver);
     } catch (e) {

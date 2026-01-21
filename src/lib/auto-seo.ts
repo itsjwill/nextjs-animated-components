@@ -192,7 +192,7 @@ export function extractKeywords(
   ];
 
   // Deduplicate and limit
-  return [...new Set(keywords)].slice(0, maxKeywords);
+  return Array.from(new Set(keywords)).slice(0, maxKeywords);
 }
 
 /**

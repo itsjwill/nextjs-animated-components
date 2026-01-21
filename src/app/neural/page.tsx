@@ -1,13 +1,28 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+// Loading component for when 3D scene is loading
+function LoadingFallback() {
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-black">
+      <div className="text-center">
+        <div className="w-12 h-12 border-2 border-purple-500/30 border-t-purple-500 rounded-full animate-spin mx-auto mb-4" />
+        <p className="text-white/50 text-sm">Loading Neural Network...</p>
+      </div>
+    </div>
+  );
+}
 
 // Dynamic import to avoid SSR issues with Three.js
 const NeuralNetwork = dynamic(
   () => import("@/components/three/neural-network").then((mod) => mod.NeuralNetwork),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => <LoadingFallback />
+  }
 );
 
 const presets = [
@@ -25,18 +40,10 @@ export default function NeuralPage() {
   return (
     <div className="relative w-full h-screen overflow-hidden bg-black">
       {/* Neural Network Canvas */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activePreset}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="absolute inset-0"
-        >
-          <NeuralNetwork preset={activePreset} onActivity={setActivity} />
-        </motion.div>
-      </AnimatePresence>
+      {/* Note: No AnimatePresence here - remounting 3D scenes causes white flashes */}
+      <div className="absolute inset-0">
+        <NeuralNetwork preset={activePreset} onActivity={setActivity} />
+      </div>
 
       {/* Overlay UI */}
       <div className="absolute inset-0 pointer-events-none">

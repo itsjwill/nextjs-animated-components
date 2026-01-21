@@ -132,7 +132,7 @@ export function generateAutoMetadata(
 
   return {
     ...seo.metadata,
-    keywords: [...new Set(seo.keywords)], // Dedupe
+    keywords: Array.from(new Set(seo.keywords)), // Dedupe
   };
 }
 

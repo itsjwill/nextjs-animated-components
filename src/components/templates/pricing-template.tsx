@@ -29,7 +29,7 @@ export interface PricingTier {
   badge?: string;
 }
 
-export interface FAQItem {
+export interface PricingFAQItem {
   question: string;
   answer: string;
 }
@@ -42,7 +42,7 @@ export interface PricingTemplateProps {
   /** Pricing tiers */
   tiers: PricingTier[];
   /** FAQ items */
-  faq?: FAQItem[];
+  faq?: PricingFAQItem[];
   /** Show monthly/yearly toggle */
   showBillingToggle?: boolean;
   /** Footer content */

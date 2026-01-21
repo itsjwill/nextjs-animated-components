@@ -17,6 +17,7 @@ import type {
   Recipe,
   HowTo,
   Review,
+  Thing,
 } from "schema-dts";
 
 // =============================================================================
@@ -24,11 +25,12 @@ import type {
 // =============================================================================
 // Type-safe structured data using Google's schema-dts
 
-export interface JsonLdProps<T> {
-  data: WithContext<T> | WithContext<T>[];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface JsonLdProps {
+  data: Record<string, any> | Record<string, any>[];
 }
 
-export function JsonLd<T>({ data }: JsonLdProps<T>) {
+export function JsonLd({ data }: JsonLdProps) {
   const jsonLd = Array.isArray(data) ? data : [data];
 
   return (
@@ -361,7 +363,7 @@ export function createLocalBusinessSchema(
           longitude: props.geo.longitude,
         }
       : undefined,
-    openingHoursSpecification: props.openingHours,
+    openingHours: props.openingHours,
     priceRange: props.priceRange,
     image: props.image,
   };

@@ -16,7 +16,7 @@ export type {
   PricingTemplateProps,
   PricingTier,
   PricingFeature,
-  FAQItem,
+  PricingFAQItem,
 } from "./pricing-template";
 
 export { AboutTemplate } from "./about-template";

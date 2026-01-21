@@ -1,0 +1,20 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+
+# Host
+Host: https://awwwards-ui.com
+
+# Sitemaps
+Sitemap: https://awwwards-ui.com/sitemap.xml
