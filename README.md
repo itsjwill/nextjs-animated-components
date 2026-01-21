@@ -131,25 +131,69 @@ And call it a day.
 - `CTASection` - Call-to-action section
 - `Footer` - Multi-column footer
 
-### SEO Components (Auto-SEO Built In!)
-- `AutoSEO` - **DROP-IN AUTOMATIC SEO** - Extracts keywords from your content, generates metadata, creates JSON-LD
-- `SEOSetup` - Beautiful setup wizard that asks users for site details on first visit
-- `extractKeywords` - Automatically extract keywords from any text content
-- `generateAutoMetadata` - Generate metadata with automatic keyword extraction
-- `SEOHead` - Auto-generates Organization, Website, Software, and Breadcrumb schemas
-- `JsonLd` - Type-safe JSON-LD component using Google's schema-dts
-- `OrganizationJsonLd` - Organization structured data
-- `WebsiteJsonLd` - Website structured data with search action
-- `ArticleJsonLd` - Article/blog post structured data
-- `ProductJsonLd` - Product structured data with offers
-- `FAQJsonLd` - FAQ page structured data
-- `BreadcrumbJsonLd` - Breadcrumb navigation
-- `VideoJsonLd` - Video structured data
-- `LocalBusinessJsonLd` - Local business structured data
-- `EventJsonLd` - Event structured data
-- `CourseJsonLd` - Course structured data
-- `SoftwareJsonLd` - Software application structured data
-- `generateMetadata` - Next.js metadata generator utility
+### SEO Components (Complete SEO Toolkit!)
+
+**Auto-SEO**
+- `AutoSEO` - **DROP-IN AUTOMATIC SEO** - Extracts keywords, generates metadata, creates JSON-LD
+- `SEOSetup` - Beautiful setup wizard for first-time configuration
+- `SEOAnalyzer` - Real-time page audit tool (score out of 100)
+- `SEOHead` - Auto-generates Organization, Website, Software schemas
+
+**JSON-LD Schemas (15 types)**
+- `JsonLd` - Type-safe base component using Google's schema-dts
+- `OrganizationJsonLd` - Company/organization info
+- `WebsiteJsonLd` - Site-wide data + search action
+- `ArticleJsonLd` - Blog posts/articles
+- `ProductJsonLd` - E-commerce products
+- `FAQJsonLd` - FAQ sections (rich snippets in Google)
+- `BreadcrumbJsonLd` - Navigation breadcrumbs
+- `VideoJsonLd` - Video content
+- `LocalBusinessJsonLd` - Physical business locations
+- `EventJsonLd` - Events
+- `CourseJsonLd` - Educational content
+- `SoftwareJsonLd` - Software/apps
+- `ReviewJsonLd` - Individual reviews
+- `AggregateRatingJsonLd` - Star ratings in Google search
+- `ServiceJsonLd` - Services offered
+- `HowToJsonLd` - Step-by-step tutorials
+
+**Visual Breadcrumbs**
+- `Breadcrumbs` - Visual navigation + SEO schema (4 variants)
+- `CollapsibleBreadcrumbs` - Collapses long paths
+- `AutoBreadcrumbs` - Auto-generates from URL path
+
+**Social Share**
+- `SocialShare` - 9 platforms (Twitter, LinkedIn, Facebook, Reddit, HN, Pinterest, WhatsApp, Telegram, Email)
+- `NativeShare` - Web Share API button
+- `ShareCountButton` - Share with count display
+
+**Analytics (5 providers)**
+- `GoogleAnalytics` - GA4 integration
+- `PlausibleAnalytics` - Privacy-friendly analytics
+- `FathomAnalytics` - Simple, privacy-first
+- `UmamiAnalytics` - Self-hosted option
+- `PostHogAnalytics` - Product analytics
+- `Analytics` - Universal component (configure multiple)
+
+**Canonical & Pagination**
+- `Canonical` - Prevents duplicate content penalties
+- `HrefLangTags` - Multilingual site support
+- `PaginationLinks` - rel="prev/next" for paginated content
+
+**RSS Feeds**
+- `generateRSS()` - RSS 2.0 (with podcast support)
+- `generateAtom()` - Atom feed format
+- `generateJsonFeed()` - Modern JSON Feed format
+
+**Web Vitals**
+- `WebVitalsReporter` - Reports CLS, FCP, FID, INP, LCP, TTFB to GA or custom endpoint
+- `WebVitalsDisplay` - Visual dashboard component
+- `useWebVitals` - Hook for custom handling
+
+**Utilities**
+- `generateMetadata` - Next.js metadata generator
+- `extractKeywords` - NLP keyword extraction
+- `getCanonicalUrl` - Canonical URL helper
 
 ### Theme System
 - `ThemeProvider` - Context provider with light/dark/system mode support
@@ -173,6 +217,20 @@ And call it a day.
 
 ### API Routes
 - `/api/og` - Dynamic OG Image generator for social sharing
+
+---
+
+## 📖 Prompting Guide
+
+**Want the best results when using AI to build with Awwwards UI?**
+
+See **[PROMPTING.md](./PROMPTING.md)** for:
+- Template prompts for building new sites
+- Template prompts for enhancing existing sites
+- Quick reference table (what to say for each component)
+- SEO setup checklist
+- Full example prompts you can copy-paste
+- Common mistakes to avoid
 
 ---
 
@@ -677,6 +735,10 @@ export const metadata = generateMetadata({
 | `EventJsonLd` | Event | Events |
 | `CourseJsonLd` | Course | Educational content |
 | `SoftwareJsonLd` | SoftwareApplication | Apps/tools |
+| `ReviewJsonLd` | Review | Individual reviews |
+| `AggregateRatingJsonLd` | AggregateRating | Star ratings in Google |
+| `ServiceJsonLd` | Service | Services offered |
+| `HowToJsonLd` | HowTo | Step-by-step tutorials |
 
 ---
 
