@@ -341,7 +341,7 @@ Built with:
 
 ## License
 
-MIT © [Your Name]
+MIT © itsjwill
 
 ---
 
