@@ -179,3 +179,56 @@ export type {
   UmamiProps,
   PostHogProps,
 } from "./analytics";
+
+// -----------------------------------------------------------------------------
+// Canonical URLs & Pagination
+// -----------------------------------------------------------------------------
+export {
+  Canonical,
+  getCanonicalUrl,
+  HrefLangTags,
+  getAlternateLanguages,
+  PaginationLinks,
+  getPaginationMeta,
+} from "./canonical";
+export type {
+  CanonicalProps,
+  CanonicalMetaOptions,
+  AlternateLanguage,
+  HrefLangProps,
+  PaginationLinksProps,
+} from "./canonical";
+
+// -----------------------------------------------------------------------------
+// RSS / Atom / JSON Feed Generators
+// -----------------------------------------------------------------------------
+export {
+  generateRSS,
+  generateAtom,
+  generateJsonFeed,
+  createRSSResponse,
+  createAtomResponse,
+  createJsonFeedResponse,
+  getFeedLinkTags,
+} from "./rss-feed";
+export type {
+  FeedItem,
+  FeedConfig,
+  FeedLinksProps,
+  JsonFeed,
+  JsonFeedItem,
+} from "./rss-feed";
+
+// -----------------------------------------------------------------------------
+// Web Vitals (Core Web Vitals Reporting)
+// -----------------------------------------------------------------------------
+export {
+  WebVitalsReporter,
+  WebVitalsDisplay,
+  useWebVitals,
+} from "./web-vitals";
+export type {
+  WebVitalsMetric,
+  WebVitalsReporterProps,
+  WebVitalsDisplayProps,
+} from "./web-vitals";
