@@ -2,20 +2,183 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: 0 0% 0%;
-  --foreground: 0 0% 100%;
-  --primary: 270 70% 60%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 240 5% 15%;
-  --secondary-foreground: 0 0% 100%;
-  --muted: 240 5% 15%;
-  --muted-foreground: 240 5% 65%;
-  --accent: 270 70% 60%;
-  --accent-foreground: 0 0% 100%;
-  --border: 240 5% 20%;
+/* =============================================================================
+   Direction: Luxury (Apple/Linear)
+   Palette: Black, white, warm gold accent. Extreme restraint.
+   ============================================================================= */
 
-  /* Aurora colors */
+[data-direction="luxury"] {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 6%;
+  --primary: 0 0% 6%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 96%;
+  --secondary-foreground: 0 0% 15%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
+  --accent: 43 74% 49%;
+  --accent-foreground: 0 0% 100%;
+  --border: 0 0% 90%;
+  --surface: 0 0% 100%;
+  --glow: 43 74% 49%;
+  --selection: 43 74% 49%;
+}
+
+[data-direction="luxury"].dark {
+  --background: 0 0% 4%;
+  --foreground: 0 0% 95%;
+  --primary: 0 0% 95%;
+  --primary-foreground: 0 0% 4%;
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 0 0% 85%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 55%;
+  --accent: 43 80% 55%;
+  --accent-foreground: 0 0% 4%;
+  --border: 0 0% 16%;
+  --surface: 0 0% 7%;
+  --glow: 43 80% 55%;
+  --selection: 43 80% 55%;
+}
+
+/* =============================================================================
+   Direction: Cyberpunk
+   Palette: Deep navy/black, cyan primary, magenta secondary. Neon glow.
+   ============================================================================= */
+
+[data-direction="cyberpunk"] {
+  --background: 230 15% 6%;
+  --foreground: 180 80% 85%;
+  --primary: 174 100% 50%;
+  --primary-foreground: 230 15% 6%;
+  --secondary: 320 80% 55%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 230 15% 14%;
+  --muted-foreground: 180 30% 55%;
+  --accent: 320 80% 55%;
+  --accent-foreground: 0 0% 100%;
+  --border: 180 40% 18%;
+  --surface: 230 15% 10%;
+  --glow: 174 100% 50%;
+  --selection: 174 100% 50%;
+}
+
+[data-direction="cyberpunk"].dark {
+  --background: 230 18% 4%;
+  --foreground: 180 90% 88%;
+  --primary: 174 100% 50%;
+  --primary-foreground: 230 18% 4%;
+  --secondary: 320 85% 60%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 230 18% 12%;
+  --muted-foreground: 180 25% 50%;
+  --accent: 320 85% 60%;
+  --accent-foreground: 0 0% 100%;
+  --border: 180 50% 15%;
+  --surface: 230 18% 8%;
+  --glow: 174 100% 50%;
+  --selection: 174 100% 50%;
+}
+
+/* =============================================================================
+   Direction: Kinetic (Stripe/Vercel)
+   Palette: Clean white, vibrant violet primary, teal accent. Energetic.
+   ============================================================================= */
+
+[data-direction="kinetic"] {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 12%;
+  --primary: 263 70% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 5% 96%;
+  --secondary-foreground: 240 10% 20%;
+  --muted: 240 5% 96%;
+  --muted-foreground: 240 5% 45%;
+  --accent: 172 66% 50%;
+  --accent-foreground: 0 0% 100%;
+  --border: 240 5% 90%;
+  --surface: 0 0% 100%;
+  --glow: 263 70% 50%;
+  --selection: 263 70% 50%;
+}
+
+[data-direction="kinetic"].dark {
+  --background: 240 10% 4%;
+  --foreground: 0 0% 93%;
+  --primary: 263 80% 65%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 10% 12%;
+  --secondary-foreground: 0 0% 85%;
+  --muted: 240 10% 14%;
+  --muted-foreground: 240 5% 55%;
+  --accent: 172 70% 55%;
+  --accent-foreground: 240 10% 4%;
+  --border: 240 10% 18%;
+  --surface: 240 10% 7%;
+  --glow: 263 80% 65%;
+  --selection: 263 80% 65%;
+}
+
+/* =============================================================================
+   Direction: Freestyle (Bold, Unexpected)
+   Palette: Dark warm, coral/burnt orange primary, emerald accent.
+   ============================================================================= */
+
+[data-direction="freestyle"] {
+  --background: 30 5% 6%;
+  --foreground: 30 10% 90%;
+  --primary: 16 85% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 160 50% 40%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 30 5% 14%;
+  --muted-foreground: 30 10% 55%;
+  --accent: 160 50% 40%;
+  --accent-foreground: 0 0% 100%;
+  --border: 30 8% 20%;
+  --surface: 30 5% 10%;
+  --glow: 16 85% 55%;
+  --selection: 16 85% 55%;
+}
+
+[data-direction="freestyle"].dark {
+  --background: 30 6% 4%;
+  --foreground: 30 12% 92%;
+  --primary: 16 90% 58%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 160 55% 45%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 30 6% 12%;
+  --muted-foreground: 30 8% 50%;
+  --accent: 160 55% 45%;
+  --accent-foreground: 0 0% 100%;
+  --border: 30 8% 18%;
+  --surface: 30 6% 8%;
+  --glow: 16 90% 58%;
+  --selection: 16 90% 58%;
+}
+
+/* =============================================================================
+   Fallback (no direction set - defaults to freestyle dark)
+   ============================================================================= */
+
+:root {
+  --background: 30 6% 4%;
+  --foreground: 30 12% 92%;
+  --primary: 16 90% 58%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 160 55% 45%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 30 6% 12%;
+  --muted-foreground: 30 8% 50%;
+  --accent: 160 55% 45%;
+  --accent-foreground: 0 0% 100%;
+  --border: 30 8% 18%;
+  --surface: 30 6% 8%;
+  --glow: 16 90% 58%;
+  --selection: 16 90% 58%;
+
+  /* Aurora colors (preserved for existing components) */
   --white: rgba(255, 255, 255, 0.1);
   --black: #000;
   --transparent: transparent;
@@ -25,6 +188,34 @@
   --indigo-300: #a5b4fc;
   --violet-200: #ddd6fe;
 }
+
+/* =============================================================================
+   Typography - Direction-aware font families
+   ============================================================================= */
+
+[data-direction="luxury"] {
+  --font-heading: var(--font-luxury-heading), "Space Grotesk", system-ui, sans-serif;
+  --font-body: var(--font-luxury-body), "Inter", system-ui, sans-serif;
+}
+
+[data-direction="cyberpunk"] {
+  --font-heading: var(--font-cyber-heading), "JetBrains Mono", monospace;
+  --font-body: var(--font-cyber-body), "IBM Plex Mono", monospace;
+}
+
+[data-direction="kinetic"] {
+  --font-heading: var(--font-kinetic-heading), "Outfit", system-ui, sans-serif;
+  --font-body: var(--font-kinetic-body), "DM Sans", system-ui, sans-serif;
+}
+
+[data-direction="freestyle"] {
+  --font-heading: var(--font-free-heading), "Syne", system-ui, sans-serif;
+  --font-body: var(--font-free-body), "Manrope", system-ui, sans-serif;
+}
+
+/* =============================================================================
+   Base Styles
+   ============================================================================= */
 
 * {
   box-sizing: border-box;
@@ -39,12 +230,19 @@ html {
 body {
   background: hsl(var(--background));
   color: hsl(var(--foreground));
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Hide scrollbar for smooth scroll libraries */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), system-ui, sans-serif;
+}
+
+/* =============================================================================
+   Lenis Smooth Scroll
+   ============================================================================= */
+
 html.lenis,
 html.lenis body {
   height: auto;
@@ -66,7 +264,10 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* Custom cursor styles */
+/* =============================================================================
+   Custom Cursor
+   ============================================================================= */
+
 body.custom-cursor {
   cursor: none;
 }
@@ -76,19 +277,28 @@ body.custom-cursor button {
   cursor: none;
 }
 
-/* Selection styles */
+/* =============================================================================
+   Selection - Direction aware
+   ============================================================================= */
+
 ::selection {
-  background: rgba(139, 92, 246, 0.3);
-  color: white;
+  background: hsla(var(--selection), 0.3);
+  color: hsl(var(--foreground));
 }
 
-/* Focus styles */
+/* =============================================================================
+   Focus Styles
+   ============================================================================= */
+
 :focus-visible {
-  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline: 2px solid hsl(var(--primary));
   outline-offset: 2px;
 }
 
-/* Scrollbar styles */
+/* =============================================================================
+   Scrollbar
+   ============================================================================= */
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -99,15 +309,18 @@ body.custom-cursor button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: hsl(var(--muted-foreground) / 0.2);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: hsl(var(--muted-foreground) / 0.4);
 }
 
-/* Utility classes */
+/* =============================================================================
+   Utility Classes
+   ============================================================================= */
+
 .perspective-1000 {
   perspective: 1000px;
 }
@@ -120,7 +333,62 @@ body.custom-cursor button {
   backface-visibility: hidden;
 }
 
-/* Text gradient animation */
+/* =============================================================================
+   Direction-specific Glow Effects
+   ============================================================================= */
+
+.glow {
+  filter: drop-shadow(0 0 20px hsl(var(--glow)));
+}
+
+.glow-sm {
+  filter: drop-shadow(0 0 8px hsl(var(--glow) / 0.5));
+}
+
+.glow-lg {
+  filter: drop-shadow(0 0 40px hsl(var(--glow) / 0.6));
+}
+
+/* Glass effect - adapts to direction */
+.glass {
+  background: hsl(var(--surface) / 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid hsl(var(--border) / 0.5);
+}
+
+/* =============================================================================
+   Cyberpunk-specific Utilities
+   ============================================================================= */
+
+[data-direction="cyberpunk"] .scanline {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    hsl(var(--primary) / 0.03) 2px,
+    hsl(var(--primary) / 0.03) 4px
+  );
+  pointer-events: none;
+}
+
+[data-direction="cyberpunk"] .neon-border {
+  box-shadow:
+    0 0 5px hsl(var(--primary) / 0.5),
+    0 0 20px hsl(var(--primary) / 0.2),
+    inset 0 0 5px hsl(var(--primary) / 0.1);
+}
+
+[data-direction="cyberpunk"] .neon-text {
+  text-shadow:
+    0 0 7px hsl(var(--primary) / 0.8),
+    0 0 20px hsl(var(--primary) / 0.4),
+    0 0 40px hsl(var(--primary) / 0.2);
+}
+
+/* =============================================================================
+   Keyframe Animations (preserved + new)
+   ============================================================================= */
+
 @keyframes text-gradient {
   0%, 100% {
     background-position: 0% 50%;
@@ -135,14 +403,25 @@ body.custom-cursor button {
   animation: text-gradient 4s ease infinite;
 }
 
-/* Glow effect */
-.glow {
-  filter: drop-shadow(0 0 20px currentColor);
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 90% 0); transform: translate(-2px, 0); }
+  20% { clip-path: inset(30% 0 40% 0); transform: translate(2px, 0); }
+  40% { clip-path: inset(60% 0 10% 0); transform: translate(-1px, 0); }
+  60% { clip-path: inset(10% 0 60% 0); transform: translate(1px, 0); }
+  80% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 0); }
 }
 
-/* Glass effect */
-.glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(90% 0 0 0); transform: translate(2px, 0); }
+  20% { clip-path: inset(40% 0 30% 0); transform: translate(-2px, 0); }
+  40% { clip-path: inset(10% 0 60% 0); transform: translate(1px, 0); }
+  60% { clip-path: inset(60% 0 10% 0); transform: translate(-1px, 0); }
+  80% { clip-path: inset(5% 0 80% 0); transform: translate(2px, 0); }
+}
+
+@keyframes float-rotate {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(2deg); }
+  50% { transform: translateY(-20px) rotate(0deg); }
+  75% { transform: translateY(-10px) rotate(-2deg); }
 }

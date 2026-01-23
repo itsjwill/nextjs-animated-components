@@ -1,406 +1,50 @@
-"use client";
-
-import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-
-// Components
-import { SpotlightHero } from "@/components/layout/hero-sections";
-import {
-  Section,
-  Container,
-  SectionHeader,
-  FeaturesSection,
-  StatsSection,
-  CTASection,
-  Footer,
-} from "@/components/layout/sections";
-import { TiltCard, BeamCard, FeatureCard } from "@/components/cards";
-import { TextGenerateEffect, FlipWords, CharacterReveal } from "@/components/text";
-import { GradientText, NeonText } from "@/components/text/gradient-text";
-import { InfiniteScroll, FadeIn, ScrollProgress, TextParallax } from "@/components/scroll";
-import { AuroraBackground } from "@/components/backgrounds/aurora";
-import { Meteors } from "@/components/backgrounds/meteors";
-import { GridBeams } from "@/components/backgrounds/grid";
-import { Sparkles } from "@/components/backgrounds/particles";
-import {
-  MagneticButton,
-  FluidButton,
-  SplitButton,
-  ScrambleButton,
-  DepthButton,
-  OutlineDrawButton,
-  InvertButton,
-  ElasticButton,
-} from "@/components/effects/magnetic-button";
-
-// Dynamic imports for Three.js components (no SSR)
-const FloatingShapes = dynamic(
-  () => import("@/components/three/floating-shapes").then((mod) => mod.FloatingShapes),
-  { ssr: false }
-);
-
-const Globe = dynamic(
-  () => import("@/components/three/globe").then((mod) => mod.Globe),
-  { ssr: false }
-);
-
-// Demo components data
-const features = [
-  {
-    title: "GSAP Integration",
-    description: "Timeline animations, ScrollTrigger, morphing, and complex sequences with the industry standard.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Framer Motion",
-    description: "Declarative animations, gestures, layout transitions, and AnimatePresence for React.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Smooth Scroll",
-    description: "Butter-smooth scrolling with Lenis. Perfect for parallax, sticky sections, and horizontal scrolls.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-      </svg>
-    ),
-  },
-  {
-    title: "Three.js + R3F",
-    description: "3D scenes, floating shapes, globes, and particle systems with React Three Fiber.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
-      </svg>
-    ),
-  },
-  {
-    title: "50+ Components",
-    description: "Cards, backgrounds, text effects, buttons, cursors, forms, and layouts ready to use.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-      </svg>
-    ),
-  },
-  {
-    title: "TypeScript First",
-    description: "Full TypeScript support with proper types, autocomplete, and documentation.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-      </svg>
-    ),
-  },
-];
-
-const stats = [
-  { value: "50+", label: "Components" },
-  { value: "5", label: "Animation Libraries" },
-  { value: "100%", label: "TypeScript" },
-  { value: "0", label: "Dependencies Conflicts" },
-];
-
-const componentCategories = [
-  "Aurora Background",
-  "Spotlight Effect",
-  "Meteor Shower",
-  "Particle Systems",
-  "Grid Backgrounds",
-  "3D Floating Shapes",
-  "Interactive Globe",
-  "Text Generate",
-  "Typewriter Effect",
-  "Character Reveal",
-  "Gradient Text",
-  "Neon Glow Text",
-  "Tilt Cards",
-  "Glow Cards",
-  "Border Beam",
-  "Bento Grid",
-  "Infinite Scroll",
-  "Parallax Sections",
-  "Magnetic Buttons",
-  "Custom Cursors",
-];
+import { HeroSection } from "./_sections/hero";
+import { StatementSection } from "./_sections/statement";
+import { CarouselSection } from "./_sections/carousel";
+import { DirectionShowcase } from "./_sections/direction-showcase";
+import { CodePreviewSection } from "./_sections/code-preview";
+import { CTASection } from "./_sections/cta";
+import { SiteNav } from "@/components/core/site-nav";
 
 export default function HomePage() {
   return (
     <main className="relative">
-      <ScrollProgress />
-
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-        <FloatingShapes preset="vibrant" />
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mb-6"
-          >
-            <span className="px-4 py-2 text-sm font-medium text-purple-400 bg-purple-500/10 rounded-full border border-purple-500/20">
-              The Ultimate Animation Toolkit
-            </span>
-          </motion.div>
-
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8">
-            <TextGenerateEffect words="Build Websites That Stop The Scroll" />
-          </h1>
-
-          <motion.p
-            className="text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1 }}
-          >
-            GSAP + Framer Motion + Lenis + Three.js combined into one beast.
-            <br />
-            <span className="text-zinc-500">50+ components. Zero BS. Awwwards-ready.</span>
-          </motion.p>
-
-          <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2 }}
-          >
-            <MagneticButton>Get Started</MagneticButton>
-            <OutlineDrawButton>View Components</OutlineDrawButton>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Scrolling text */}
-      <TextParallax text="AWWWARDS UI" />
-
-      {/* Features Section */}
-      <FeaturesSection
-        badge="Features"
-        title="Everything You Need"
-        description="Stop piecing together 10 different libraries. This is all of them, combined, optimized, and ready."
-        features={features}
-      />
-
-      {/* Stats Section */}
-      <StatsSection stats={stats} />
-
-      {/* Cards Showcase */}
-      <Section className="bg-zinc-950">
-        <Container>
-          <SectionHeader
-            badge="Components"
-            title="Premium UI Elements"
-            description="Cards, effects, and interactions that make users say 'how did they do that?'"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <FadeIn delay={0.1}>
-              <TiltCard className="h-full">
-                <h3 className="text-xl font-bold text-white mb-3">Tilt Card</h3>
-                <p className="text-zinc-400">
-                  3D perspective tilt effect that follows your cursor. Smooth spring physics.
-                </p>
-              </TiltCard>
-            </FadeIn>
-
-            <FadeIn delay={0.2}>
-              <BeamCard className="h-full" beamProps={{ colorFrom: "#00ff88", colorTo: "#00aaff" }}>
-                <h3 className="text-xl font-bold text-white mb-3">Border Beam</h3>
-                <p className="text-zinc-400">
-                  Animated gradient border that traces the card edge. Pure CSS magic.
-                </p>
-              </BeamCard>
-            </FadeIn>
-
-            <FadeIn delay={0.3}>
-              <div className="relative h-full rounded-xl bg-gradient-to-br from-zinc-900 to-zinc-800 p-6 overflow-hidden">
-                <Sparkles particleColor="#8B5CF6" particleDensity={50} />
-                <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-white mb-3">Sparkles</h3>
-                  <p className="text-zinc-400">
-                    Twinkling particle effect. Adjust density, color, and animation speed.
-                  </p>
-                </div>
-              </div>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Text Effects Showcase */}
-      <Section className="bg-black">
-        <Container>
-          <SectionHeader
-            badge="Typography"
-            title="Text That Moves"
-            description="Character reveals, gradients, typewriters, and neon effects."
-          />
-
-          <div className="space-y-16 text-center">
-            <FadeIn>
-              <p className="text-zinc-500 text-sm mb-4 uppercase tracking-wider">Character Reveal</p>
-              <h3 className="text-4xl md:text-6xl font-bold text-white">
-                <CharacterReveal text="Every letter animated." />
-              </h3>
-            </FadeIn>
-
-            <FadeIn>
-              <p className="text-zinc-500 text-sm mb-4 uppercase tracking-wider">Gradient Text</p>
-              <h3 className="text-4xl md:text-6xl font-bold">
-                <GradientText gradient="from-cyan-400 via-purple-400 to-pink-400" animate>
-                  Animated gradient flow.
-                </GradientText>
-              </h3>
-            </FadeIn>
-
-            <FadeIn>
-              <p className="text-zinc-500 text-sm mb-4 uppercase tracking-wider">Neon Glow</p>
-              <h3 className="text-4xl md:text-6xl font-bold">
-                <NeonText color="cyan">Cyberpunk vibes.</NeonText>
-              </h3>
-            </FadeIn>
-
-            <FadeIn>
-              <p className="text-zinc-500 text-sm mb-4 uppercase tracking-wider">Flip Words</p>
-              <h3 className="text-4xl md:text-6xl font-bold text-white">
-                Build{" "}
-                <FlipWords
-                  words={["faster", "smarter", "better", "cooler"]}
-                  className="text-purple-400"
-                />
-              </h3>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Buttons Showcase */}
-      <Section className="bg-zinc-950">
-        <Container>
-          <SectionHeader
-            badge="Interactions"
-            title="Buttons That Feel Alive"
-            description="Physics-based interactions, text effects, and organic animations."
-          />
-
-          <div className="flex flex-wrap items-center justify-center gap-6">
-            <MagneticButton>Magnetic</MagneticButton>
-            <FluidButton>Fluid Blob</FluidButton>
-            <ScrambleButton>SCRAMBLE</ScrambleButton>
-            <SplitButton>Split Text</SplitButton>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-6 mt-8">
-            <DepthButton>3D Depth</DepthButton>
-            <OutlineDrawButton>Draw Border</OutlineDrawButton>
-            <InvertButton>Invert</InvertButton>
-            <ElasticButton>Elastic</ElasticButton>
-          </div>
-        </Container>
-      </Section>
-
-      {/* 3D Globe Section */}
-      <Section className="bg-black min-h-[80vh]">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <FadeIn direction="left">
-              <span className="text-purple-400 font-medium mb-4 uppercase tracking-wider">
-                Three.js Integration
-              </span>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                3D Without The Headache
-              </h2>
-              <p className="text-xl text-zinc-400 mb-8">
-                Floating shapes, interactive globes, particle systems.
-                React Three Fiber makes 3D accessible. We made it copy-paste ready.
-              </p>
-              <OutlineDrawButton>Explore 3D Components</OutlineDrawButton>
-            </FadeIn>
-
-            <FadeIn direction="right">
-              <div className="h-[500px]">
-                <Globe variant="dotted" color="#8B5CF6" />
-              </div>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Infinite scroll showcase */}
-      <Section className="bg-zinc-950 overflow-hidden">
-        <SectionHeader
-          badge="Components"
-          title="Everything Included"
-          className="px-4"
-        />
-
-        <InfiniteScroll speed="slow" className="py-8">
-          {componentCategories.map((name, i) => (
-            <div
-              key={i}
-              className="px-8 py-4 bg-zinc-900 rounded-full border border-zinc-800 whitespace-nowrap text-zinc-300 hover:text-white hover:border-zinc-700 transition-colors"
-            >
-              {name}
-            </div>
-          ))}
-        </InfiniteScroll>
-
-        <InfiniteScroll speed="slow" direction="right" className="py-8">
-          {componentCategories.slice().reverse().map((name, i) => (
-            <div
-              key={i}
-              className="px-8 py-4 bg-zinc-900 rounded-full border border-zinc-800 whitespace-nowrap text-zinc-300 hover:text-white hover:border-zinc-700 transition-colors"
-            >
-              {name}
-            </div>
-          ))}
-        </InfiniteScroll>
-      </Section>
-
-      {/* CTA Section */}
-      <CTASection
-        title="Ready to Build Something Insane?"
-        description="Stop settling for basic. Start building websites that make people stop and stare."
-        primaryCTA={{ text: "Get Started Free", href: "https://github.com/itsjwill/awwwards-ui" }}
-        secondaryCTA={{ text: "View on GitHub", href: "https://github.com/itsjwill/awwwards-ui" }}
-      />
+      <SiteNav />
+      <HeroSection />
+      <StatementSection />
+      <CarouselSection />
+      <DirectionShowcase />
+      <CodePreviewSection />
+      <CTASection />
 
       {/* Footer */}
-      <Footer
-        logo={
-          <div className="text-2xl font-bold">
-            <GradientText gradient="from-purple-400 to-pink-400">
-              Awwwards UI
-            </GradientText>
+      <footer className="border-t border-border py-12 px-6">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded-sm bg-primary" />
+            <span className="text-body-sm font-medium">Awwwards UI</span>
           </div>
-        }
-        columns={[
-          {
-            title: "Product",
-            links: [
-              { label: "GitHub", href: "https://github.com/itsjwill/awwwards-ui" },
-            ],
-          },
-          {
-            title: "Support",
-            links: [
-              { label: "Issues", href: "https://github.com/itsjwill/awwwards-ui/issues" },
-            ],
-          },
-        ]}
-        bottomText="MIT © itsjwill. Built for developers who refuse to settle for basic."
-      />
+          <p className="text-caption text-muted-foreground">
+            Built by{" "}
+            <a href="https://x.com/itsjwill" className="text-foreground hover:text-primary transition-colors">
+              @itsjwill
+            </a>
+            . Open source under MIT.
+          </p>
+          <div className="flex items-center gap-4">
+            <a href="https://github.com/itsjwill/awwwards-ui" className="text-muted-foreground hover:text-foreground transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+            </a>
+            <a href="https://x.com/itsjwill" className="text-muted-foreground hover:text-foreground transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

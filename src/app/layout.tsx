@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import "./globals.css";
+import { fontVariables } from "@/lib/fonts";
+import { ThemeProvider } from "@/lib/theme";
+import { SmoothScroll } from "@/components/core/smooth-scroll";
+import { DirectionPreloader } from "@/components/core/direction-preloader";
 
 // =============================================================================
 // Site Configuration
@@ -14,11 +19,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://awwwards-ui.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Awwwards UI - Premium Animation Components",
+    default: "Awwwards UI - Premium Animation Components for React",
     template: "%s | Awwwards UI",
   },
   description:
-    "The ultimate web animation toolkit. GSAP + Framer Motion + Lenis + Three.js + 50+ premium components. Build Awwwards-worthy sites.",
+    "The ultimate web animation toolkit. 80+ premium components across 4 design directions. GSAP + Framer Motion + Lenis + Three.js. Build Awwwards-worthy sites in minutes.",
   keywords: [
     "animation",
     "react",
@@ -36,6 +41,10 @@ export const metadata: Metadata = {
     "premium-ui",
     "react-components",
     "animation-library",
+    "design-system",
+    "dark-mode",
+    "cyberpunk-ui",
+    "kinetic-typography",
   ],
   authors: [{ name: "itsjwill" }],
   creator: "itsjwill",
@@ -55,16 +64,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    title: "Awwwards UI - Premium Animation Components",
+    title: "Awwwards UI - Premium Animation Components for React",
     description:
-      "The ultimate web animation toolkit. GSAP + Framer Motion + Lenis + Three.js + 50+ premium components.",
+      "80+ animation components. 4 design directions. Zero compromise. Build award-worthy websites.",
     siteName: "Awwwards UI",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Awwwards UI - Premium Animation Components",
+        alt: "Awwwards UI - 4 Design Directions",
       },
     ],
   },
@@ -72,9 +81,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Awwwards UI - Premium Animation Components",
     description:
-      "The ultimate web animation toolkit. GSAP + Framer Motion + Lenis + Three.js + 50+ premium components.",
+      "80+ animation components. 4 design directions. Build award-worthy websites.",
     images: ["/og-image.png"],
-    creator: "@awwwardsui",
+    creator: "@itsjwill",
   },
   alternates: {
     canonical: siteUrl,
@@ -89,7 +98,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -106,23 +115,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html
+      lang="en"
+      className={`dark ${fontVariables}`}
+      data-direction="freestyle"
+      suppressHydrationWarning
+    >
       <head>
-        {/* Preconnect to external domains for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className="bg-black text-white antialiased">{children}</body>
+      <body className="bg-background text-foreground antialiased min-h-screen">
+        <ThemeProvider defaultDirection="freestyle" defaultMode="dark">
+          <DirectionPreloader>
+            <Suspense fallback={null}>
+              <SmoothScroll>{children}</SmoothScroll>
+            </Suspense>
+          </DirectionPreloader>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

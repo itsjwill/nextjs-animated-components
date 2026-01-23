@@ -2,24 +2,44 @@
 
 > The ultimate web animation toolkit. Build Awwwards-worthy sites without hiring a $50k agency.
 
-**GSAP + Framer Motion + Lenis + Three.js + 80+ components. All in one.**
+**GSAP + Framer Motion + Lenis + Three.js + 95+ components. Direction-aware design system. All in one.**
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![Components](https://img.shields.io/badge/Components-95%2B-purple)
 
 ---
 
-## Why Awwwards UI?
+## What Makes This Different
 
-Nobody combines these tools. They pick ONE:
-- "I use Framer Motion"
-- "I use GSAP"
-- "I installed Aceternity"
+### 4 Design Directions — One Codebase
 
-And call it a day.
+Every component adapts to your chosen design direction:
 
-**Awwwards UI stacks them all** with proper orchestration. That's what makes Awwwards winners different from "yet another React site."
+| Direction | Vibe | Fonts | Colors |
+|-----------|------|-------|--------|
+| **Luxury** | Apple/Linear | Space Grotesk + Inter | Black, white, gold |
+| **Cyberpunk** | Neon/Glitch | JetBrains Mono + IBM Plex | Navy, cyan, magenta |
+| **Kinetic** | Stripe/Vercel | Outfit + DM Sans | White, violet, teal |
+| **Freestyle** | Bold/Unexpected | Syne + Manrope | Warm dark, coral, emerald |
+
+Switch directions at runtime. Colors, fonts, motion curves, and component aesthetics all adapt instantly.
+
+### Why Not Just Use Aceternity / Magic UI?
+
+| Feature | Aceternity | Magic UI | **Awwwards UI** |
+|---------|------------|----------|-----------------|
+| Components | ~50 | ~40 | **95+** |
+| Design Directions | 1 | 1 | **4** |
+| Dark/Light Mode | Yes | Yes | **Per-direction** |
+| Motion Presets | None | None | **Direction-aware** |
+| 3D Components | Few | None | **5+** |
+| SEO Toolkit | None | None | **Complete** |
+| Programmatic Pages | None | None | **37 pages** |
+| Scroll Video | No | No | **Yes** |
+| Audio Reactive | No | No | **Yes** |
+| Fluid Cursor | No | No | **Yes** |
 
 ---
 

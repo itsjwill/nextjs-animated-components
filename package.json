@@ -1,8 +1,16 @@
 {
   "name": "awwwards-ui",
   "version": "0.1.0",
-  "description": "The ultimate web animation toolkit. GSAP + Framer Motion + Lenis + Three.js + 50+ premium components. Build Awwwards-worthy sites.",
-  "private": true,
+  "description": "The ultimate web animation toolkit. 95+ direction-aware components. GSAP + Framer Motion + Lenis + Three.js. 4 design directions. Build Awwwards-worthy sites.",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itsjwill/awwwards-ui"
+  },
+  "homepage": "https://awwwards-ui.com",
+  "bugs": {
+    "url": "https://github.com/itsjwill/awwwards-ui/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
