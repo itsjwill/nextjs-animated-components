@@ -102,10 +102,8 @@ function DirectionPreviewCard({
             <div className={`h-1 bg-current opacity-20 w-3/4 rounded ${style.text}`} />
             <div className={`h-1 bg-current opacity-15 w-1/2 rounded ${style.text}`} />
           </div>
-          <div className="flex gap-2 pt-2">
-            <div className={`h-5 ${style.accent} w-16 rounded-full opacity-80`} />
-            <div className={`h-5 border border-current opacity-20 w-14 rounded-full ${style.text}`} />
-          </div>
+          {/* Direction-specific button previews */}
+          <DirectionButtonPreview dir={dir} accent={meta.accent} />
         </div>
 
         {/* Glow effect on hover */}
@@ -136,4 +134,65 @@ function DirectionPreviewCard({
       </div>
     </motion.button>
   );
+}
+
+function DirectionButtonPreview({ dir, accent }: { dir: Direction; accent: string }) {
+  switch (dir) {
+    case "luxury":
+      return (
+        <div className="flex gap-3 pt-2">
+          <div className="h-5 w-16 border border-white/10 flex items-center justify-center">
+            <span className="text-[6px] text-white/50 tracking-[0.2em] uppercase font-light">View</span>
+          </div>
+          <div className="h-5 w-14 flex items-center justify-center">
+            <span className="text-[6px] text-white/30 tracking-[0.15em] uppercase font-light">Details</span>
+          </div>
+        </div>
+      );
+    case "cyberpunk":
+      return (
+        <div className="flex gap-2 pt-2">
+          <div
+            className="h-5 w-16 flex items-center justify-center"
+            style={{
+              backgroundColor: accent,
+              clipPath: "polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))",
+            }}
+          >
+            <span className="text-[6px] text-black font-bold tracking-wider">EXEC</span>
+          </div>
+          <div
+            className="h-5 w-14 flex items-center justify-center border"
+            style={{
+              borderColor: `${accent}60`,
+              clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)",
+            }}
+          >
+            <span className="text-[6px] font-mono" style={{ color: accent }}>INIT</span>
+          </div>
+        </div>
+      );
+    case "kinetic":
+      return (
+        <div className="flex gap-2 pt-2">
+          <div className="h-5 w-16 rounded-full flex items-center justify-center" style={{ backgroundColor: accent }}>
+            <span className="text-[6px] text-white font-semibold">Start</span>
+          </div>
+          <div className="h-5 w-14 rounded-full border-2 flex items-center justify-center" style={{ borderColor: accent }}>
+            <span className="text-[6px] font-semibold" style={{ color: accent }}>More</span>
+          </div>
+        </div>
+      );
+    case "freestyle":
+      return (
+        <div className="flex gap-2 pt-2 items-end">
+          <div className="h-6 w-16 flex items-center justify-center" style={{ backgroundColor: accent }}>
+            <span className="text-[7px] text-black font-black uppercase">GO!</span>
+          </div>
+          <div className="h-5 w-12 border-2 border-white/40 flex items-center justify-center" style={{ transform: "skewX(-5deg)" }}>
+            <span className="text-[6px] text-white/70 font-black uppercase">NAH</span>
+          </div>
+        </div>
+      );
+  }
 }

@@ -160,12 +160,19 @@ export function ThemeProvider({
 // Hook
 // =============================================================================
 
+const FALLBACK_THEME: ThemeContextValue = {
+  direction: "freestyle",
+  mode: "dark",
+  setDirection: () => {},
+  setMode: () => {},
+  toggleMode: () => {},
+  cycleDirection: () => {},
+};
+
 export function useTheme(): ThemeContextValue {
   const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
+  // Return fallback instead of throwing — prevents crashes during HMR/Fast Refresh
+  return context || FALLBACK_THEME;
 }
 
 // =============================================================================

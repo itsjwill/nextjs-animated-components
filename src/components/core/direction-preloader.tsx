@@ -1,12 +1,16 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme, DIRECTION_META } from "@/lib/theme";
 import { usePrefersReducedMotion } from "@/lib/reduced-motion";
 
+// Module-level flag: only show preloader once per page session (survives HMR)
+let hasShownPreloader = false;
+
 export function DirectionPreloader({ children }: { children: React.ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const shouldShow = useRef(!hasShownPreloader);
+  const [isLoading, setIsLoading] = useState(shouldShow.current);
   const [mounted, setMounted] = useState(false);
   const prefersReduced = usePrefersReducedMotion();
 
@@ -15,17 +19,21 @@ export function DirectionPreloader({ children }: { children: React.ReactNode }) 
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || !shouldShow.current) return;
     if (prefersReduced) {
       setIsLoading(false);
+      hasShownPreloader = true;
       return;
     }
-    const timer = setTimeout(() => setIsLoading(false), 1800);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      hasShownPreloader = true;
+    }, 1800);
     return () => clearTimeout(timer);
   }, [prefersReduced, mounted]);
 
   useEffect(() => {
-    if (isLoading && mounted) {
+    if (isLoading && mounted && shouldShow.current) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -33,14 +41,14 @@ export function DirectionPreloader({ children }: { children: React.ReactNode }) 
     return () => { document.body.style.overflow = ""; };
   }, [isLoading, mounted]);
 
-  // Before mount, just render children (avoids SSR/hydration issues)
-  if (!mounted) {
+  // Skip preloader entirely if already shown or not mounted yet
+  if (!mounted || !shouldShow.current) {
     return <>{children}</>;
   }
 
   return (
     <>
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {isLoading && <PreloaderScreen key="preloader" />}
       </AnimatePresence>
       <div style={{ opacity: isLoading ? 0 : 1, transition: "opacity 0.4s ease" }}>

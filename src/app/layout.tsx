@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Suspense } from "react";
 import "./globals.css";
 import { fontVariables } from "@/lib/fonts";
 import { ThemeProvider } from "@/lib/theme";
@@ -131,10 +130,9 @@ export default function RootLayout({
       <body className="bg-background text-foreground antialiased min-h-screen">
         <ThemeProvider defaultDirection="freestyle" defaultMode="dark">
           <DirectionPreloader>
-            <Suspense fallback={null}>
-              <SmoothScroll>{children}</SmoothScroll>
-            </Suspense>
+            {children}
           </DirectionPreloader>
+          <SmoothScroll />
         </ThemeProvider>
       </body>
     </html>

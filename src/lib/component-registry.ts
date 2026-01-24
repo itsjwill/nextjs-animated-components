@@ -689,6 +689,328 @@ const [transitioning, setTransitioning] = useState(false);
 
 <Preloader />`,
   },
+  // ==========================================================================
+  // Premium Buttons — Advanced physics/WebGL/Canvas interactions
+  // ==========================================================================
+  {
+    name: "Shader Distortion Button",
+    slug: "shader-distortion-button",
+    category: "buttons",
+    description: "WebGL-powered button with GPU-computed water-warp distortion on hover. Real-time ripple displacement mapping.",
+    tags: ["buttons", "webgl", "shader", "distortion", "hover", "gpu"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "children", type: "ReactNode", required: true, description: "Button content" },
+      { name: "intensity", type: "number", default: "0.03", description: "Distortion strength" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+      { name: "onClick", type: "() => void", description: "Click handler" },
+    ],
+    code: `import { ShaderDistortionButton } from "@/components/buttons/premium-buttons";
+
+<ShaderDistortionButton intensity={0.04}>
+  Explore
+</ShaderDistortionButton>`,
+  },
+  {
+    name: "Ink Bleed Button",
+    slug: "ink-bleed-button",
+    category: "buttons",
+    description: "Click triggers organic watercolor-like ink bleeding from the click point. Canvas-based fluid simulation with sub-drop spawning.",
+    tags: ["buttons", "fluid", "ink", "click", "canvas", "organic"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "children", type: "ReactNode", required: true, description: "Button content" },
+      { name: "inkColor", type: "string", default: "rgba(99, 102, 241, 0.8)", description: "Ink color (rgba format)" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+      { name: "onClick", type: "() => void", description: "Click handler" },
+    ],
+    code: `import { InkBleedButton } from "@/components/buttons/premium-buttons";
+
+<InkBleedButton inkColor="rgba(236, 72, 153, 0.8)">
+  Create
+</InkBleedButton>`,
+  },
+  {
+    name: "Cloth Button",
+    slug: "cloth-button",
+    category: "buttons",
+    description: "Button surface simulates fabric using verlet integration physics. Cursor pushes dents into the cloth mesh.",
+    tags: ["buttons", "physics", "cloth", "verlet", "fabric", "interactive"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "children", type: "ReactNode", required: true, description: "Button content" },
+      { name: "meshColor", type: "string", default: "rgba(255, 255, 255, 0.4)", description: "Mesh line color" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+      { name: "onClick", type: "() => void", description: "Click handler" },
+    ],
+    code: `import { ClothButton } from "@/components/buttons/premium-buttons";
+
+<ClothButton meshColor="rgba(99, 102, 241, 0.5)">
+  Touch Me
+</ClothButton>`,
+  },
+  {
+    name: "Portal Button",
+    slug: "portal-button",
+    category: "buttons",
+    description: "Click tears open a spiraling vortex/wormhole from the click point. Organic distorted rings with center glow.",
+    tags: ["buttons", "portal", "vortex", "click", "animation", "canvas"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "children", type: "ReactNode", required: true, description: "Button content" },
+      { name: "portalColor", type: "string", default: "#6366f1", description: "Portal color (hex)" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+      { name: "onClick", type: "() => void", description: "Click handler" },
+    ],
+    code: `import { PortalButton } from "@/components/buttons/premium-buttons";
+
+<PortalButton portalColor="#06b6d4">
+  Enter Portal
+</PortalButton>`,
+  },
+  {
+    name: "Swarm Button",
+    slug: "swarm-button",
+    category: "buttons",
+    description: "Text rendered as particle swarm that scatters on hover and reforms using boid flocking behavior.",
+    tags: ["buttons", "particles", "swarm", "boid", "flocking", "text"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "children", type: "string", required: true, description: "Text to render as particles" },
+      { name: "particleColor", type: "string", default: "#ffffff", description: "Particle color" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+      { name: "onClick", type: "() => void", description: "Click handler" },
+    ],
+    code: `import { SwarmButton } from "@/components/buttons/premium-buttons";
+
+<SwarmButton particleColor="#a855f7">
+  HOVER
+</SwarmButton>`,
+  },
+  {
+    name: "Liquid Metal Button",
+    slug: "liquid-metal-button",
+    category: "buttons",
+    description: "Chrome/mercury metallic surface with flowing reflections that track cursor position. Environment-mapped lighting.",
+    tags: ["buttons", "metal", "chrome", "reflection", "metallic", "premium"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "children", type: "ReactNode", required: true, description: "Button content" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+      { name: "onClick", type: "() => void", description: "Click handler" },
+    ],
+    code: `import { LiquidMetalButton } from "@/components/buttons/premium-buttons";
+
+<LiquidMetalButton>
+  Premium
+</LiquidMetalButton>`,
+  },
+  {
+    name: "Reactive Shadow Button",
+    slug: "reactive-shadow-button",
+    category: "buttons",
+    description: "Shadow responds to cursor as if it were a point light source. Shadow direction, size, and blur change in real-time.",
+    tags: ["buttons", "shadow", "light", "cursor", "reactive", "depth"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "children", type: "ReactNode", required: true, description: "Button content" },
+      { name: "shadowColor", type: "string", default: "rgba(99, 102, 241, 0.4)", description: "Shadow color" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+      { name: "onClick", type: "() => void", description: "Click handler" },
+    ],
+    code: `import { ReactiveShadowButton } from "@/components/buttons/premium-buttons";
+
+<ReactiveShadowButton shadowColor="rgba(236, 72, 153, 0.5)">
+  Illuminate
+</ReactiveShadowButton>`,
+  },
+  {
+    name: "Sticker Peel Button",
+    slug: "sticker-peel-button",
+    category: "buttons",
+    description: "Button lifts off the page like a sticker being peeled. 3D perspective with shadow underneath and corner curl.",
+    tags: ["buttons", "3d", "peel", "sticker", "perspective", "hover"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "children", type: "ReactNode", required: true, description: "Button content" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+      { name: "onClick", type: "() => void", description: "Click handler" },
+    ],
+    code: `import { StickerPeelButton } from "@/components/buttons/premium-buttons";
+
+<StickerPeelButton>
+  Peel Me
+</StickerPeelButton>`,
+  },
+  {
+    name: "Thermal Button",
+    slug: "thermal-button",
+    category: "buttons",
+    description: "Button visually 'heats up' the longer you hover. Color shifts from cool blue to hot red with glow and shimmer effects.",
+    tags: ["buttons", "thermal", "heat", "temperature", "glow", "interactive"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "children", type: "ReactNode", required: true, description: "Button content" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+      { name: "onClick", type: "() => void", description: "Click handler" },
+    ],
+    code: `import { ThermalButton } from "@/components/buttons/premium-buttons";
+
+<ThermalButton>
+  Hold to Heat
+</ThermalButton>`,
+  },
+  {
+    name: "Momentum Button",
+    slug: "momentum-button",
+    category: "buttons",
+    description: "Button maintains physics inertia after cursor leaves. Flick the cursor across it and watch it continue moving with realistic momentum and spring-back.",
+    tags: ["buttons", "physics", "momentum", "inertia", "velocity", "spring"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "children", type: "ReactNode", required: true, description: "Button content" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+      { name: "onClick", type: "() => void", description: "Click handler" },
+    ],
+    code: `import { MomentumButton } from "@/components/buttons/premium-buttons";
+
+<MomentumButton>
+  Flick Me
+</MomentumButton>`,
+  },
+  // ==========================================================================
+  // Showcase & Living System Cards
+  // ==========================================================================
+  {
+    name: "Feature Showcase",
+    slug: "feature-showcase",
+    category: "cards",
+    description: "Interactive three-panel bento: sidebar nav switches a live demo center panel and code snippet right panel. Perfect for SaaS feature sections.",
+    tags: ["cards", "bento", "showcase", "tabs", "demo", "code", "saas"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "items", type: "FeatureShowcaseItem[]", required: true, description: "Array of features with id, title, demo, and code" },
+      { name: "title", type: "string", description: "Section title" },
+      { name: "subtitle", type: "string", description: "Section subtitle" },
+      { name: "label", type: "string", default: "SYSTEMS", description: "Colored label text" },
+      { name: "color", type: "string", default: "blue", description: "Accent color theme" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+    ],
+    code: `import { FeatureShowcase } from "@/components/cards/feature-showcase";
+
+<FeatureShowcase
+  label="AI FEATURES"
+  title="Smart Automation"
+  items={[
+    {
+      id: "routing",
+      title: "Smart Routing",
+      category: "Core",
+      demo: <AnimatedDemo />,
+      code: \`const router = new SmartRouter();
+router.configure({ mode: "ai" });\`,
+      tags: ["AI", "Routing"],
+    },
+  ]}
+  color="cyan"
+/>`,
+  },
+  {
+    name: "Living System",
+    slug: "living-system",
+    category: "cards",
+    description: "A multi-panel organism that breathes, pulses, and reacts as one living entity. Nodes are connected by flowing particle streams with a shared heartbeat.",
+    tags: ["cards", "living", "organism", "particles", "connections", "heartbeat", "interactive"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "nodes", type: "SystemNode[]", required: true, description: "Array of nodes with id, title, position [x%, y%]" },
+      { name: "connections", type: "SystemConnection[]", required: true, description: "Array of connections between node IDs" },
+      { name: "heartbeatInterval", type: "number", default: "3000", description: "Heartbeat interval in ms" },
+      { name: "color", type: "string", default: "cyan", description: "System color theme" },
+      { name: "breathe", type: "number", default: "0.5", description: "Breathing intensity (0-1)" },
+      { name: "title", type: "string", description: "System title label" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+    ],
+    code: `import { LivingSystem } from "@/components/cards/living-system";
+
+<LivingSystem
+  title="Neural Network"
+  color="cyan"
+  heartbeatInterval={2500}
+  nodes={[
+    { id: "brain", title: "Brain", position: [50, 30] },
+    { id: "data", title: "Data Lake", position: [25, 70] },
+    { id: "api", title: "API Layer", position: [75, 70] },
+  ]}
+  connections={[
+    { from: "brain", to: "data", particles: 4, speed: 2 },
+    { from: "brain", to: "api", particles: 3, speed: 3 },
+    { from: "data", to: "api", particles: 2, speed: 1 },
+  ]}
+/>`,
+  },
+  {
+    name: "Neural Web",
+    slug: "neural-web",
+    category: "cards",
+    description: "Self-organizing neural network background. Nodes autonomously drift, form connections by proximity, pulse together, and recoil from your cursor like a living nervous system.",
+    tags: ["cards", "neural", "network", "self-organizing", "physics", "mouse-reactive", "organic"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "nodeCount", type: "number", default: "40", description: "Number of neural nodes" },
+      { name: "color", type: "string", default: "cyan", description: "Network color" },
+      { name: "sensitivity", type: "number", default: "0.7", description: "Mouse reactivity (0-1)" },
+      { name: "connectionRadius", type: "number", default: "120", description: "Max distance for connections (px)" },
+      { name: "children", type: "ReactNode", description: "Content overlaid on the network" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+    ],
+    code: `import { NeuralWeb } from "@/components/cards/living-system";
+
+<NeuralWeb nodeCount={50} color="purple" sensitivity={0.8}>
+  <h2 className="text-3xl font-bold text-white">
+    Intelligence Layer
+  </h2>
+</NeuralWeb>`,
+  },
+  {
+    name: "Synapse Card",
+    slug: "synapse-card",
+    category: "cards",
+    description: "Individual cards that form a shared nervous system. Multiple SynapseCards on the same page automatically connect to each other with a synchronized heartbeat pulse.",
+    tags: ["cards", "synapse", "connected", "heartbeat", "pulse", "network"],
+    isNew: true,
+    isPremium: true,
+    props: [
+      { name: "id", type: "string", required: true, description: "Unique identifier for connection registry" },
+      { name: "title", type: "string", required: true, description: "Card title" },
+      { name: "description", type: "string", description: "Card description" },
+      { name: "icon", type: "ReactNode", description: "Card icon" },
+      { name: "color", type: "string", default: "cyan", description: "Pulse color" },
+      { name: "pulseIntensity", type: "number", default: "0.5", description: "Heartbeat strength (0-1)" },
+      { name: "children", type: "ReactNode", description: "Additional card content" },
+      { name: "className", type: "string", description: "Additional CSS classes" },
+    ],
+    code: `import { SynapseCard } from "@/components/cards/living-system";
+
+<div className="grid grid-cols-3 gap-4">
+  <SynapseCard id="input" title="Input Layer" color="blue" />
+  <SynapseCard id="process" title="Processing" color="purple" />
+  <SynapseCard id="output" title="Output" color="emerald" />
+</div>`,
+  },
 ];
 
 // =============================================================================

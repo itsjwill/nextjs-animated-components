@@ -3,86 +3,137 @@
 @tailwind utilities;
 
 /* =============================================================================
-   Direction: Luxury (Apple/Linear)
-   Palette: Black, white, warm gold accent. Extreme restraint.
+   Direction: Luxury (Rolex / Apple / Celine)
+   Palette: Black, warm ivory, gold accent. Ultra-restrained.
+   Layout: Massive whitespace, ultra-thin type, letter-spacing, no noise.
    ============================================================================= */
 
 [data-direction="luxury"] {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 6%;
-  --primary: 0 0% 6%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 96%;
-  --secondary-foreground: 0 0% 15%;
-  --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 45%;
-  --accent: 43 74% 49%;
-  --accent-foreground: 0 0% 100%;
-  --border: 0 0% 90%;
-  --surface: 0 0% 100%;
-  --glow: 43 74% 49%;
-  --selection: 43 74% 49%;
+  --background: 40 20% 98%;
+  --foreground: 30 5% 8%;
+  --primary: 30 5% 8%;
+  --primary-foreground: 40 20% 98%;
+  --secondary: 40 10% 95%;
+  --secondary-foreground: 30 5% 15%;
+  --muted: 40 8% 95%;
+  --muted-foreground: 30 3% 50%;
+  --accent: 40 60% 52%;
+  --accent-foreground: 30 5% 8%;
+  --border: 40 8% 90%;
+  --surface: 40 15% 97%;
+  --glow: 40 60% 52%;
+  --selection: 40 60% 52%;
+
+  /* Layout DNA — Luxury (Pagani / Richard Mille / Hermès) */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-full: 0px;
+  --space-section: 16rem;
+  --space-block: 6rem;
+  --heading-weight: 100;
+  --heading-tracking: 0.15em;
+  --heading-transform: uppercase;
+  --body-weight: 200;
+  --body-tracking: 0.04em;
+  --button-radius: 0px;
+  --button-padding: 2rem 4rem;
+  --button-weight: 200;
+  --button-tracking: 0.3em;
+  --button-transform: uppercase;
+  --card-radius: 0px;
+  --card-border-width: 0.5px;
+  --nav-height: 6rem;
+  --container-max: 900px;
+  --transition-duration: 1200ms;
+  --transition-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-direction="luxury"].dark {
-  --background: 0 0% 4%;
-  --foreground: 0 0% 95%;
-  --primary: 0 0% 95%;
-  --primary-foreground: 0 0% 4%;
-  --secondary: 0 0% 10%;
-  --secondary-foreground: 0 0% 85%;
-  --muted: 0 0% 12%;
-  --muted-foreground: 0 0% 55%;
-  --accent: 43 80% 55%;
-  --accent-foreground: 0 0% 4%;
-  --border: 0 0% 16%;
-  --surface: 0 0% 7%;
-  --glow: 43 80% 55%;
-  --selection: 43 80% 55%;
+  --background: 30 8% 2%;
+  --foreground: 40 12% 88%;
+  --primary: 40 12% 88%;
+  --primary-foreground: 30 8% 2%;
+  --secondary: 30 5% 6%;
+  --secondary-foreground: 40 8% 80%;
+  --muted: 30 5% 7%;
+  --muted-foreground: 40 5% 40%;
+  --accent: 40 55% 55%;
+  --accent-foreground: 30 8% 2%;
+  --border: 30 5% 12%;
+  --surface: 30 5% 4%;
+  --glow: 40 55% 55%;
+  --selection: 40 55% 55%;
 }
 
 /* =============================================================================
-   Direction: Cyberpunk
-   Palette: Deep navy/black, cyan primary, magenta secondary. Neon glow.
+   Direction: Cyberpunk (Blade Runner / Ghost in the Shell / HUD)
+   Palette: Deep void black, cyan neon, magenta secondary. Angular. Industrial.
+   Layout: Hard edges, clip-paths, monospace, scanlines, dense info.
    ============================================================================= */
 
 [data-direction="cyberpunk"] {
-  --background: 230 15% 6%;
+  --background: 230 15% 4%;
   --foreground: 180 80% 85%;
   --primary: 174 100% 50%;
-  --primary-foreground: 230 15% 6%;
+  --primary-foreground: 230 15% 4%;
   --secondary: 320 80% 55%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 230 15% 14%;
-  --muted-foreground: 180 30% 55%;
+  --muted: 230 15% 12%;
+  --muted-foreground: 180 30% 45%;
   --accent: 320 80% 55%;
   --accent-foreground: 0 0% 100%;
-  --border: 180 40% 18%;
-  --surface: 230 15% 10%;
+  --border: 174 60% 20%;
+  --surface: 230 18% 7%;
   --glow: 174 100% 50%;
   --selection: 174 100% 50%;
+
+  /* Layout DNA — Cyberpunk */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-full: 0px;
+  --space-section: 6rem;
+  --space-block: 2rem;
+  --heading-weight: 700;
+  --heading-tracking: 0.08em;
+  --heading-transform: uppercase;
+  --body-weight: 400;
+  --body-tracking: 0.03em;
+  --button-radius: 0px;
+  --button-padding: 0.75rem 2rem;
+  --button-weight: 600;
+  --button-tracking: 0.15em;
+  --button-transform: uppercase;
+  --card-radius: 0px;
+  --card-border-width: 1px;
+  --nav-height: 3rem;
+  --container-max: 1400px;
+  --transition-duration: 150ms;
+  --transition-ease: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 [data-direction="cyberpunk"].dark {
-  --background: 230 18% 4%;
+  --background: 230 20% 2%;
   --foreground: 180 90% 88%;
   --primary: 174 100% 50%;
-  --primary-foreground: 230 18% 4%;
+  --primary-foreground: 230 20% 2%;
   --secondary: 320 85% 60%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 230 18% 12%;
-  --muted-foreground: 180 25% 50%;
+  --muted: 230 18% 10%;
+  --muted-foreground: 180 25% 40%;
   --accent: 320 85% 60%;
   --accent-foreground: 0 0% 100%;
-  --border: 180 50% 15%;
-  --surface: 230 18% 8%;
+  --border: 174 50% 18%;
+  --surface: 230 20% 5%;
   --glow: 174 100% 50%;
   --selection: 174 100% 50%;
 }
 
 /* =============================================================================
-   Direction: Kinetic (Stripe/Vercel)
-   Palette: Clean white, vibrant violet primary, teal accent. Energetic.
+   Direction: Kinetic (Stripe / Linear / Vercel)
+   Palette: Clean surfaces, vibrant violet/teal. Energetic, bouncy, rounded.
+   Layout: Generous padding, pill shapes, large text, gradient fills, spring motion.
    ============================================================================= */
 
 [data-direction="kinetic"] {
@@ -100,6 +151,30 @@
   --surface: 0 0% 100%;
   --glow: 263 70% 50%;
   --selection: 263 70% 50%;
+
+  /* Layout DNA — Kinetic */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-full: 999px;
+  --space-section: 10rem;
+  --space-block: 3rem;
+  --heading-weight: 800;
+  --heading-tracking: -0.04em;
+  --heading-transform: none;
+  --body-weight: 400;
+  --body-tracking: 0em;
+  --button-radius: 999px;
+  --button-padding: 1rem 2.5rem;
+  --button-weight: 600;
+  --button-tracking: -0.01em;
+  --button-transform: none;
+  --card-radius: 24px;
+  --card-border-width: 1px;
+  --nav-height: 4rem;
+  --container-max: 1200px;
+  --transition-duration: 400ms;
+  --transition-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 [data-direction="kinetic"].dark {
@@ -120,42 +195,67 @@
 }
 
 /* =============================================================================
-   Direction: Freestyle (Bold, Unexpected)
-   Palette: Dark warm, coral/burnt orange primary, emerald accent.
+   Direction: Freestyle (Brutalist / Anti-Design / David Carson)
+   Palette: Raw, high-contrast, unexpected color clashes. Rules don't apply.
+   Layout: Broken grids, overlapping layers, rotated text, asymmetric, LOUD.
    ============================================================================= */
 
 [data-direction="freestyle"] {
-  --background: 30 5% 6%;
-  --foreground: 30 10% 90%;
-  --primary: 16 85% 55%;
+  --background: 60 5% 7%;
+  --foreground: 60 5% 95%;
+  --primary: 16 95% 55%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 160 50% 40%;
+  --secondary: 150 80% 45%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 30 5% 14%;
-  --muted-foreground: 30 10% 55%;
-  --accent: 160 50% 40%;
+  --muted: 60 5% 14%;
+  --muted-foreground: 60 5% 55%;
+  --accent: 280 70% 60%;
   --accent-foreground: 0 0% 100%;
-  --border: 30 8% 20%;
-  --surface: 30 5% 10%;
-  --glow: 16 85% 55%;
-  --selection: 16 85% 55%;
+  --border: 60 5% 22%;
+  --surface: 60 5% 10%;
+  --glow: 16 95% 55%;
+  --selection: 150 80% 45%;
+
+  /* Layout DNA — Freestyle */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 4px;
+  --space-section: 4rem;
+  --space-block: 1.5rem;
+  --heading-weight: 900;
+  --heading-tracking: -0.06em;
+  --heading-transform: none;
+  --body-weight: 400;
+  --body-tracking: 0em;
+  --button-radius: 4px;
+  --button-padding: 1rem 1.5rem;
+  --button-weight: 800;
+  --button-tracking: -0.02em;
+  --button-transform: none;
+  --card-radius: 2px;
+  --card-border-width: 3px;
+  --nav-height: 3.5rem;
+  --container-max: 100%;
+  --transition-duration: 200ms;
+  --transition-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-direction="freestyle"].dark {
-  --background: 30 6% 4%;
-  --foreground: 30 12% 92%;
-  --primary: 16 90% 58%;
+  --background: 60 5% 4%;
+  --foreground: 60 5% 96%;
+  --primary: 16 95% 58%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 160 55% 45%;
+  --secondary: 150 85% 48%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 30 6% 12%;
-  --muted-foreground: 30 8% 50%;
-  --accent: 160 55% 45%;
+  --muted: 60 5% 10%;
+  --muted-foreground: 60 5% 50%;
+  --accent: 280 75% 62%;
   --accent-foreground: 0 0% 100%;
-  --border: 30 8% 18%;
-  --surface: 30 6% 8%;
-  --glow: 16 90% 58%;
-  --selection: 16 90% 58%;
+  --border: 60 5% 20%;
+  --surface: 60 5% 7%;
+  --glow: 16 95% 58%;
+  --selection: 150 85% 48%;
 }
 
 /* =============================================================================
@@ -383,6 +483,188 @@ body.custom-cursor button {
     0 0 7px hsl(var(--primary) / 0.8),
     0 0 20px hsl(var(--primary) / 0.4),
     0 0 40px hsl(var(--primary) / 0.2);
+}
+
+/* =============================================================================
+   Luxury-specific Utilities
+   Ultra-thin borders, generous whitespace, fine lines
+   ============================================================================= */
+
+[data-direction="luxury"] .luxury-divider {
+  height: 0.5px;
+  background: linear-gradient(to right, transparent, hsl(var(--accent) / 0.3), transparent);
+}
+
+[data-direction="luxury"] h1,
+[data-direction="luxury"] h2,
+[data-direction="luxury"] h3 {
+  font-weight: var(--heading-weight);
+  letter-spacing: var(--heading-tracking);
+  text-transform: var(--heading-transform);
+}
+
+[data-direction="luxury"] p,
+[data-direction="luxury"] span,
+[data-direction="luxury"] a {
+  font-weight: var(--body-weight);
+  letter-spacing: var(--body-tracking);
+}
+
+[data-direction="luxury"] .luxury-fade {
+  opacity: 0.5;
+  transition: opacity var(--transition-duration) var(--transition-ease);
+}
+
+[data-direction="luxury"] .luxury-fade:hover {
+  opacity: 1;
+}
+
+/* Everything in luxury mode transitions slowly — money doesn't rush */
+[data-direction="luxury"] * {
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-ease);
+}
+
+/* Links barely exist until hovered */
+[data-direction="luxury"] a {
+  opacity: 0.6;
+  transition: opacity var(--transition-duration) var(--transition-ease);
+}
+
+[data-direction="luxury"] a:hover {
+  opacity: 1;
+}
+
+/* =============================================================================
+   Cyberpunk-specific Utilities (extended)
+   Angular clips, terminal aesthetics, HUD frames
+   ============================================================================= */
+
+[data-direction="cyberpunk"] .cyber-clip {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+[data-direction="cyberpunk"] .cyber-clip-sm {
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+[data-direction="cyberpunk"] .hud-frame {
+  border: 1px solid hsl(var(--primary) / 0.3);
+  position: relative;
+}
+
+[data-direction="cyberpunk"] .hud-frame::before,
+[data-direction="cyberpunk"] .hud-frame::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid hsl(var(--primary));
+}
+
+[data-direction="cyberpunk"] .hud-frame::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+
+[data-direction="cyberpunk"] .hud-frame::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+[data-direction="cyberpunk"] h1,
+[data-direction="cyberpunk"] h2,
+[data-direction="cyberpunk"] h3 {
+  font-weight: var(--heading-weight);
+  letter-spacing: var(--heading-tracking);
+  text-transform: var(--heading-transform);
+}
+
+[data-direction="cyberpunk"] .cyber-flicker {
+  animation: cyber-flicker 4s linear infinite;
+}
+
+@keyframes cyber-flicker {
+  0%, 97%, 100% { opacity: 1; }
+  98% { opacity: 0.7; }
+  99% { opacity: 0.9; }
+}
+
+/* =============================================================================
+   Kinetic-specific Utilities
+   Pill shapes, bouncy reveals, gradient surfaces
+   ============================================================================= */
+
+[data-direction="kinetic"] h1,
+[data-direction="kinetic"] h2,
+[data-direction="kinetic"] h3 {
+  font-weight: var(--heading-weight);
+  letter-spacing: var(--heading-tracking);
+}
+
+[data-direction="kinetic"] .kinetic-gradient {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-direction="kinetic"] .kinetic-surface {
+  background: linear-gradient(145deg, hsl(var(--surface)), hsl(var(--muted)));
+  border-radius: var(--card-radius);
+  border: var(--card-border-width) solid hsl(var(--border));
+}
+
+/* =============================================================================
+   Freestyle-specific Utilities
+   Broken grid, overlaps, rotations, raw energy
+   ============================================================================= */
+
+[data-direction="freestyle"] h1,
+[data-direction="freestyle"] h2,
+[data-direction="freestyle"] h3 {
+  font-weight: var(--heading-weight);
+  letter-spacing: var(--heading-tracking);
+}
+
+[data-direction="freestyle"] .freestyle-tilt {
+  transform: rotate(-2deg);
+}
+
+[data-direction="freestyle"] .freestyle-tilt-r {
+  transform: rotate(2deg);
+}
+
+[data-direction="freestyle"] .freestyle-overlap {
+  margin-top: -2rem;
+  position: relative;
+  z-index: 1;
+}
+
+[data-direction="freestyle"] .freestyle-stripe {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 4px,
+    hsl(var(--primary) / 0.1) 4px,
+    hsl(var(--primary) / 0.1) 8px
+  );
+}
+
+[data-direction="freestyle"] .freestyle-sticker {
+  border: var(--card-border-width) solid hsl(var(--foreground));
+  transform: rotate(-1deg);
+  box-shadow: 4px 4px 0 hsl(var(--foreground) / 0.15);
+}
+
+[data-direction="freestyle"] .freestyle-marker {
+  background: linear-gradient(transparent 60%, hsl(var(--primary) / 0.3) 60%);
+  display: inline;
+  padding: 0 4px;
 }
 
 /* =============================================================================

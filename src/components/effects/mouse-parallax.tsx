@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { usePrefersReducedMotion } from "@/lib/reduced-motion";
 
@@ -39,10 +39,7 @@ export function MouseParallax({
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [strength, inverted, prefersReduced, x, y]);
 
-  if (prefersReduced) {
-    return <div className={className}>{children}</div>;
-  }
-
+  // Always render motion.div — when prefersReduced, springs stay at 0 (no movement)
   return (
     <motion.div className={className} style={{ x: springX, y: springY }}>
       {children}

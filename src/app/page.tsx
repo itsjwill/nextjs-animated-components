@@ -1,5 +1,6 @@
 import { HeroSection } from "./_sections/hero";
 import { StatementSection } from "./_sections/statement";
+import { ButtonShowcase } from "./_sections/button-showcase";
 import { CarouselSection } from "./_sections/carousel";
 import { DirectionShowcase } from "./_sections/direction-showcase";
 import { CodePreviewSection } from "./_sections/code-preview";
@@ -12,6 +13,7 @@ export default function HomePage() {
       <SiteNav />
       <HeroSection />
       <StatementSection />
+      <ButtonShowcase />
       <CarouselSection />
       <DirectionShowcase />
       <CodePreviewSection />
