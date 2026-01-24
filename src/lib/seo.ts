@@ -31,17 +31,18 @@ export interface PageSEO {
 // =============================================================================
 
 export const siteConfig: SiteConfig = {
-  name: "Awwwards UI",
+  name: "MotionCraft",
   description:
-    "The ultimate web animation toolkit. GSAP + Framer Motion + Lenis + Three.js + 50+ premium components. Build Awwwards-worthy sites.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://awwwards-ui.com",
+    "The ultimate web animation toolkit. GSAP + Framer Motion + Lenis + Three.js + 95+ premium components. Build award-winning sites.",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://motioncraft.dev",
   ogImage: "/og-image.png",
   links: {
-    twitter: "https://twitter.com/awwwardsui",
-    github: "https://github.com/itsjwill/awwwards-ui",
+    twitter: "https://twitter.com/itsjwill",
+    github: "https://github.com/itsjwill/motioncraft",
   },
   creator: "itsjwill",
   keywords: [
+    "motioncraft",
     "animation",
     "react",
     "nextjs",
@@ -49,13 +50,12 @@ export const siteConfig: SiteConfig = {
     "framer-motion",
     "three.js",
     "tailwindcss",
-    "awwwards",
     "ui-components",
     "web-design",
     "motion-design",
     "scroll-animations",
     "3d-web",
-    "premium-ui",
+    "design-system",
   ],
 };
 

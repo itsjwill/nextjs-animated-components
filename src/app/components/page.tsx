@@ -7,7 +7,7 @@ import {
 } from "@/lib/component-registry";
 
 export const metadata: Metadata = {
-  title: "Components — Awwwards UI",
+  title: "Components — MotionCraft",
   description:
     "Browse 40+ premium animated components for React & Next.js. Direction-aware design, smooth animations, and production-ready code.",
 };

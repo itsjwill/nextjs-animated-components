@@ -70,7 +70,7 @@ export function ComponentPage({ component, related, categoryLabel }: ComponentPa
         <section className="mb-12">
           <h2 className="text-heading-3 font-heading mb-4">Installation</h2>
           <CodeBlock
-            code={`npx awwwards-ui add ${component.slug}`}
+            code={`npx motioncraft add ${component.slug}`}
             language="bash"
             filename="Terminal"
           />

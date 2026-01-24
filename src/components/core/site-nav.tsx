@@ -40,7 +40,7 @@ export function SiteNav() {
               style={{ backgroundColor: meta.accent }}
             />
             <span className="font-heading font-semibold text-lg">
-              Awwwards UI
+              MotionCraft
             </span>
           </a>
 
@@ -49,7 +49,7 @@ export function SiteNav() {
             {[
               { href: "#components", label: "Components" },
               { href: "#directions", label: "Directions" },
-              { href: "https://github.com/itsjwill/awwwards-ui", label: "Docs" },
+              { href: "https://github.com/itsjwill/motioncraft", label: "Docs" },
             ].map((link) => (
               <a
                 key={link.label}

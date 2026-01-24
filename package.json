@@ -1,15 +1,15 @@
 {
-  "name": "awwwards-ui",
+  "name": "motioncraft",
   "version": "0.1.0",
-  "description": "The ultimate web animation toolkit. 95+ direction-aware components. GSAP + Framer Motion + Lenis + Three.js. 4 design directions. Build Awwwards-worthy sites.",
+  "description": "The ultimate web animation toolkit. 95+ direction-aware components across 4 design systems. GSAP + Framer Motion + Lenis + Three.js. Build award-winning sites.",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/itsjwill/awwwards-ui"
+    "url": "https://github.com/itsjwill/motioncraft"
   },
-  "homepage": "https://awwwards-ui.com",
+  "homepage": "https://motioncraft.dev",
   "bugs": {
-    "url": "https://github.com/itsjwill/awwwards-ui/issues"
+    "url": "https://github.com/itsjwill/motioncraft/issues"
   },
   "scripts": {
     "dev": "next dev",
@@ -48,7 +48,9 @@
     "next-sitemap": "^4.2.3"
   },
   "keywords": [
+    "motioncraft",
     "animation",
+    "motion-design",
     "gsap",
     "framer-motion",
     "lenis",
@@ -57,12 +59,12 @@
     "nextjs",
     "tailwindcss",
     "ui-components",
-    "awwwards",
-    "motion-design",
     "scroll-animations",
     "3d-web",
-    "premium-ui",
-    "seo"
+    "design-system",
+    "web-animation",
+    "react-components",
+    "animation-library"
   ],
   "author": "itsjwill",
   "license": "MIT"

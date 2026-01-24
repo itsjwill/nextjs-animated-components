@@ -1,12 +1,12 @@
-# Contributing to Awwwards UI
+# Contributing to MotionCraft
 
 Thanks for your interest in contributing! Here's how to get started.
 
 ## Development Setup
 
 ```bash
-git clone https://github.com/itsjwill/awwwards-ui.git
-cd awwwards-ui
+git clone https://github.com/itsjwill/motioncraft.git
+cd motioncraft
 npm install
 npm run dev
 ```

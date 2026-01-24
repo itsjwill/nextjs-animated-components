@@ -14,12 +14,12 @@ import {
 // =============================================================================
 
 const siteConfig = {
-  name: "Awwwards UI",
+  name: "MotionCraft",
   description:
-    "The ultimate web animation toolkit. GSAP + Framer Motion + Lenis + Three.js + 50+ premium components.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://awwwards-ui.com",
+    "The ultimate web animation toolkit. GSAP + Framer Motion + Lenis + Three.js + 95+ premium components.",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://motioncraft.dev",
   links: {
-    github: "https://github.com/itsjwill/awwwards-ui",
+    github: "https://github.com/itsjwill/motioncraft",
   },
 };
 

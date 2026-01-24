@@ -1,4 +1,4 @@
-# How to Prompt for Awwwards UI
+# How to Prompt for MotionCraft
 
 Get the best results from AI assistants (Claude, ChatGPT, Cursor, etc.) when using this library.
 
@@ -24,7 +24,7 @@ Get the best results from AI assistants (Claude, ChatGPT, Cursor, etc.) when usi
 ### Template Prompt
 
 ```
-Build a [TYPE] landing page for [PRODUCT] using awwwards-ui:
+Build a [TYPE] landing page for [PRODUCT] using motioncraft:
 
 - Hero: [SpotlightHero/GradientHero/AnimatedWordsHero] with [details]
 - Features: BentoGrid with [X] features, use FeatureIcon (not generic icon boxes)
@@ -38,7 +38,7 @@ Style: [Dark/Light] theme, [Reference site]-inspired, minimal. No AI-looking ele
 ### Example: SaaS Landing Page
 
 ```
-Build a SaaS landing page for my AI writing tool using awwwards-ui:
+Build a SaaS landing page for my AI writing tool using motioncraft:
 
 - Hero: SpotlightHero with animated gradient, headline "Write 10x Faster"
 - Features: BentoGrid with 6 features, use FeatureIcon (not generic icon boxes)
@@ -54,7 +54,7 @@ Style: Dark theme, Linear/Vercel-inspired, minimal. No AI-looking elements.
 ### Example: Portfolio Site
 
 ```
-Build a portfolio site for a designer using awwwards-ui:
+Build a portfolio site for a designer using motioncraft:
 
 - Hero: MinimalHero with my name and title
 - Work: MasonryGrid showcasing 8 projects with ImageHoverReveal
@@ -69,7 +69,7 @@ Style: Light theme with dark accents, lots of whitespace. Apple-inspired.
 ### Example: Agency Site
 
 ```
-Build an agency landing page using awwwards-ui:
+Build an agency landing page using motioncraft:
 
 - Hero: GradientHero with FlipWords rotating through services
 - Services: Timeline showing our process (4 steps)
@@ -103,7 +103,7 @@ Style: Dark theme, Awwwards-worthy, bold typography.
 ### Basic Enhancement (Copy-Paste This)
 
 ```
-I have an existing Next.js site. Enhance it with awwwards-ui:
+I have an existing Next.js site. Enhance it with motioncraft:
 
 - Replace hero with SpotlightHero (keep my text)
 - Replace buttons with MagneticButton
@@ -118,7 +118,7 @@ Keep my existing colors and layout. Don't change navigation.
 ### Template Prompt
 
 ```
-I have an existing [FRAMEWORK] site at [PATH/URL]. Enhance it with awwwards-ui:
+I have an existing [FRAMEWORK] site at [PATH/URL]. Enhance it with motioncraft:
 
 Current issues:
 - [List what's wrong or boring]
@@ -138,7 +138,7 @@ Don't:
 ```
 I have an existing Next.js site. The hero section is boring - just text and a button.
 
-Enhance it with awwwards-ui:
+Enhance it with motioncraft:
 - Add Spotlight background effect behind the hero
 - Replace the button with MagneticButton
 - Add TextGenerateEffect to the headline
@@ -194,7 +194,7 @@ Don't change any visual design.
 ```
 My site was built with Cursor/v0 and looks like every other AI-generated site.
 
-Replace these generic elements with awwwards-ui:
+Replace these generic elements with motioncraft:
 - The rounded gradient icon boxes → use FeatureIcon or IconButton instead
 - The basic buttons → use MagneticButton or ShinyButton
 - The plain cards → use GlowCard or TiltCard
@@ -210,7 +210,7 @@ My site is light-only. Add proper dark mode:
 
 - Wrap app with ThemeProvider
 - Add ThemeToggle to the navbar
-- Make sure all awwwards-ui components respect the theme
+- Make sure all motioncraft components respect the theme
 
 Current colors: white background, black text, purple accent.
 Dark mode should: black background, white text, keep purple accent.
@@ -301,7 +301,7 @@ SEO Requirements:
 ❌ "Add some animations"
 ❌ "Make it look modern"
 ❌ "Add SEO"
-❌ "Use awwwards-ui"
+❌ "Use motioncraft"
 
 ### Say This Instead
 
@@ -355,7 +355,7 @@ Current state:
 - No SEO structured data
 - Generic buttons
 
-Enhance with awwwards-ui:
+Enhance with motioncraft:
 1. Add Lenis smooth scroll
 2. Replace hero with SpotlightHero (keep my headline text)
 3. Convert feature cards to TiltCard inside BentoGrid

@@ -8,7 +8,7 @@ import { NextRequest } from "next/server";
 // Usage: /api/og?title=My%20Title&description=My%20Description
 //
 // Query Parameters:
-// - title: Main title (default: "Awwwards UI")
+// - title: Main title (default: "MotionCraft")
 // - description: Subtitle text (optional)
 // - theme: "dark" | "light" | "gradient" (default: "gradient")
 // - badge: Small badge text (optional)
@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     // Parse query parameters
-    const title = searchParams.get("title") || "Awwwards UI";
+    const title = searchParams.get("title") || "MotionCraft";
     const description = searchParams.get("description") || "";
     const theme = searchParams.get("theme") || "gradient";
     const badge = searchParams.get("badge") || "";
@@ -215,7 +215,7 @@ export async function GET(request: NextRequest) {
                 color: currentTheme.descColor,
               }}
             >
-              Awwwards UI
+              MotionCraft
             </span>
           </div>
         </div>
@@ -244,7 +244,7 @@ export async function GET(request: NextRequest) {
             fontWeight: 700,
           }}
         >
-          Awwwards UI
+          MotionCraft
         </div>
       ),
       { width: WIDTH, height: HEIGHT }

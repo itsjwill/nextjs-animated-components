@@ -62,8 +62,8 @@ export const DIRECTION_META: Record<
   },
 };
 
-const STORAGE_KEY_DIRECTION = "awwwards-ui-direction";
-const STORAGE_KEY_MODE = "awwwards-ui-mode";
+const STORAGE_KEY_DIRECTION = "motioncraft-direction";
+const STORAGE_KEY_MODE = "motioncraft-mode";
 
 // =============================================================================
 // Context

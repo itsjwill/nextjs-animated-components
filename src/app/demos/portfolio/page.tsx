@@ -403,7 +403,7 @@ export default function PortfolioDemo() {
             © 2024 John Doe. All rights reserved.
           </p>
           <p className="text-zinc-700 text-sm">
-            Designed & Built with <span className="text-red-500">♥</span> using Awwwards UI
+            Designed & Built with <span className="text-red-500">♥</span> using MotionCraft
           </p>
         </div>
       </footer>

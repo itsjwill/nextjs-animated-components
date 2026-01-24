@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a bug in Awwwards UI
+about: Report a bug in MotionCraft
 title: "[Bug] "
 labels: bug
 ---

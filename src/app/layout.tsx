@@ -9,7 +9,7 @@ import { DirectionPreloader } from "@/components/core/direction-preloader";
 // Site Configuration
 // =============================================================================
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://awwwards-ui.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://motioncraft.dev";
 
 // =============================================================================
 // Metadata
@@ -18,12 +18,13 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://awwwards-ui.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Awwwards UI - Premium Animation Components for React",
-    template: "%s | Awwwards UI",
+    default: "MotionCraft - Premium Animation Components for React",
+    template: "%s | MotionCraft",
   },
   description:
-    "The ultimate web animation toolkit. 80+ premium components across 4 design directions. GSAP + Framer Motion + Lenis + Three.js. Build Awwwards-worthy sites in minutes.",
+    "The ultimate web animation toolkit. 95+ premium components across 4 design directions. GSAP + Framer Motion + Lenis + Three.js. Build award-winning sites in minutes.",
   keywords: [
+    "motioncraft",
     "animation",
     "react",
     "nextjs",
@@ -31,23 +32,22 @@ export const metadata: Metadata = {
     "framer-motion",
     "three.js",
     "tailwindcss",
-    "awwwards",
     "ui-components",
     "web-design",
     "motion-design",
     "scroll-animations",
     "3d-web",
-    "premium-ui",
+    "design-system",
     "react-components",
     "animation-library",
-    "design-system",
+    "web-animation",
     "dark-mode",
     "cyberpunk-ui",
     "kinetic-typography",
   ],
   authors: [{ name: "itsjwill" }],
   creator: "itsjwill",
-  publisher: "Awwwards UI",
+  publisher: "MotionCraft",
   robots: {
     index: true,
     follow: true,
@@ -63,24 +63,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    title: "Awwwards UI - Premium Animation Components for React",
+    title: "MotionCraft - Premium Animation Components for React",
     description:
-      "80+ animation components. 4 design directions. Zero compromise. Build award-worthy websites.",
-    siteName: "Awwwards UI",
+      "95+ animation components. 4 design directions. Zero compromise. Build award-winning websites.",
+    siteName: "MotionCraft",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Awwwards UI - 4 Design Directions",
+        alt: "MotionCraft - 4 Design Directions",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Awwwards UI - Premium Animation Components",
+    title: "MotionCraft - Premium Animation Components",
     description:
-      "80+ animation components. 4 design directions. Build award-worthy websites.",
+      "95+ animation components. 4 design directions. Build award-winning websites.",
     images: ["/og-image.png"],
     creator: "@itsjwill",
   },

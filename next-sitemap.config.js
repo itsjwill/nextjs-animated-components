@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://awwwards-ui.com',
+  siteUrl: process.env.SITE_URL || 'https://motioncraft.dev',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
 
@@ -37,7 +37,7 @@ module.exports = {
     ],
     additionalSitemaps: [
       // Add additional sitemaps if you have them
-      // 'https://awwwards-ui.com/server-sitemap.xml',
+      // 'https://motioncraft.dev/server-sitemap.xml',
     ],
   },
 
