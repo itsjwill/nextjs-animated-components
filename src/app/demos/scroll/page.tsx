@@ -3,17 +3,16 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { TextGenerateEffect } from "@/components/text/text-generate";
 import { GradientText } from "@/components/text/gradient-text";
 import {
   FadeIn,
   ScrollProgress,
+  StaggerOnScroll,
+  StaggerItem,
   TextParallax,
-  StickyReveal,
   HorizontalScrollSection,
   TextRevealScrub,
   CounterAnimation,
-  SplitScreenScroll,
   ZoomScroll,
 } from "@/components/scroll";
 import {
@@ -24,149 +23,165 @@ import {
   DepthParallax,
   DepthLayer,
 } from "@/components/scroll/scroll-orchestrator";
+import { Spotlight } from "@/components/backgrounds/spotlight";
 import { AnimatedNavLink } from "@/components/navigation";
 import { MagneticButton } from "@/components/effects/magnetic-button";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Section Label — floating label for each demo section
-// ─────────────────────────────────────────────────────────────────────────────
+// =============================================================================
+// Hero — Cinematic entry with spotlight and massive typography
+// =============================================================================
 
-function SectionLabel({
-  title,
-  description,
-  className,
-}: {
-  title: string;
-  description: string;
-  className?: string;
-}) {
+function Hero() {
   return (
-    <FadeIn className={cn("mb-16 px-6", className)}>
-      <div className="max-w-5xl mx-auto">
-        <span className="text-sm uppercase tracking-[0.2em] text-purple-400 font-mono mb-2 block">
-          {title}
-        </span>
-        <p className="text-xl text-zinc-400 max-w-2xl">{description}</p>
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      {/* Ambient spotlight */}
+      <Spotlight
+        className="-top-40 left-0 md:left-60 md:-top-20"
+        fill="rgba(120, 119, 198, 0.15)"
+      />
+
+      {/* Subtle radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-purple-500/[0.03] blur-[150px]" />
+
+      <div className="relative z-10 text-center px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.21, 0.47, 0.32, 0.98] }}
+        >
+          <h1 className="text-[clamp(3rem,12vw,10rem)] font-black leading-[0.9] tracking-tighter">
+            <span className="block text-white">Scroll</span>
+            <span className="block bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
+              Animations
+            </span>
+          </h1>
+        </motion.div>
+
+        <motion.p
+          className="mt-8 text-lg md:text-xl text-zinc-500 max-w-md mx-auto font-light"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 1 }}
+        >
+          Pin. Orchestrate. Reveal. Transform.
+        </motion.p>
+
+        <motion.div
+          className="mt-20"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className="flex flex-col items-center gap-2"
+          >
+            <span className="text-[10px] uppercase tracking-[0.3em] text-zinc-600">
+              Scroll to explore
+            </span>
+            <div className="w-px h-12 bg-gradient-to-b from-zinc-600 to-transparent" />
+          </motion.div>
+        </motion.div>
       </div>
-    </FadeIn>
+    </section>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 1) Scroll Orchestrator Demo — Apple AirPods Pro style
-// ─────────────────────────────────────────────────────────────────────────────
+// =============================================================================
+// Orchestrator — Apple-style pinned scroll storytelling
+// =============================================================================
 
-function OrchestratorDemo() {
+function OrchestratorSection() {
   return (
     <section className="relative">
-      <SectionLabel
-        title="Scroll Orchestrator"
-        description="Apple AirPods Pro-style pinned scroll. Content transforms through stages as you scroll — the viewport stays locked while animations play."
-      />
-
-      <ScrollOrchestrator duration={5} scrub={1}>
-        {/* Stage 1: Title fades in */}
+      <ScrollOrchestrator duration={6} scrub={1.5}>
+        {/* Stage 1: "Immersive" fades in with glow */}
         <ScrollStage
           start={0}
-          end={0.2}
-          from={{ opacity: 0, y: 60 }}
-          to={{ opacity: 1, y: 0 }}
+          end={0.15}
+          from={{ opacity: 0, scale: 0.8 }}
+          to={{ opacity: 1, scale: 1 }}
         >
-          <div className="h-full flex flex-col items-center justify-center px-6">
-            <h2 className="text-5xl md:text-8xl font-black text-center leading-tight">
-              Scroll to
-              <br />
-              <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
-                Orchestrate
-              </span>
+          <div className="absolute inset-0 flex items-center justify-center">
+            {/* Ambient glow behind text */}
+            <div className="absolute w-[600px] h-[300px] bg-purple-600/10 blur-[120px] rounded-full" />
+            <h2 className="relative text-[clamp(3rem,10vw,9rem)] font-black tracking-tighter text-white text-center leading-[0.95]">
+              Immersive
             </h2>
-            <p className="text-zinc-500 text-xl mt-6 max-w-lg text-center">
-              This section is pinned. Keep scrolling.
-            </p>
           </div>
         </ScrollStage>
 
-        {/* Stage 2: First card slides in from left */}
+        {/* Stage 2: "Immersive" fades, "Pinned. Sequenced." appears */}
         <ScrollStage
-          start={0.2}
-          end={0.4}
-          from={{ opacity: 0, x: -200, scale: 0.8 }}
-          to={{ opacity: 1, x: 0, scale: 1 }}
+          start={0.15}
+          end={0.35}
+          from={{ opacity: 0, y: 80 }}
+          to={{ opacity: 1, y: 0 }}
         >
-          <div className="h-full flex items-center justify-center px-6">
-            <div className="bg-gradient-to-br from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-3xl p-12 max-w-xl backdrop-blur-sm">
-              <div className="w-16 h-16 rounded-2xl bg-purple-500/20 flex items-center justify-center mb-6">
-                <svg
-                  className="w-8 h-8 text-purple-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
+          <div className="absolute inset-0 flex items-center justify-center px-6">
+            <div className="text-center">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-[500px] h-[500px] bg-cyan-500/[0.04] blur-[100px] rounded-full" />
               </div>
-              <h3 className="text-3xl font-bold mb-3">Pin & Animate</h3>
-              <p className="text-zinc-400 text-lg">
-                Content stays pinned to the viewport while GSAP timelines scrub
-                through animation stages. Each stage has independent from/to
-                states.
+              <p className="relative text-[clamp(1.5rem,5vw,4rem)] font-bold text-zinc-100 leading-tight">
+                Pinned. Sequenced.
+                <br />
+                <span className="text-zinc-500">Orchestrated.</span>
               </p>
             </div>
           </div>
         </ScrollStage>
 
-        {/* Stage 3: Second card slides in from right */}
+        {/* Stage 3: Stats emerge */}
         <ScrollStage
           start={0.4}
           end={0.6}
-          from={{ opacity: 0, x: 200, scale: 0.8 }}
-          to={{ opacity: 1, x: 0, scale: 1 }}
+          from={{ opacity: 0, scale: 0.9 }}
+          to={{ opacity: 1, scale: 1 }}
         >
-          <div className="h-full flex items-center justify-center px-6">
-            <div className="bg-gradient-to-br from-cyan-600/20 to-blue-600/20 border border-cyan-500/30 rounded-3xl p-12 max-w-xl backdrop-blur-sm">
-              <div className="w-16 h-16 rounded-2xl bg-cyan-500/20 flex items-center justify-center mb-6">
-                <svg
-                  className="w-8 h-8 text-cyan-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16m-7 6h7"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-3xl font-bold mb-3">Timeline Stages</h3>
-              <p className="text-zinc-400 text-lg">
-                Define stages from 0 to 1 — each with its own animation.
-                Opacity, position, scale, rotation — anything GSAP can animate.
-              </p>
+          <div className="absolute inset-0 flex items-center justify-center px-6">
+            <div className="flex flex-col md:flex-row items-center gap-16 md:gap-24">
+              {[
+                { number: "5", unit: "viewports", detail: "of scroll runway" },
+                { number: "1", unit: "timeline", detail: "scrubbed to scroll" },
+                {
+                  number: "\u221E",
+                  unit: "possibilities",
+                  detail: "per orchestration",
+                },
+              ].map((stat) => (
+                <div key={stat.unit} className="text-center">
+                  <div className="text-6xl md:text-8xl font-black bg-gradient-to-b from-white to-zinc-600 bg-clip-text text-transparent">
+                    {stat.number}
+                  </div>
+                  <div className="text-sm uppercase tracking-[0.2em] text-zinc-500 mt-2">
+                    {stat.unit}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </ScrollStage>
 
-        {/* Stage 4: Both cards slide out, final message */}
+        {/* Stage 4: Everything fades, closing statement */}
         <ScrollStage
           start={0.7}
           end={0.9}
-          from={{ opacity: 0, scale: 0.5 }}
-          to={{ opacity: 1, scale: 1 }}
+          from={{ opacity: 0, y: 40 }}
+          to={{ opacity: 1, y: 0 }}
         >
-          <div className="h-full flex items-center justify-center px-6">
+          <div className="absolute inset-0 flex items-center justify-center px-6">
             <div className="text-center">
-              <div className="text-7xl md:text-9xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-                Done.
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-[400px] h-[400px] bg-pink-500/[0.05] blur-[100px] rounded-full" />
               </div>
-              <p className="text-zinc-500 text-xl mt-4">
-                5 viewport heights of pinned scroll orchestration.
+              <p className="relative text-2xl md:text-4xl font-light text-zinc-400 max-w-2xl leading-relaxed">
+                The viewport stays locked.
+                <br />
+                <span className="text-white font-medium">
+                  The story unfolds.
+                </span>
               </p>
             </div>
           </div>
@@ -176,145 +191,117 @@ function OrchestratorDemo() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 2) ClipPath Reveal Demo — 5 presets
-// ─────────────────────────────────────────────────────────────────────────────
+// =============================================================================
+// Clip-Path Reveals — Cinematic content reveals
+// =============================================================================
 
-function ClipPathDemo() {
-  const presets: Array<{
-    name: string;
-    preset: "circle" | "horizontal" | "vertical" | "diagonal" | "diamond";
-    gradient: string;
-    description: string;
-  }> = [
-    {
-      name: "Circle Expand",
-      preset: "circle",
-      gradient: "from-purple-600 to-pink-600",
-      description: "Expands from center outward in a circle",
-    },
-    {
-      name: "Horizontal Wipe",
-      preset: "horizontal",
-      gradient: "from-cyan-500 to-blue-600",
-      description: "Wipes in from left to right",
-    },
-    {
-      name: "Vertical Reveal",
-      preset: "vertical",
-      gradient: "from-green-500 to-emerald-600",
-      description: "Slides up from bottom",
-    },
-    {
-      name: "Diagonal",
-      preset: "diagonal",
-      gradient: "from-orange-500 to-red-600",
-      description: "Reveals with a diagonal polygon sweep",
-    },
-    {
-      name: "Diamond",
-      preset: "diamond",
-      gradient: "from-violet-500 to-purple-700",
-      description: "Expands as a diamond shape from center",
-    },
-  ];
-
+function ClipPathSection() {
   return (
-    <section className="py-32">
-      <SectionLabel
-        title="Clip-Path Reveal"
-        description="Scroll-linked clip-path animations. Each element reveals with a different mask shape as you scroll past it. 5 built-in presets."
-      />
+    <section className="py-40 space-y-32">
+      {/* Circle Expand */}
+      <ClipPathReveal preset="circle" start="top 75%" end="top 20%">
+        <div className="relative h-[70vh] bg-gradient-to-br from-[#1a0533] via-[#0f0326] to-black flex items-center justify-center overflow-hidden">
+          {/* Ambient glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/20 blur-[150px] rounded-full" />
+          <div className="relative text-center px-6">
+            <p className="text-xs uppercase tracking-[0.3em] text-purple-400/60 mb-4">
+              Circle Reveal
+            </p>
+            <h3 className="text-5xl md:text-8xl font-black text-white leading-[0.95]">
+              From
+              <br />
+              <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+                Nothing
+              </span>
+            </h3>
+          </div>
+        </div>
+      </ClipPathReveal>
 
-      <div className="max-w-6xl mx-auto px-6 space-y-24">
-        {presets.map((item) => (
-          <ClipPathReveal
-            key={item.name}
-            preset={item.preset}
-            start="top 80%"
-            end="top 30%"
-          >
-            <div
-              className={cn(
-                "bg-gradient-to-br rounded-2xl p-12 md:p-16",
-                item.gradient
-              )}
-            >
-              <div className="max-w-xl">
-                <span className="text-white/60 text-sm font-mono uppercase tracking-wider">
-                  preset: &quot;{item.preset}&quot;
-                </span>
-                <h3 className="text-4xl md:text-5xl font-black text-white mt-2 mb-4">
-                  {item.name}
-                </h3>
-                <p className="text-white/80 text-lg">{item.description}</p>
-              </div>
+      {/* Horizontal Wipe */}
+      <ClipPathReveal preset="horizontal" start="top 75%" end="top 20%">
+        <div className="relative h-[60vh] bg-gradient-to-r from-cyan-950 via-[#0a1628] to-[#0a0a0a] flex items-center overflow-hidden">
+          <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-l from-cyan-500/10 to-transparent" />
+          <div className="relative max-w-5xl mx-auto px-6 md:px-12">
+            <p className="text-xs uppercase tracking-[0.3em] text-cyan-400/50 mb-4">
+              Horizontal Wipe
+            </p>
+            <h3 className="text-4xl md:text-7xl font-black text-white leading-[0.95] mb-6">
+              Sweep into view.
+            </h3>
+            <p className="text-xl text-zinc-500 max-w-lg font-light">
+              Content revealed with a directional mask — left to right, synced to
+              scroll position.
+            </p>
+          </div>
+        </div>
+      </ClipPathReveal>
+
+      {/* Diamond Reveal */}
+      <ClipPathReveal preset="diamond" start="top 75%" end="top 20%">
+        <div className="relative h-[70vh] bg-[#0a0a0a] flex items-center justify-center overflow-hidden">
+          {/* Neon accent lines */}
+          <div className="absolute inset-0">
+            <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
+            <div className="absolute top-0 bottom-0 left-1/2 w-px bg-gradient-to-b from-transparent via-violet-500/30 to-transparent" />
+          </div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-violet-600/10 blur-[120px] rounded-full" />
+          <div className="relative text-center px-6">
+            <div className="text-7xl md:text-[10rem] font-black bg-gradient-to-b from-violet-300 to-violet-600/30 bg-clip-text text-transparent leading-none">
+              &diams;
             </div>
-          </ClipPathReveal>
-        ))}
-      </div>
+            <p className="text-zinc-500 text-lg mt-4 font-light">
+              Five clip-path presets. Any shape you need.
+            </p>
+          </div>
+        </div>
+      </ClipPathReveal>
     </section>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 3) Scroll Velocity Demo — skew, blur, scale respond to scroll speed
-// ─────────────────────────────────────────────────────────────────────────────
+// =============================================================================
+// Velocity — Scroll speed reactive elements
+// =============================================================================
 
-function VelocityDemo() {
+function VelocitySection() {
   return (
-    <section className="py-32">
-      <SectionLabel
-        title="Scroll Velocity"
-        description="Elements react to how fast you scroll — not just position. Skew, blur, and scale intensify with speed. Try scrolling fast through this section."
-      />
+    <section className="py-40">
+      <div className="max-w-5xl mx-auto px-6 mb-20 text-center">
+        <FadeIn>
+          <p className="text-xs uppercase tracking-[0.3em] text-pink-400/50 mb-6">
+            Velocity Reactive
+          </p>
+          <h2 className="text-4xl md:text-6xl font-black text-white leading-tight">
+            Scroll faster.
+            <br />
+            <span className="text-zinc-600">Feel the difference.</span>
+          </h2>
+        </FadeIn>
+      </div>
 
-      <div className="max-w-5xl mx-auto px-6 space-y-12">
-        {/* Skew demo */}
-        <ScrollVelocityWrapper skew maxSkew={8}>
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 md:p-12">
-            <span className="text-pink-400 text-sm font-mono">
-              skew: true | maxSkew: 8
-            </span>
-            <h3 className="text-3xl md:text-4xl font-bold mt-2 mb-3">
-              Velocity Skew
+      <div className="space-y-6 max-w-5xl mx-auto px-6">
+        <ScrollVelocityWrapper skew maxSkew={10}>
+          <div className="py-12 md:py-16 border-t border-b border-zinc-900">
+            <h3 className="text-5xl md:text-8xl font-black bg-gradient-to-r from-white to-zinc-600 bg-clip-text text-transparent">
+              Momentum
             </h3>
-            <p className="text-zinc-400 text-lg">
-              This card tilts in the direction of scroll. The faster you scroll,
-              the more it skews. Feels like the content has momentum.
-            </p>
           </div>
         </ScrollVelocityWrapper>
 
-        {/* Blur demo */}
-        <ScrollVelocityWrapper blur skew={false} maxBlur={12}>
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 md:p-12">
-            <span className="text-cyan-400 text-sm font-mono">
-              blur: true | maxBlur: 12
-            </span>
-            <h3 className="text-3xl md:text-4xl font-bold mt-2 mb-3">
-              Velocity Blur
+        <ScrollVelocityWrapper blur skew={false} maxBlur={15}>
+          <div className="py-12 md:py-16">
+            <h3 className="text-5xl md:text-8xl font-black text-zinc-800">
+              Motion Blur
             </h3>
-            <p className="text-zinc-400 text-lg">
-              Fast scrolling blurs the content — like motion blur in a camera.
-              Slow down and it snaps back into focus.
-            </p>
           </div>
         </ScrollVelocityWrapper>
 
-        {/* Combined */}
-        <ScrollVelocityWrapper skew blur scale maxSkew={6} maxBlur={6}>
-          <div className="bg-gradient-to-br from-purple-900/50 to-pink-900/50 border border-purple-500/30 rounded-2xl p-8 md:p-12">
-            <span className="text-purple-300 text-sm font-mono">
-              skew + blur + scale combined
-            </span>
-            <h3 className="text-3xl md:text-4xl font-bold mt-2 mb-3">
-              Full Velocity Response
+        <ScrollVelocityWrapper skew blur scale maxSkew={8} maxBlur={8}>
+          <div className="py-12 md:py-16 border-t border-b border-zinc-900">
+            <h3 className="text-5xl md:text-8xl font-black bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
+              Everything
             </h3>
-            <p className="text-zinc-400 text-lg">
-              Skew, blur, and scale all responding to scroll speed
-              simultaneously. This is what real scroll physics feels like.
-            </p>
           </div>
         </ScrollVelocityWrapper>
       </div>
@@ -322,56 +309,65 @@ function VelocityDemo() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 4) Depth Parallax Demo — CSS perspective-based 3D layers
-// ─────────────────────────────────────────────────────────────────────────────
+// =============================================================================
+// Depth Parallax — Multi-layer 3D scene
+// =============================================================================
 
-function DepthParallaxDemo() {
+function DepthSection() {
   return (
-    <section className="py-32">
-      <SectionLabel
-        title="Depth Parallax"
-        description="Real CSS perspective-based 3D depth. Layers at different Z positions move at different speeds as you scroll — creating actual depth, not fake offsets."
-      />
+    <section className="py-40">
+      <div className="max-w-5xl mx-auto px-6 mb-20 text-center">
+        <FadeIn>
+          <p className="text-xs uppercase tracking-[0.3em] text-cyan-400/50 mb-6">
+            CSS Perspective
+          </p>
+          <h2 className="text-4xl md:text-6xl font-black text-white">
+            Real depth.
+          </h2>
+        </FadeIn>
+      </div>
 
-      <div className="max-w-6xl mx-auto px-6">
-        <DepthParallax perspective={1200} className="h-[600px] rounded-2xl overflow-hidden bg-black">
-          {/* Far background layer */}
-          <DepthLayer depth={-300} speed={0.3}>
-            <div className="h-full flex items-center justify-center">
-              <div className="grid grid-cols-6 gap-8 opacity-20">
-                {Array.from({ length: 24 }).map((_, i) => (
+      <div className="max-w-7xl mx-auto px-6">
+        <DepthParallax
+          perspective={1200}
+          className="h-[80vh] rounded-3xl overflow-hidden bg-[#050510]"
+        >
+          {/* Deep background — stars/dots */}
+          <DepthLayer depth={-400} speed={0.4}>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="grid grid-cols-8 gap-10 opacity-15">
+                {Array.from({ length: 64 }).map((_, i) => (
                   <div
                     key={i}
-                    className="w-8 h-8 rounded-full bg-purple-500/40"
+                    className="w-1.5 h-1.5 rounded-full bg-white"
+                    style={{ opacity: 0.2 + Math.random() * 0.8 }}
                   />
                 ))}
               </div>
             </div>
           </DepthLayer>
 
-          {/* Mid-ground layer */}
-          <DepthLayer depth={-100} speed={0.15}>
-            <div className="h-full flex items-center justify-center">
-              <div className="flex gap-12">
-                <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-cyan-500/30 to-blue-600/30 border border-cyan-500/20 backdrop-blur-sm" />
-                <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-pink-500/30 to-purple-600/30 border border-pink-500/20 backdrop-blur-sm mt-16" />
-                <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-green-500/30 to-emerald-600/30 border border-green-500/20 backdrop-blur-sm" />
+          {/* Mid-ground — floating shapes */}
+          <DepthLayer depth={-150} speed={0.2}>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative w-full h-full">
+                <div className="absolute top-[20%] left-[15%] w-24 h-24 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-700/10 border border-purple-500/10 backdrop-blur-sm rotate-12" />
+                <div className="absolute top-[60%] right-[20%] w-32 h-32 rounded-full bg-gradient-to-br from-cyan-500/15 to-blue-700/5 border border-cyan-500/10" />
+                <div className="absolute bottom-[25%] left-[40%] w-20 h-20 rounded-xl bg-gradient-to-br from-pink-500/15 to-rose-700/5 border border-pink-500/10 -rotate-6" />
               </div>
             </div>
           </DepthLayer>
 
-          {/* Foreground text */}
-          <DepthLayer depth={50} speed={-0.1}>
-            <div className="h-full flex items-center justify-center">
-              <div className="text-center">
-                <h3 className="text-5xl md:text-7xl font-black">
-                  <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                    Real Depth
-                  </span>
+          {/* Near foreground — ambient glow + text */}
+          <DepthLayer depth={100} speed={-0.15}>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute w-[500px] h-[500px] bg-indigo-500/[0.06] blur-[100px] rounded-full" />
+              <div className="relative text-center">
+                <h3 className="text-6xl md:text-9xl font-black text-white leading-none tracking-tighter">
+                  Depth
                 </h3>
-                <p className="text-zinc-500 mt-3 text-lg">
-                  Three layers at different Z positions
+                <p className="text-zinc-600 text-lg mt-4 font-light">
+                  Three Z-layers. One perspective.
                 </p>
               </div>
             </div>
@@ -382,44 +378,119 @@ function DepthParallaxDemo() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 5) Horizontal Scroll Demo — Pinned horizontal scrolling gallery
-// ─────────────────────────────────────────────────────────────────────────────
+// =============================================================================
+// Text Reveal — Full viewport cinematic text scrub
+// =============================================================================
 
-function HorizontalScrollDemo() {
-  const items = [
-    { title: "Architecture", color: "from-purple-600 to-indigo-600" },
-    { title: "Typography", color: "from-pink-600 to-rose-600" },
-    { title: "Photography", color: "from-cyan-600 to-blue-600" },
-    { title: "Illustration", color: "from-green-600 to-emerald-600" },
-    { title: "Motion Design", color: "from-orange-600 to-red-600" },
-    { title: "3D Rendering", color: "from-violet-600 to-purple-600" },
+function TextRevealSection() {
+  return (
+    <section className="relative py-40">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/[0.03] blur-[150px] rounded-full" />
+      <div className="max-w-5xl mx-auto px-6">
+        <TextRevealScrub
+          text="Every scroll tells a story. The best interfaces don't just display information \u2014 they orchestrate it. Motion creates meaning. Timing creates tension. And the scroll becomes the narrative."
+          className="text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.2] tracking-tight"
+        />
+      </div>
+    </section>
+  );
+}
+
+// =============================================================================
+// Horizontal Scroll — Premium gallery
+// =============================================================================
+
+function HorizontalSection() {
+  const panels = [
+    {
+      num: "01",
+      title: "Pin & Scrub",
+      gradient: "from-purple-950 to-indigo-950",
+      accent: "purple",
+    },
+    {
+      num: "02",
+      title: "Clip Reveals",
+      gradient: "from-cyan-950 to-blue-950",
+      accent: "cyan",
+    },
+    {
+      num: "03",
+      title: "Velocity",
+      gradient: "from-pink-950 to-rose-950",
+      accent: "pink",
+    },
+    {
+      num: "04",
+      title: "3D Depth",
+      gradient: "from-emerald-950 to-green-950",
+      accent: "emerald",
+    },
+    {
+      num: "05",
+      title: "Zoom & Scale",
+      gradient: "from-orange-950 to-amber-950",
+      accent: "orange",
+    },
+    {
+      num: "06",
+      title: "Text Scrub",
+      gradient: "from-violet-950 to-purple-950",
+      accent: "violet",
+    },
   ];
 
   return (
     <section>
-      <SectionLabel
-        title="Horizontal Scroll"
-        description="GSAP-pinned horizontal scrolling. The section pins to the viewport while content scrolls horizontally. Perfect for galleries and project showcases."
-      />
+      <div className="max-w-5xl mx-auto px-6 mb-20 text-center">
+        <FadeIn>
+          <h2 className="text-4xl md:text-6xl font-black text-white">
+            Horizontal.
+          </h2>
+          <p className="text-zinc-600 text-lg mt-4 font-light">
+            Vertical scroll. Horizontal motion.
+          </p>
+        </FadeIn>
+      </div>
 
       <HorizontalScrollSection>
         <div className="flex gap-8 pl-[10vw] pr-[10vw]">
-          {items.map((item) => (
+          {panels.map((panel) => (
             <div
-              key={item.title}
+              key={panel.num}
               className={cn(
-                "flex-shrink-0 w-[70vw] md:w-[40vw] h-[60vh] rounded-2xl bg-gradient-to-br flex items-end p-10",
-                item.color
+                "flex-shrink-0 w-[80vw] md:w-[45vw] h-[70vh] rounded-3xl bg-gradient-to-br relative overflow-hidden flex flex-col justify-between p-10 md:p-14",
+                panel.gradient
               )}
             >
+              {/* Large number watermark */}
+              <div className="absolute -right-6 -top-8 text-[15rem] font-black text-white/[0.03] leading-none select-none">
+                {panel.num}
+              </div>
+
+              {/* Number indicator */}
               <div>
-                <h3 className="text-4xl md:text-5xl font-black text-white">
-                  {item.title}
+                <span className="text-sm font-mono text-zinc-500">
+                  {panel.num}
+                </span>
+              </div>
+
+              {/* Title */}
+              <div>
+                <h3 className="text-4xl md:text-6xl font-black text-white leading-tight">
+                  {panel.title}
                 </h3>
-                <p className="text-white/60 mt-2 text-lg">
-                  Scroll horizontally →
-                </p>
+                <div
+                  className={cn(
+                    "w-16 h-1 rounded-full mt-6",
+                    panel.accent === "purple" && "bg-purple-500",
+                    panel.accent === "cyan" && "bg-cyan-500",
+                    panel.accent === "pink" && "bg-pink-500",
+                    panel.accent === "emerald" && "bg-emerald-500",
+                    panel.accent === "orange" && "bg-orange-500",
+                    panel.accent === "violet" && "bg-violet-500"
+                  )}
+                />
               </div>
             </div>
           ))}
@@ -429,175 +500,170 @@ function HorizontalScrollDemo() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 6) Text Reveal Scrub Demo — character-by-character on scroll
-// ─────────────────────────────────────────────────────────────────────────────
+// =============================================================================
+// Zoom Scroll — Dramatic zoom reveal
+// =============================================================================
 
-function TextRevealDemo() {
+function ZoomSection() {
   return (
-    <section className="py-32">
-      <SectionLabel
-        title="Text Reveal Scrub"
-        description="Each character fades in as you scroll — like Apple's product pages. The text is tied to scroll position, not time."
-      />
-
-      <div className="max-w-5xl mx-auto px-6">
-        <TextRevealScrub
-          text="Every great interface tells a story through motion. Scroll animations aren't decorations — they're the narrative thread that guides attention, reveals hierarchy, and creates emotional connection."
-          className="text-3xl md:text-5xl font-bold leading-relaxed"
-        />
-      </div>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// 7) Split Screen Scroll Demo
-// ─────────────────────────────────────────────────────────────────────────────
-
-function SplitScreenDemo() {
-  return (
-    <section className="py-32">
-      <SectionLabel
-        title="Split Screen Scroll"
-        description="Two halves scrolling at different speeds — one faster, one slower. Creates a natural depth effect without any 3D transforms."
-      />
-
-      <div className="max-w-6xl mx-auto px-6">
-        <SplitScreenScroll
-          className="h-[80vh] rounded-2xl overflow-hidden"
-          leftSpeed={0.3}
-          rightSpeed={0.7}
-          leftContent={
-            <div className="h-[150%] flex flex-col gap-6 p-8">
-              <div className="flex-1 rounded-xl bg-gradient-to-br from-purple-600/30 to-pink-600/30 border border-purple-500/20 flex items-center justify-center">
-                <span className="text-3xl font-bold text-purple-300">
-                  Slow Side
-                </span>
-              </div>
-              <div className="flex-1 rounded-xl bg-gradient-to-br from-purple-600/20 to-pink-600/20 border border-purple-500/10 flex items-center justify-center">
-                <span className="text-2xl font-bold text-purple-400/60">
-                  0.3x speed
-                </span>
-              </div>
-            </div>
-          }
-          rightContent={
-            <div className="h-[150%] flex flex-col gap-6 p-8">
-              <div className="flex-1 rounded-xl bg-gradient-to-br from-cyan-600/30 to-blue-600/30 border border-cyan-500/20 flex items-center justify-center">
-                <span className="text-3xl font-bold text-cyan-300">
-                  Fast Side
-                </span>
-              </div>
-              <div className="flex-1 rounded-xl bg-gradient-to-br from-cyan-600/20 to-blue-600/20 border border-cyan-500/10 flex items-center justify-center">
-                <span className="text-2xl font-bold text-cyan-400/60">
-                  0.7x speed
-                </span>
-              </div>
-            </div>
-          }
-        />
-      </div>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// 8) Zoom Scroll Demo
-// ─────────────────────────────────────────────────────────────────────────────
-
-function ZoomScrollDemo() {
-  return (
-    <section className="py-32">
-      <SectionLabel
-        title="Zoom Scroll"
-        description="Content scales up as you scroll through it — creating a dramatic zoom-in effect. Perfect for hero sections and product reveals."
-      />
-
-      <div className="max-w-6xl mx-auto px-6">
-        <ZoomScroll fromScale={0.6} toScale={1.2} className="rounded-2xl overflow-hidden">
-          <div className="bg-gradient-to-br from-indigo-900 to-purple-900 p-16 md:p-24 text-center">
-            <h3 className="text-5xl md:text-7xl font-black text-white mb-4">
-              Zoom Into
+    <section className="py-40">
+      <ZoomScroll fromScale={0.5} toScale={1.15}>
+        <div className="relative bg-[#060612] rounded-3xl overflow-hidden mx-6">
+          {/* Ambient glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-indigo-500/10 blur-[120px] rounded-full" />
+          <div className="relative py-32 md:py-48 px-8 text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-indigo-400/50 mb-8">
+              Zoom Scroll
+            </p>
+            <h3 className="text-5xl md:text-8xl lg:text-9xl font-black text-white leading-[0.9] tracking-tighter">
+              Pull into
               <br />
-              <span className="bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
-                The Details
+              <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
+                focus.
               </span>
             </h3>
-            <p className="text-indigo-300 text-xl max-w-md mx-auto">
-              This entire section scales from 0.6x to 1.2x as you scroll
-              through it
-            </p>
           </div>
-        </ZoomScroll>
+        </div>
+      </ZoomScroll>
+    </section>
+  );
+}
+
+// =============================================================================
+// Stats — Counter animation with cinematic layout
+// =============================================================================
+
+function StatsSection() {
+  return (
+    <section className="relative py-40 overflow-hidden">
+      {/* Background ambient */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-purple-500/[0.03] blur-[150px] rounded-full" />
+
+      <div className="relative max-w-6xl mx-auto px-6">
+        <FadeIn className="text-center mb-24">
+          <h2 className="text-4xl md:text-6xl font-black text-white">
+            By the numbers.
+          </h2>
+        </FadeIn>
+
+        <StaggerOnScroll staggerDelay={0.15}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-900 rounded-3xl overflow-hidden">
+            {[
+              {
+                to: 150,
+                suffix: "+",
+                label: "Components",
+                color: "from-purple-400 to-pink-400",
+              },
+              {
+                to: 10,
+                suffix: "",
+                label: "Scroll Effects",
+                color: "from-cyan-400 to-blue-400",
+              },
+              {
+                to: 6,
+                suffix: "",
+                label: "Custom Hooks",
+                color: "from-green-400 to-emerald-400",
+              },
+              {
+                to: 4,
+                suffix: "",
+                label: "Design Systems",
+                color: "from-orange-400 to-red-400",
+              },
+            ].map((stat) => (
+              <StaggerItem key={stat.label}>
+                <div className="bg-[#0a0a0a] p-8 md:p-12 text-center">
+                  <div className="text-5xl md:text-7xl font-black mb-3">
+                    <span
+                      className={cn(
+                        "bg-gradient-to-b bg-clip-text text-transparent",
+                        stat.color
+                      )}
+                    >
+                      <CounterAnimation to={stat.to} duration={2.5} />
+                      {stat.suffix}
+                    </span>
+                  </div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-600">
+                    {stat.label}
+                  </p>
+                </div>
+              </StaggerItem>
+            ))}
+          </div>
+        </StaggerOnScroll>
       </div>
     </section>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 9) Counter Animation Demo
-// ─────────────────────────────────────────────────────────────────────────────
+// =============================================================================
+// Text Parallax — Dramatic scrolling text
+// =============================================================================
 
-function CounterDemo() {
+function TextParallaxSection() {
   return (
-    <section className="py-32">
-      <SectionLabel
-        title="Counter Animation"
-        description="Numbers count up when scrolled into view. GSAP-powered with customizable duration, start/end values, and formatting."
-      />
-
-      <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-        {[
-          { label: "Components", end: 150, suffix: "+" },
-          { label: "Animations", end: 40, suffix: "+" },
-          { label: "Hooks", end: 6, suffix: "" },
-          { label: "Design Directions", end: 4, suffix: "" },
-        ].map((stat) => (
-          <div
-            key={stat.label}
-            className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 text-center"
-          >
-            <div className="text-4xl md:text-5xl font-black text-white mb-2">
-              <CounterAnimation to={stat.end} duration={2} />
-              <span className="text-purple-400">{stat.suffix}</span>
-            </div>
-            <p className="text-zinc-500 text-sm uppercase tracking-wider">
-              {stat.label}
-            </p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// 10) TextParallax Demo — Scrolling text
-// ─────────────────────────────────────────────────────────────────────────────
-
-function TextParallaxDemo() {
-  return (
-    <section className="py-16 overflow-hidden">
-      <SectionLabel
-        title="Text Parallax"
-        description="Large text scrolling horizontally at different speeds. Direction and speed linked to scroll position."
-      />
-
-      <div className="space-y-4">
+    <section className="py-20 overflow-hidden">
+      <div className="space-y-2">
         <TextParallax
-          text="SCROLL ANIMATIONS •"
-          className="text-6xl md:text-8xl font-black text-white/10"
+          text="SCROLL ANIMATIONS \u2022"
+          className="text-[clamp(3rem,10vw,8rem)] font-black text-white/[0.04]"
         />
         <TextParallax
-          text="GSAP POWERED •"
-          className="text-6xl md:text-8xl font-black text-purple-500/20"
+          text="GSAP POWERED \u2022"
+          className="text-[clamp(3rem,10vw,8rem)] font-black text-purple-500/[0.08]"
           direction="right"
         />
         <TextParallax
-          text="MOTION CRAFT •"
-          className="text-6xl md:text-8xl font-black text-white/5"
+          text="MOTION CRAFT \u2022"
+          className="text-[clamp(3rem,10vw,8rem)] font-black text-white/[0.03]"
         />
+      </div>
+    </section>
+  );
+}
+
+// =============================================================================
+// CTA — Clean closing
+// =============================================================================
+
+function CTASection() {
+  return (
+    <section className="relative py-40 px-6">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-purple-500/[0.04] blur-[150px] rounded-full" />
+      <div className="relative max-w-3xl mx-auto text-center">
+        <FadeIn>
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
+            Every component.
+            <br />
+            <GradientText gradient="from-purple-400 to-pink-400" animate>
+              Copy-paste ready.
+            </GradientText>
+          </h2>
+          <p className="text-lg text-zinc-500 mb-12 max-w-xl mx-auto font-light">
+            ScrollOrchestrator. ClipPathReveal. DepthParallax.
+            ScrollVelocityWrapper. All TypeScript. All yours.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/">
+              <MagneticButton className="px-8 py-4">
+                Explore Components
+              </MagneticButton>
+            </Link>
+            <a
+              href="https://github.com/itsjwill/nextjs-animated-components"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MagneticButton className="px-8 py-4 bg-transparent border border-zinc-800">
+                GitHub
+              </MagneticButton>
+            </a>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -609,155 +675,68 @@ function TextParallaxDemo() {
 
 export default function ScrollShowcasePage() {
   return (
-    <main className="relative min-h-screen bg-black text-white">
-      <ScrollProgress />
+    <main className="relative bg-black text-white selection:bg-purple-500/30">
+      <ScrollProgress color="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500" height={2} />
 
-      {/* Header */}
-      <header className="relative z-50 px-6 py-6">
+      {/* Minimal header */}
+      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-5">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold">
-            <GradientText gradient="from-purple-400 to-pink-400">
-              MotionCraft
-            </GradientText>
+          <Link
+            href="/"
+            className="text-sm font-medium text-zinc-500 hover:text-white transition-colors"
+          >
+            MotionCraft
           </Link>
           <AnimatedNavLink
             href="/demos"
             variant="underline"
-            className="text-zinc-400"
+            className="text-sm text-zinc-500"
           >
-            ← Back to Demos
+            Demos
           </AnimatedNavLink>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="relative z-10 pt-20 pb-32 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-6"
-          >
-            <span className="px-4 py-2 text-sm font-medium text-green-400 bg-green-500/10 rounded-full border border-green-500/20">
-              GSAP ScrollTrigger
-            </span>
-          </motion.div>
+      <Hero />
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8">
-            <TextGenerateEffect words="Scroll Animations" />
-          </h1>
+      {/* Chapter divider */}
+      <div className="h-32 bg-gradient-to-b from-black to-[#050505]" />
 
-          <motion.p
-            className="text-xl text-zinc-400 max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            Pin sections, orchestrate timelines, reveal with clip-paths, react
-            to velocity, parallax in 3D — all powered by GSAP ScrollTrigger.
-            Keep scrolling.
-          </motion.p>
+      <OrchestratorSection />
 
-          <motion.div
-            className="mt-12"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-          >
-            <svg
-              className="w-6 h-10 mx-auto text-zinc-600 animate-bounce"
-              fill="none"
-              viewBox="0 0 24 40"
-              stroke="currentColor"
-            >
-              <rect
-                x="1"
-                y="1"
-                width="22"
-                height="38"
-                rx="11"
-                strokeWidth="2"
-              />
-              <circle cx="12" cy="12" r="3" fill="currentColor" />
-            </svg>
-          </motion.div>
-        </div>
-      </section>
+      <div className="h-40" />
 
-      {/* 1) Scroll Orchestrator */}
-      <OrchestratorDemo />
+      <ClipPathSection />
 
-      {/* 2) ClipPath Reveal */}
-      <ClipPathDemo />
+      <VelocitySection />
 
-      {/* 3) Scroll Velocity */}
-      <VelocityDemo />
+      {/* Dramatic text parallax break */}
+      <TextParallaxSection />
 
-      {/* 4) Depth Parallax */}
-      <DepthParallaxDemo />
+      <DepthSection />
 
-      {/* 5) Horizontal Scroll */}
-      <HorizontalScrollDemo />
+      <TextRevealSection />
 
-      {/* 6) Text Reveal Scrub */}
-      <TextRevealDemo />
+      <div className="h-20" />
 
-      {/* 7) Split Screen */}
-      <SplitScreenDemo />
+      <HorizontalSection />
 
-      {/* 8) Zoom Scroll */}
-      <ZoomScrollDemo />
+      <div className="h-40" />
 
-      {/* 9) Counter Animation */}
-      <CounterDemo />
+      <ZoomSection />
 
-      {/* 10) Text Parallax */}
-      <TextParallaxDemo />
+      <StatsSection />
 
-      {/* CTA */}
-      <section className="relative z-10 py-32 px-6 border-t border-zinc-900">
-        <div className="max-w-4xl mx-auto text-center">
-          <FadeIn>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Every component is{" "}
-              <GradientText gradient="from-green-400 to-emerald-400" animate>
-                copy-paste ready
-              </GradientText>
-            </h2>
-            <p className="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto">
-              ScrollOrchestrator, ClipPathReveal, DepthParallax,
-              ScrollVelocityWrapper — all available as self-contained TypeScript
-              components.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/">
-                <MagneticButton className="px-8 py-4">
-                  Explore All Components
-                </MagneticButton>
-              </Link>
-              <a
-                href="https://github.com/itsjwill/nextjs-animated-components"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MagneticButton className="px-8 py-4 bg-transparent border border-zinc-800">
-                  View on GitHub
-                </MagneticButton>
-              </a>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
+      <CTASection />
 
       {/* Footer */}
-      <footer className="relative z-10 py-8 px-6 border-t border-zinc-900">
+      <footer className="py-8 px-6 border-t border-zinc-900/50">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-zinc-600 text-sm">
+          <p className="text-zinc-700 text-xs">
             Built with{" "}
             <GradientText gradient="from-purple-400 to-pink-400">
               MotionCraft
             </GradientText>
-            {" "}&bull; The ultimate animation toolkit
           </p>
         </div>
       </footer>
