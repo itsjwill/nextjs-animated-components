@@ -26,6 +26,7 @@
 | **[Homepage](https://nextjs-animated-components.vercel.app)** | Full showcase with all sections, direction picker, interactive demos |
 | **[Component Browser](https://nextjs-animated-components.vercel.app/components)** | Browse all 150+ components by category with live previews |
 | **[Showcase](https://nextjs-animated-components.vercel.app/showcase)** | Full-page component exhibition |
+| **[Scroll Animations](https://nextjs-animated-components.vercel.app/demos/scroll)** | **10 GSAP ScrollTrigger demos — orchestrator, clip-path, velocity, parallax, horizontal scroll** |
 | **[SaaS Demo](https://nextjs-animated-components.vercel.app/demos/saas)** | Complete SaaS landing page built with these components |
 | **[Agency Demo](https://nextjs-animated-components.vercel.app/demos/agency)** | Agency site template with animations |
 | **[Portfolio Demo](https://nextjs-animated-components.vercel.app/demos/portfolio)** | Portfolio template with 3D and scroll effects |
@@ -405,7 +406,7 @@ Use the **DirectionPicker** component (bottom-right corner in demo) to try all 4
 |---------|--------------|----------|---------------|---------------|
 | Price | $49-149/yr | $49/yr | Free | **Free (MIT)** |
 | Components | ~50 | ~40 | ~20 | **150+** |
-| Live Demo | Yes | Yes | Limited | **[Yes — 7 pages](https://nextjs-animated-components.vercel.app)** |
+| Live Demo | Yes | Yes | Limited | **[Yes — 8 pages](https://nextjs-animated-components.vercel.app)** |
 | Design Systems | 1 | 1 | 1 | **4 (runtime switchable)** |
 | 3D Components | Few | None | None | **5 (Three.js)** |
 | GSAP ScrollTrigger | No | No | No | **Yes** |

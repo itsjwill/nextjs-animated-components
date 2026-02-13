@@ -13,6 +13,14 @@ import { AnimatedNavLink } from "@/components/navigation";
 
 const demos = [
   {
+    title: "Scroll Animations",
+    subtitle: "GSAP ScrollTrigger Showcase",
+    description: "The crown jewel — 10 GSAP scroll animations running live. Pinned orchestration, clip-path reveals, velocity effects, 3D depth parallax, horizontal scroll, text scrub, and more.",
+    href: "/demos/scroll",
+    gradient: "from-green-500 to-emerald-600",
+    features: ["Scroll Orchestrator", "Clip-Path Reveal", "Depth Parallax", "Velocity Effects", "Horizontal Scroll"],
+  },
+  {
     title: "Agency",
     subtitle: "Digital Design Studio",
     description: "A sleek agency website with smooth page transitions, project showcases, and a modern dark aesthetic. Perfect for creative studios and agencies.",
