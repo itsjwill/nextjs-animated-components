@@ -23,3 +23,12 @@ export {
   SplitScreenScroll,
   ZoomScroll,
 } from "./gsap-scroll";
+export {
+  ScrollOrchestrator,
+  ScrollStage,
+  ScrollVelocityWrapper,
+  ClipPathReveal,
+  DepthParallax,
+  DepthLayer,
+  ImageSequenceScroll,
+} from "./scroll-orchestrator";

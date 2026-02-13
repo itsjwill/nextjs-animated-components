@@ -26,3 +26,9 @@ export {
   useMotionSafe,
   getReducedMotionPreference,
 } from "./use-reduced-motion";
+export {
+  useSvgPathDraw,
+  useSvgMorph,
+  useSvgFilter,
+  useScrollVelocity,
+} from "./use-svg-animation";

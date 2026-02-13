@@ -30,3 +30,9 @@ export * from "./transitions";
 
 // Navigation components
 export * from "./navigation";
+
+// SVG animations
+export * from "./svg";
+
+// Chat components
+export * from "./chat";
