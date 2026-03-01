@@ -62,6 +62,31 @@ const TheStack = dynamic(
   { ssr: false, loading: () => <SectionLoader label="The Stack" /> }
 );
 
+const TheReveal = dynamic(
+  () => import("@/components/foodshot/text-reveal").then((m) => m.TextReveal),
+  { ssr: false, loading: () => <SectionLoader label="The Reveal" /> }
+);
+
+const TheTilt = dynamic(
+  () => import("@/components/foodshot/tilt-card").then((m) => m.TiltCard),
+  { ssr: false, loading: () => <SectionLoader label="The Tilt" /> }
+);
+
+const TheFilmstrip = dynamic(
+  () => import("@/components/foodshot/filmstrip").then((m) => m.Filmstrip),
+  { ssr: false, loading: () => <SectionLoader label="The Filmstrip" /> }
+);
+
+const TheCounter = dynamic(
+  () => import("@/components/foodshot/revenue-counter").then((m) => m.RevenueCounter),
+  { ssr: false, loading: () => <SectionLoader label="The Counter" /> }
+);
+
+const TheMorph = dynamic(
+  () => import("@/components/foodshot/morph-photo").then((m) => m.MorphPhoto),
+  { ssr: false, loading: () => <SectionLoader label="The Morph" /> }
+);
+
 function SectionLoader({ label }: { label: string }) {
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-[#0a0a0a]">
@@ -85,6 +110,11 @@ const concepts = [
   { id: "the-lens", label: "The Lens", desc: "Magic Reveal" },
   { id: "the-menu", label: "The Menu", desc: "Restaurant Style" },
   { id: "the-stack", label: "The Stack", desc: "Card Deck" },
+  { id: "the-reveal", label: "The Reveal", desc: "Text Masking" },
+  { id: "the-tilt", label: "The Tilt", desc: "3D Perspective" },
+  { id: "the-filmstrip", label: "The Filmstrip", desc: "Cinema Reel" },
+  { id: "the-counter", label: "The Counter", desc: "Revenue Impact" },
+  { id: "the-morph", label: "The Morph", desc: "Circle Reveal" },
 ];
 
 export default function FoodShotShowcase() {
@@ -131,7 +161,7 @@ export default function FoodShotShowcase() {
           className="relative z-10 text-center max-w-3xl"
         >
           <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-8">
-            11 Hero Concepts for FoodShot
+            16 Hero Concepts for FoodShot
           </span>
           <h1 className="text-5xl md:text-8xl font-bold mb-6 leading-[1.05] tracking-tight">
             <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
@@ -143,7 +173,7 @@ export default function FoodShotShowcase() {
             </span>
           </h1>
           <p className="text-zinc-500 text-lg max-w-xl mx-auto mb-10">
-            11 distinct visual experiences, each selling FoodShot from a unique angle.
+            16 distinct visual experiences, each selling FoodShot from a unique angle.
             Real restaurant photos. No stock imagery.
           </p>
 
@@ -250,13 +280,51 @@ export default function FoodShotShowcase() {
         <div id="the-stack">
           <TheStack />
         </div>
+
+        {/* === BATCH 3: 5 MORE CONCEPTS === */}
+        <div className="relative py-20 px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent mb-12" />
+            <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">
+              5 More Concepts
+            </span>
+          </div>
+        </div>
+
+        <div id="the-reveal">
+          <TheReveal />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-tilt">
+          <TheTilt />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-filmstrip">
+          <TheFilmstrip />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-counter">
+          <TheCounter />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-morph">
+          <TheMorph />
+        </div>
       </div>
 
       {/* Footer */}
       <footer className="relative z-10 py-16 px-6 border-t border-zinc-900">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-zinc-600 text-sm mb-6">
-            11 concepts • Real restaurant photography • Contained images at proper resolution
+            16 concepts • Real restaurant photography • Contained images at proper resolution
           </p>
           <div className="flex gap-4 justify-center">
             <Link
