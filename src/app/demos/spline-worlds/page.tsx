@@ -10,6 +10,7 @@ import { FadeIn, ScrollProgress } from "@/components/scroll";
 import { AnimatedNavLink } from "@/components/navigation";
 import { Spotlight } from "@/components/backgrounds/spotlight";
 import { Card } from "@/components/ui/card";
+import type { ColorTheme } from "@/components/ui/spline-recolor";
 
 const SplineScene = dynamic(
   () => import("@/components/ui/splite").then((m) => m.SplineScene),
@@ -19,25 +20,9 @@ const SplineScene = dynamic(
   }
 );
 
-const NeonSamurai = dynamic(
+const SplineRecolor = dynamic(
   () =>
-    import("@/components/three/robots/neon-samurai").then(
-      (m) => m.NeonSamurai
-    ),
-  { ssr: false, loading: () => <SceneLoader /> }
-);
-
-const BubbleBot = dynamic(
-  () =>
-    import("@/components/three/robots/bubble-bot").then((m) => m.BubbleBot),
-  { ssr: false, loading: () => <SceneLoader /> }
-);
-
-const ChromeTitan = dynamic(
-  () =>
-    import("@/components/three/robots/chrome-titan").then(
-      (m) => m.ChromeTitan
-    ),
+    import("@/components/ui/spline-recolor").then((m) => m.SplineRecolor),
   { ssr: false, loading: () => <SceneLoader /> }
 );
 
@@ -154,39 +139,60 @@ const scenes = [
   },
 ];
 
-const robotVariants = [
+const robotVariants: {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  gradient: string;
+  spotlightColor: string;
+  tech: string;
+  theme: ColorTheme;
+}[] = [
   {
-    id: "neon-samurai",
-    title: "Neon Samurai",
-    subtitle: "Cyberpunk Warrior",
+    id: "midnight",
+    title: "Midnight Edition",
+    subtitle: "Stealth Operative",
     description:
-      "Angular samurai armor forged from pure darkness. Neon green visor slits pulse with scanning energy. Red blade wings extend from the helmet. Wrist-mounted beam katanas glow at the forearms. This robot was built to hunt — and it's locked onto your cursor.",
-    gradient: "from-emerald-400 to-cyan-500",
-    spotlightColor: "#00ffaa",
-    tech: "Samurai Armor • Neon Accents • Wrist Blades • Visor Tracking",
-    Component: NeonSamurai,
-  },
-  {
-    id: "bubble-bot",
-    title: "Bubble Bot",
-    subtitle: "Friendly Companion",
-    description:
-      "All soft curves and pastel warmth. Big round eyes that blink. Rosy cheeks that glow. A glowing antenna bobbing on top. Arms that wave at you. This robot doesn't fight — it makes you smile. Bounces gently in place, tilts its head when curious, and never stops watching you with those giant doe eyes.",
-    gradient: "from-purple-400 to-pink-400",
-    spotlightColor: "#c084fc",
-    tech: "Sphere Geometry • Blinking Eyes • Arm Animation • Head Tilt",
-    Component: BubbleBot,
-  },
-  {
-    id: "chrome-titan",
-    title: "Chrome Titan",
-    subtitle: "Heavy Artillery Unit",
-    description:
-      "Pure chrome. Massive shoulders. Gold trim on every edge. A blue reactor core pulses in the chest. This is the final boss — 8 feet of reflective metal that barely moves because it doesn't need to. Slow, deliberate head tracking. Blue slit eyes that see everything. Built like a tank, polished like a trophy.",
-    gradient: "from-blue-400 to-indigo-500",
+      "The same interactive robot — recolored in deep midnight blue with electric cyan accents and ice-white eyes. Darker, sleeker, with a cold precision vibe. Same smooth cursor tracking, same personality — different attitude.",
+    gradient: "from-blue-500 to-indigo-600",
     spotlightColor: "#3b82f6",
-    tech: "Chrome PBR • Gold Accents • Reactor Core • Heavy Chassis",
-    Component: ChromeTitan,
+    tech: "Runtime Recolor • Spline API • Same Interaction • New Identity",
+    theme: {
+      body: "#1a1a3e",
+      accent: "#06b6d4",
+      glow: "#e0f2ff",
+    },
+  },
+  {
+    id: "ember",
+    title: "Ember Edition",
+    subtitle: "Volcanic Core",
+    description:
+      "The robot runs hot. Deep charcoal body with molten orange accents and burning red eyes. Same smooth design, same cursor tracking — but this one looks like it was forged in a volcano. Move your cursor and watch it lock on with those ember-glow eyes.",
+    gradient: "from-orange-500 to-red-600",
+    spotlightColor: "#f97316",
+    tech: "Runtime Recolor • Spline API • Same Interaction • New Identity",
+    theme: {
+      body: "#2a1a1a",
+      accent: "#f97316",
+      glow: "#ff3333",
+    },
+  },
+  {
+    id: "frost",
+    title: "Frost Edition",
+    subtitle: "Arctic Sentinel",
+    description:
+      "Clean white shell with icy teal highlights and cool blue eyes. This is the robot at absolute zero — crisp, pristine, clinical. Same tracking behavior, same build quality — but a completely different energy. Cold, calculated, watching.",
+    gradient: "from-teal-400 to-cyan-500",
+    spotlightColor: "#14b8a6",
+    tech: "Runtime Recolor • Spline API • Same Interaction • New Identity",
+    theme: {
+      body: "#e8eef2",
+      accent: "#14b8a6",
+      glow: "#38bdf8",
+    },
   },
 ];
 
@@ -250,11 +256,11 @@ function SceneCard({
   );
 }
 
-function RobotCard({
-  robot,
+function RobotVariantCard({
+  variant,
   index,
 }: {
-  robot: (typeof robotVariants)[0];
+  variant: (typeof robotVariants)[0];
   index: number;
 }) {
   const isReversed = index % 2 === 1;
@@ -269,41 +275,44 @@ function RobotCard({
               ? "-top-40 right-0 md:right-60 md:-top-20"
               : "-top-40 left-0 md:left-60 md:-top-20"
           }
-          fill={robot.spotlightColor}
+          fill={variant.spotlightColor}
         />
 
         <div
           className={`flex flex-col ${
             isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
-          } min-h-[600px]`}
+          } min-h-[550px]`}
         >
           <div className="flex-1 p-8 md:p-12 relative z-10 flex flex-col justify-center">
             <div className="flex items-center gap-2 mb-4">
               <span
-                className={`inline-block px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r ${robot.gradient} text-white w-fit`}
+                className={`inline-block px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r ${variant.gradient} text-white w-fit`}
               >
                 Scene {sceneNumber}
               </span>
               <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-zinc-400 border border-zinc-700 w-fit">
-                Custom R3F
+                Custom Colorway
               </span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-2">
-              {robot.title}
+              {variant.title}
             </h2>
             <p className="text-zinc-500 text-sm uppercase tracking-wider mb-4">
-              {robot.subtitle}
+              {variant.subtitle}
             </p>
             <p className="text-zinc-400 leading-relaxed mb-6 max-w-md">
-              {robot.description}
+              {variant.description}
             </p>
             <span className="text-xs text-zinc-600 font-mono">
-              {robot.tech}
+              {variant.tech}
             </span>
           </div>
 
-          <div className="flex-1 relative min-h-[500px]">
-            <robot.Component className="w-full h-full absolute inset-0" />
+          <div className="flex-1 relative min-h-[400px]">
+            <SplineRecolor
+              theme={variant.theme}
+              className="w-full h-full absolute inset-0"
+            />
           </div>
         </div>
       </Card>
@@ -343,7 +352,7 @@ export default function SplineWorldsPage() {
             className="mb-6"
           >
             <span className="px-4 py-2 text-sm font-medium text-violet-400 bg-violet-500/10 rounded-full border border-violet-500/20">
-              Spline 3D + Custom R3F Robots
+              Spline 3D • Interactive Worlds
             </span>
           </motion.div>
 
@@ -357,9 +366,9 @@ export default function SplineWorldsPage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            Twelve interactive 3D scenes. Nine Spline worlds plus three
-            hand-coded robot characters — each built from scratch in React Three
-            Fiber with their own design, personality, and cursor tracking.
+            Twelve interactive 3D scenes powered by Spline — including three
+            custom colorway editions of the interactive robot, recolored at
+            runtime via the Spline API.
           </motion.p>
         </div>
       </section>
@@ -373,29 +382,28 @@ export default function SplineWorldsPage() {
         </div>
       </section>
 
-      {/* Custom Robot Characters Section */}
+      {/* Custom Colorway Robot Variants */}
       <section className="relative z-10 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <FadeIn>
             <div className="text-center mb-16">
               <span className="px-4 py-2 text-sm font-medium text-rose-400 bg-rose-500/10 rounded-full border border-rose-500/20">
-                Hand-Coded • Zero Dependencies • Pure Three.js
+                Same Robot • Custom Colorways
               </span>
               <h2 className="text-4xl md:text-5xl font-bold mt-6 mb-4">
-                Custom Robot Characters
+                Custom Editions
               </h2>
               <p className="text-zinc-400 max-w-2xl mx-auto">
-                Three standing robot characters built entirely from code — no
-                Spline, no imported models, no shortcuts. Every joint, every
-                glow, every animation is hand-crafted geometry. Each one tracks
-                your cursor with its own personality.
+                The same interactive robot from Scene 1 — same smooth build,
+                same cursor tracking, same quality — but recolored at runtime
+                through the Spline API. Each one has its own identity.
               </p>
             </div>
           </FadeIn>
 
           <div className="space-y-12">
-            {robotVariants.map((robot, i) => (
-              <RobotCard key={robot.id} robot={robot} index={i} />
+            {robotVariants.map((variant, i) => (
+              <RobotVariantCard key={variant.id} variant={variant} index={i} />
             ))}
           </div>
         </div>
