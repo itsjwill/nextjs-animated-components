@@ -152,6 +152,36 @@ const TheZoom = dynamic(
   { ssr: false, loading: () => <SectionLoader label="The Zoom" /> }
 );
 
+const ThePolaroid = dynamic(
+  () => import("@/components/foodshot/polaroid-scatter").then((m) => m.PolaroidScatter),
+  { ssr: false, loading: () => <SectionLoader label="The Polaroid" /> }
+);
+
+const TheGlitch = dynamic(
+  () => import("@/components/foodshot/glitch-reveal").then((m) => m.GlitchReveal),
+  { ssr: false, loading: () => <SectionLoader label="The Glitch" /> }
+);
+
+const TheParallax = dynamic(
+  () => import("@/components/foodshot/parallax-depth").then((m) => m.ParallaxDepth),
+  { ssr: false, loading: () => <SectionLoader label="The Parallax" /> }
+);
+
+const TheRipple = dynamic(
+  () => import("@/components/foodshot/ripple-click").then((m) => m.RippleClick),
+  { ssr: false, loading: () => <SectionLoader label="The Ripple" /> }
+);
+
+const TheTypewriter = dynamic(
+  () => import("@/components/foodshot/typewriter-stats").then((m) => m.TypewriterStats),
+  { ssr: false, loading: () => <SectionLoader label="The Typewriter" /> }
+);
+
+const TheCube = dynamic(
+  () => import("@/components/foodshot/rotating-cube").then((m) => m.RotatingCube),
+  { ssr: false, loading: () => <SectionLoader label="The Cube" /> }
+);
+
 function SectionLoader({ label }: { label: string }) {
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-[#0a0a0a]">
@@ -193,6 +223,12 @@ const concepts = [
   { id: "the-pulse", label: "The Pulse", desc: "Heartbeat Grid" },
   { id: "the-marquee", label: "The Marquee", desc: "Ticker Tape" },
   { id: "the-zoom", label: "The Zoom", desc: "Infinite Zoom" },
+  { id: "the-polaroid", label: "The Polaroid", desc: "Scatter & Sort" },
+  { id: "the-glitch", label: "The Glitch", desc: "VHS Effect" },
+  { id: "the-parallax", label: "The Parallax", desc: "Depth Layers" },
+  { id: "the-ripple", label: "The Ripple", desc: "Click Ripple" },
+  { id: "the-typewriter", label: "The Typewriter", desc: "Terminal Stats" },
+  { id: "the-cube", label: "The Cube", desc: "3D Cube" },
 ];
 
 export default function FoodShotShowcase() {
@@ -239,7 +275,7 @@ export default function FoodShotShowcase() {
           className="relative z-10 text-center max-w-3xl"
         >
           <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-8">
-            29 Hero Concepts for FoodShot
+            35 Hero Concepts for FoodShot
           </span>
           <h1 className="text-5xl md:text-8xl font-bold mb-6 leading-[1.05] tracking-tight">
             <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
@@ -251,7 +287,7 @@ export default function FoodShotShowcase() {
             </span>
           </h1>
           <p className="text-zinc-500 text-lg max-w-xl mx-auto mb-10">
-            29 distinct visual experiences, each selling FoodShot from a unique angle.
+            35 distinct visual experiences, each selling FoodShot from a unique angle.
             Real restaurant photos. No stock imagery.
           </p>
 
@@ -490,13 +526,57 @@ export default function FoodShotShowcase() {
         <div id="the-zoom">
           <TheZoom />
         </div>
+
+        {/* === BATCH 6: 6 MORE CONCEPTS === */}
+        <div className="relative py-20 px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent mb-12" />
+            <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">
+              6 More Concepts
+            </span>
+          </div>
+        </div>
+
+        <div id="the-polaroid">
+          <ThePolaroid />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-glitch">
+          <TheGlitch />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-parallax">
+          <TheParallax />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-ripple">
+          <TheRipple />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-typewriter">
+          <TheTypewriter />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-cube">
+          <TheCube />
+        </div>
       </div>
 
       {/* Footer */}
       <footer className="relative z-10 py-16 px-6 border-t border-zinc-900">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-zinc-600 text-sm mb-6">
-            29 concepts • Real restaurant photography • Contained images at proper resolution
+            35 concepts • Real restaurant photography • Contained images at proper resolution
           </p>
           <div className="flex gap-4 justify-center">
             <Link
