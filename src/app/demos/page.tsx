@@ -45,6 +45,14 @@ const demos = [
     features: ["Horizontal Scroll", "Custom Cursor", "Aurora Background", "Text Effects"],
   },
   {
+    title: "Spline Worlds",
+    subtitle: "Interactive 3D Characters",
+    description: "Six immersive 3D worlds powered by Spline. A cursor-tracking robot, morphing shapes, cosmic compositions, kinetic sculptures, and living machines. Each scene is fully interactive.",
+    href: "/demos/spline-worlds",
+    gradient: "from-violet-500 to-fuchsia-600",
+    features: ["Spline 3D", "Cursor Tracking", "Character Animation", "Zero Config", "6 Worlds"],
+  },
+  {
     title: "Interactive 3D",
     subtitle: "Experimental R3F Scenes",
     description: "Six mind-bending 3D experiences built entirely in code with React Three Fiber. A gravity well black hole, morphing swarm intelligence, rippling sound fabric, living cursor sculpture, dimensional rift, and magnetic ferrofluid.",
