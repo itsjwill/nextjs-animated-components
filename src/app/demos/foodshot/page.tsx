@@ -37,6 +37,31 @@ const TheWall = dynamic(
   { ssr: false, loading: () => <SectionLoader label="The Wall" /> }
 );
 
+const TheSpotlight = dynamic(
+  () => import("@/components/foodshot/spotlight-carousel").then((m) => m.SpotlightCarousel),
+  { ssr: false, loading: () => <SectionLoader label="The Spotlight" /> }
+);
+
+const TheSplitScreen = dynamic(
+  () => import("@/components/foodshot/split-screen").then((m) => m.SplitScreen),
+  { ssr: false, loading: () => <SectionLoader label="Split Screen" /> }
+);
+
+const TheLens = dynamic(
+  () => import("@/components/foodshot/magic-lens").then((m) => m.MagicLens),
+  { ssr: false, loading: () => <SectionLoader label="The Lens" /> }
+);
+
+const TheMenu = dynamic(
+  () => import("@/components/foodshot/restaurant-menu").then((m) => m.RestaurantMenu),
+  { ssr: false, loading: () => <SectionLoader label="The Menu" /> }
+);
+
+const TheStack = dynamic(
+  () => import("@/components/foodshot/card-stack").then((m) => m.CardStack),
+  { ssr: false, loading: () => <SectionLoader label="The Stack" /> }
+);
+
 function SectionLoader({ label }: { label: string }) {
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-[#0a0a0a]">
@@ -55,6 +80,11 @@ const concepts = [
   { id: "the-process", label: "The Process", desc: "Scroll Pipeline" },
   { id: "the-pitch", label: "The Pitch", desc: "Homepage Hero" },
   { id: "the-wall", label: "The Wall", desc: "Portfolio Grid" },
+  { id: "the-spotlight", label: "The Spotlight", desc: "Cinematic Carousel" },
+  { id: "split-screen", label: "Split Screen", desc: "Before vs After" },
+  { id: "the-lens", label: "The Lens", desc: "Magic Reveal" },
+  { id: "the-menu", label: "The Menu", desc: "Restaurant Style" },
+  { id: "the-stack", label: "The Stack", desc: "Card Deck" },
 ];
 
 export default function FoodShotShowcase() {
@@ -70,12 +100,12 @@ export default function FoodShotShowcase() {
               FoodShot
             </GradientText>
           </Link>
-          <div className="hidden md:flex items-center gap-1.5">
+          <div className="hidden lg:flex items-center gap-1">
             {concepts.map((c) => (
               <a
                 key={c.id}
                 href={`#${c.id}`}
-                className="px-3 py-1.5 text-[10px] font-medium rounded-full border border-zinc-800 text-zinc-500 hover:text-amber-400 hover:border-amber-500/30 transition-colors"
+                className="px-2.5 py-1.5 text-[9px] font-medium rounded-full border border-zinc-800 text-zinc-500 hover:text-amber-400 hover:border-amber-500/30 transition-colors"
               >
                 {c.label}
               </a>
@@ -101,7 +131,7 @@ export default function FoodShotShowcase() {
           className="relative z-10 text-center max-w-3xl"
         >
           <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-8">
-            6 Hero Concepts for FoodShot
+            11 Hero Concepts for FoodShot
           </span>
           <h1 className="text-5xl md:text-8xl font-bold mb-6 leading-[1.05] tracking-tight">
             <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
@@ -113,19 +143,19 @@ export default function FoodShotShowcase() {
             </span>
           </h1>
           <p className="text-zinc-500 text-lg max-w-xl mx-auto mb-10">
-            6 distinct visual experiences, each selling FoodShot from a unique angle.
+            11 distinct visual experiences, each selling FoodShot from a unique angle.
             Real restaurant photos. No stock imagery.
           </p>
 
           {/* Concept pills */}
-          <div className="flex flex-wrap justify-center gap-2 max-w-xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
             {concepts.map((c, i) => (
               <motion.a
                 key={c.id}
                 href={`#${c.id}`}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + i * 0.08 }}
+                transition={{ delay: 0.4 + i * 0.06 }}
                 className="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-amber-500/30 transition-colors group"
               >
                 <span className="text-white text-sm font-medium">{c.label}</span>
@@ -146,8 +176,9 @@ export default function FoodShotShowcase() {
         </motion.div>
       </section>
 
-      {/* Concepts */}
+      {/* All 11 Concepts */}
       <div className="space-y-0">
+        {/* === ORIGINAL 6 === */}
         <div id="tasting-menu">
           <TastingMenu />
         </div>
@@ -181,13 +212,51 @@ export default function FoodShotShowcase() {
         <div id="the-wall">
           <TheWall />
         </div>
+
+        {/* === NEW 5 CONCEPTS === */}
+        <div className="relative py-20 px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent mb-12" />
+            <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">
+              5 New Concepts
+            </span>
+          </div>
+        </div>
+
+        <div id="the-spotlight">
+          <TheSpotlight />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="split-screen">
+          <TheSplitScreen />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-lens">
+          <TheLens />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-menu">
+          <TheMenu />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-stack">
+          <TheStack />
+        </div>
       </div>
 
       {/* Footer */}
       <footer className="relative z-10 py-16 px-6 border-t border-zinc-900">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-zinc-600 text-sm mb-6">
-            6 concepts • Real restaurant photography • Contained images at proper resolution
+            11 concepts • Real restaurant photography • Contained images at proper resolution
           </p>
           <div className="flex gap-4 justify-center">
             <Link
