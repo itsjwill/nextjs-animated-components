@@ -87,6 +87,41 @@ const TheMorph = dynamic(
   { ssr: false, loading: () => <SectionLoader label="The Morph" /> }
 );
 
+const TheOrbit = dynamic(
+  () => import("@/components/foodshot/orbit-carousel").then((m) => m.OrbitCarousel),
+  { ssr: false, loading: () => <SectionLoader label="The Orbit" /> }
+);
+
+const TheCurtain = dynamic(
+  () => import("@/components/foodshot/curtain-reveal").then((m) => m.CurtainReveal),
+  { ssr: false, loading: () => <SectionLoader label="The Curtain" /> }
+);
+
+const TheFlip = dynamic(
+  () => import("@/components/foodshot/flip-card").then((m) => m.FlipCard),
+  { ssr: false, loading: () => <SectionLoader label="The Flip" /> }
+);
+
+const TheAccordion = dynamic(
+  () => import("@/components/foodshot/accordion-panels").then((m) => m.AccordionPanels),
+  { ssr: false, loading: () => <SectionLoader label="The Accordion" /> }
+);
+
+const TheSpotlightBeam = dynamic(
+  () => import("@/components/foodshot/spotlight-beam").then((m) => m.SpotlightBeam),
+  { ssr: false, loading: () => <SectionLoader label="The Spotlight" /> }
+);
+
+const TheMosaic = dynamic(
+  () => import("@/components/foodshot/mosaic-grid").then((m) => m.MosaicGrid),
+  { ssr: false, loading: () => <SectionLoader label="The Mosaic" /> }
+);
+
+const TheScramble = dynamic(
+  () => import("@/components/foodshot/scramble-reveal").then((m) => m.ScrambleReveal),
+  { ssr: false, loading: () => <SectionLoader label="The Scramble" /> }
+);
+
 function SectionLoader({ label }: { label: string }) {
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-[#0a0a0a]">
@@ -115,6 +150,13 @@ const concepts = [
   { id: "the-filmstrip", label: "The Filmstrip", desc: "Cinema Reel" },
   { id: "the-counter", label: "The Counter", desc: "Revenue Impact" },
   { id: "the-morph", label: "The Morph", desc: "Circle Reveal" },
+  { id: "the-orbit", label: "The Orbit", desc: "3D Carousel" },
+  { id: "the-curtain", label: "The Curtain", desc: "Theatrical Reveal" },
+  { id: "the-flip", label: "The Flip", desc: "Card Flip" },
+  { id: "the-accordion", label: "The Accordion", desc: "Expandable Panels" },
+  { id: "the-spotlight-beam", label: "The Spotlight", desc: "Light Beam" },
+  { id: "the-mosaic", label: "The Mosaic", desc: "Tile Assembly" },
+  { id: "the-scramble", label: "The Scramble", desc: "Pixel Resolve" },
 ];
 
 export default function FoodShotShowcase() {
@@ -161,7 +203,7 @@ export default function FoodShotShowcase() {
           className="relative z-10 text-center max-w-3xl"
         >
           <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-8">
-            16 Hero Concepts for FoodShot
+            23 Hero Concepts for FoodShot
           </span>
           <h1 className="text-5xl md:text-8xl font-bold mb-6 leading-[1.05] tracking-tight">
             <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
@@ -173,7 +215,7 @@ export default function FoodShotShowcase() {
             </span>
           </h1>
           <p className="text-zinc-500 text-lg max-w-xl mx-auto mb-10">
-            16 distinct visual experiences, each selling FoodShot from a unique angle.
+            23 distinct visual experiences, each selling FoodShot from a unique angle.
             Real restaurant photos. No stock imagery.
           </p>
 
@@ -318,13 +360,63 @@ export default function FoodShotShowcase() {
         <div id="the-morph">
           <TheMorph />
         </div>
+
+        {/* === BATCH 4: 7 MORE CONCEPTS === */}
+        <div className="relative py-20 px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent mb-12" />
+            <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">
+              7 More Concepts
+            </span>
+          </div>
+        </div>
+
+        <div id="the-orbit">
+          <TheOrbit />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-curtain">
+          <TheCurtain />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-flip">
+          <TheFlip />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-accordion">
+          <TheAccordion />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-spotlight-beam">
+          <TheSpotlightBeam />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-mosaic">
+          <TheMosaic />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-scramble">
+          <TheScramble />
+        </div>
       </div>
 
       {/* Footer */}
       <footer className="relative z-10 py-16 px-6 border-t border-zinc-900">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-zinc-600 text-sm mb-6">
-            16 concepts • Real restaurant photography • Contained images at proper resolution
+            23 concepts • Real restaurant photography • Contained images at proper resolution
           </p>
           <div className="flex gap-4 justify-center">
             <Link
