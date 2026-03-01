@@ -46,11 +46,11 @@ const demos = [
   },
   {
     title: "Interactive 3D",
-    subtitle: "Spline Scenes — Live",
-    description: "Three completely different interactive 3D experiences powered by Spline. A cursor-tracking robot, a draggable Earth globe, and a morphing crystal hero. No WebGL code.",
+    subtitle: "Experimental R3F Scenes",
+    description: "Six mind-bending 3D experiences built entirely in code with React Three Fiber. A gravity well black hole, morphing swarm intelligence, rippling sound fabric, living cursor sculpture, dimensional rift, and magnetic ferrofluid.",
     href: "/demos/interactive-3d",
     gradient: "from-indigo-500 to-violet-600",
-    features: ["Spline 3D", "Cursor Tracking", "Globe Visualization", "Product Hero", "Zero Config"],
+    features: ["Gravity Well", "Swarm AI", "Sound Fabric", "Ferrofluid", "2400+ Particles"],
   },
 ];
 
