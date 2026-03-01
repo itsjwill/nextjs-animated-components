@@ -122,6 +122,36 @@ const TheScramble = dynamic(
   { ssr: false, loading: () => <SectionLoader label="The Scramble" /> }
 );
 
+const TheGravity = dynamic(
+  () => import("@/components/foodshot/gravity-drop").then((m) => m.GravityDrop),
+  { ssr: false, loading: () => <SectionLoader label="The Gravity" /> }
+);
+
+const TheWipe = dynamic(
+  () => import("@/components/foodshot/horizontal-wipe").then((m) => m.HorizontalWipe),
+  { ssr: false, loading: () => <SectionLoader label="The Wipe" /> }
+);
+
+const TheMirror = dynamic(
+  () => import("@/components/foodshot/mirror-text").then((m) => m.MirrorText),
+  { ssr: false, loading: () => <SectionLoader label="The Mirror" /> }
+);
+
+const ThePulse = dynamic(
+  () => import("@/components/foodshot/pulse-grid").then((m) => m.PulseGrid),
+  { ssr: false, loading: () => <SectionLoader label="The Pulse" /> }
+);
+
+const TheMarquee = dynamic(
+  () => import("@/components/foodshot/marquee-ticker").then((m) => m.MarqueeTicker),
+  { ssr: false, loading: () => <SectionLoader label="The Marquee" /> }
+);
+
+const TheZoom = dynamic(
+  () => import("@/components/foodshot/infinite-zoom").then((m) => m.InfiniteZoom),
+  { ssr: false, loading: () => <SectionLoader label="The Zoom" /> }
+);
+
 function SectionLoader({ label }: { label: string }) {
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-[#0a0a0a]">
@@ -157,6 +187,12 @@ const concepts = [
   { id: "the-spotlight-beam", label: "The Spotlight", desc: "Light Beam" },
   { id: "the-mosaic", label: "The Mosaic", desc: "Tile Assembly" },
   { id: "the-scramble", label: "The Scramble", desc: "Pixel Resolve" },
+  { id: "the-gravity", label: "The Gravity", desc: "Physics Drop" },
+  { id: "the-wipe", label: "The Wipe", desc: "Horizontal Scroll" },
+  { id: "the-mirror", label: "The Mirror", desc: "Reflected Type" },
+  { id: "the-pulse", label: "The Pulse", desc: "Heartbeat Grid" },
+  { id: "the-marquee", label: "The Marquee", desc: "Ticker Tape" },
+  { id: "the-zoom", label: "The Zoom", desc: "Infinite Zoom" },
 ];
 
 export default function FoodShotShowcase() {
@@ -203,7 +239,7 @@ export default function FoodShotShowcase() {
           className="relative z-10 text-center max-w-3xl"
         >
           <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-8">
-            23 Hero Concepts for FoodShot
+            29 Hero Concepts for FoodShot
           </span>
           <h1 className="text-5xl md:text-8xl font-bold mb-6 leading-[1.05] tracking-tight">
             <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
@@ -215,7 +251,7 @@ export default function FoodShotShowcase() {
             </span>
           </h1>
           <p className="text-zinc-500 text-lg max-w-xl mx-auto mb-10">
-            23 distinct visual experiences, each selling FoodShot from a unique angle.
+            29 distinct visual experiences, each selling FoodShot from a unique angle.
             Real restaurant photos. No stock imagery.
           </p>
 
@@ -410,13 +446,57 @@ export default function FoodShotShowcase() {
         <div id="the-scramble">
           <TheScramble />
         </div>
+
+        {/* === BATCH 5: 6 MORE CONCEPTS === */}
+        <div className="relative py-20 px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent mb-12" />
+            <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">
+              6 More Concepts
+            </span>
+          </div>
+        </div>
+
+        <div id="the-gravity">
+          <TheGravity />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-wipe">
+          <TheWipe />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-mirror">
+          <TheMirror />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-pulse">
+          <ThePulse />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-marquee">
+          <TheMarquee />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-zoom">
+          <TheZoom />
+        </div>
       </div>
 
       {/* Footer */}
       <footer className="relative z-10 py-16 px-6 border-t border-zinc-900">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-zinc-600 text-sm mb-6">
-            23 concepts • Real restaurant photography • Contained images at proper resolution
+            29 concepts • Real restaurant photography • Contained images at proper resolution
           </p>
           <div className="flex gap-4 justify-center">
             <Link
