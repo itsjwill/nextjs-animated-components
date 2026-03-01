@@ -1,11 +1,9 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, Suspense, lazy } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { foodPhotos } from "./photo-data";
-
-const Spline = lazy(() => import("@splinetool/react-spline"));
 
 const photo = foodPhotos[1]; // Tokyo Hana
 
@@ -16,99 +14,139 @@ export function PortalDrop() {
     offset: ["start start", "end end"],
   });
 
-  const phoneY = useTransform(scrollYProgress, [0, 0.3, 0.6], [0, 200, 500]);
-  const phoneScale = useTransform(scrollYProgress, [0, 0.3, 0.5], [1, 0.8, 0]);
-  const phoneOpacity = useTransform(scrollYProgress, [0, 0.3, 0.5], [1, 1, 0]);
-  const portalGlow = useTransform(scrollYProgress, [0.2, 0.5], [0.3, 1]);
-  const resultOpacity = useTransform(scrollYProgress, [0.6, 0.8], [0, 1]);
-  const resultY = useTransform(scrollYProgress, [0.6, 0.85], [60, 0]);
+  // Clip circle shrinks to reveal the after photo underneath
+  const clipRadius = useTransform(scrollYProgress, [0, 0.4, 0.7], [100, 50, 0]);
+  const afterOpacity = useTransform(scrollYProgress, [0.5, 0.75], [0, 1]);
+  const captionOpacity1 = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  const captionOpacity2 = useTransform(scrollYProgress, [0.3, 0.45, 0.6, 0.75], [0, 1, 1, 0]);
+  const captionOpacity3 = useTransform(scrollYProgress, [0.75, 0.9], [0, 1]);
 
   return (
     <section
       ref={containerRef}
       className="relative bg-black"
-      style={{ height: "300vh" }}
+      style={{ height: "250vh" }}
     >
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/10 via-black to-emerald-950/10" />
+      <div className="sticky top-0 h-screen overflow-hidden">
+        {/* BEFORE photo — full viewport, gets clipped away */}
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            clipPath: useTransform(clipRadius, (r) =>
+              `circle(${r}% at 50% 50%)`
+            ),
+          }}
+        >
+          <Image
+            src={photo.before}
+            alt={`${photo.restaurant} — Original`}
+            fill
+            className="object-cover brightness-[0.7] saturate-[0.4]"
+            sizes="100vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/20" />
+        </motion.div>
 
-        <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20 text-center">
-          <span className="inline-block px-4 py-1.5 text-xs font-medium rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white mb-3">
-            Concept 3B — The Portal Drop
-          </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-white">
-            Drop your photo.{" "}
-            <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-              Watch the magic.
-            </span>
-          </h2>
-          <p className="text-zinc-500 text-sm mt-2">Real photo from {photo.restaurant} — scroll to transform</p>
+        {/* AFTER photo — revealed underneath as circle shrinks */}
+        <motion.div
+          className="absolute inset-0"
+          style={{ opacity: afterOpacity }}
+        >
+          <Image
+            src={photo.after}
+            alt={`${photo.restaurant} — Enhanced`}
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+        </motion.div>
+
+        {/* Stage 1 caption: Start */}
+        <motion.div
+          style={{ opacity: captionOpacity1 }}
+          className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+        >
+          <div className="text-center">
+            <h2 className="text-4xl md:text-7xl font-bold text-white drop-shadow-[0_2px_30px_rgba(0,0,0,0.8)]">
+              Drop your photo.
+            </h2>
+            <p className="text-zinc-400 text-lg mt-3 drop-shadow-lg">
+              {photo.restaurant} — scroll to transform
+            </p>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="mt-8 text-zinc-500"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mx-auto">
+                <path d="M12 5v14M19 12l-7 7-7-7" />
+              </svg>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Stage 2 caption: Processing */}
+        <motion.div
+          style={{ opacity: captionOpacity2 }}
+          className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+        >
+          <motion.div
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="px-8 py-4 rounded-2xl bg-black/60 backdrop-blur-md border border-amber-500/30"
+          >
+            <span className="text-amber-400 text-lg font-mono tracking-wider">ENHANCING...</span>
+          </motion.div>
+        </motion.div>
+
+        {/* Stage 3 caption: Result */}
+        <motion.div
+          style={{ opacity: captionOpacity3 }}
+          className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none"
+        >
+          <div className="bg-black/50 backdrop-blur-xl border-t border-white/10 px-6 py-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <h3 className="text-3xl md:text-5xl font-bold text-white mb-2">
+                <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+                  Watch the magic.
+                </span>
+              </h3>
+              <p className="text-amber-400 text-sm font-medium">
+                {photo.restaurant} — Studio quality in seconds
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Before/After corner badges */}
+        <div className="absolute top-6 left-6 z-30">
+          <motion.div
+            style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [1, 0]) }}
+            className="px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-zinc-500/30"
+          >
+            <span className="text-zinc-300 text-sm font-bold uppercase tracking-wider">Original</span>
+          </motion.div>
+        </div>
+        <div className="absolute top-6 right-6 z-30">
+          <motion.div
+            style={{ opacity: useTransform(scrollYProgress, [0.7, 0.85], [0, 1]) }}
+            className="px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-amber-500/30"
+          >
+            <span className="text-amber-400 text-sm font-bold uppercase tracking-wider">Enhanced</span>
+          </motion.div>
         </div>
 
-        {/* Falling Phone with real before photo */}
-        <motion.div
-          style={{ y: phoneY, scale: phoneScale, opacity: phoneOpacity }}
-          className="absolute top-[15%] z-20"
-        >
-          <div className="w-[180px] h-[360px] rounded-[2rem] border-2 border-zinc-700 bg-zinc-900 shadow-2xl overflow-hidden relative">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-b-xl z-10" />
-            <div className="absolute inset-2 top-7 rounded-[1.5rem] overflow-hidden">
-              <Image
-                src={photo.before}
-                alt="Original restaurant photo"
-                fill
-                className="object-cover brightness-75 saturate-50"
-                sizes="180px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Portal — Spline Scene */}
-        <motion.div
-          style={{ opacity: portalGlow }}
-          className="absolute top-[30%] w-full max-w-3xl h-[400px] z-10"
-        >
-          <Suspense
-            fallback={
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="w-8 h-8 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
-              </div>
-            }
-          >
-            <Spline
-              scene="https://prod.spline.design/UWoeqiir20o49Dah/scene.splinecode"
-              className="w-full h-full"
+        {/* Scroll progress bar */}
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 z-30">
+          <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+            <motion.div
+              style={{ scaleX: scrollYProgress }}
+              className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 origin-left"
             />
-          </Suspense>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-emerald-500/20 blur-3xl pointer-events-none" />
-        </motion.div>
-
-        {/* Enhanced Result with real after photo */}
-        <motion.div
-          style={{ opacity: resultOpacity, y: resultY }}
-          className="absolute bottom-[8%] z-20 text-center"
-        >
-          <div className="w-[320px] h-[220px] rounded-2xl border border-amber-500/30 bg-zinc-900 shadow-2xl mx-auto overflow-hidden relative">
-            <Image
-              src={photo.after}
-              alt="FoodShot enhanced photo"
-              fill
-              className="object-cover"
-              sizes="320px"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            <div className="absolute bottom-3 left-3 z-10">
-              <span className="px-2 py-1 rounded bg-amber-500/20 backdrop-blur-sm text-amber-400 text-[10px] font-mono">
-                ENHANCED BY FOODSHOT
-              </span>
-            </div>
-            <div className="absolute -inset-4 rounded-3xl bg-amber-500/10 blur-xl -z-10" />
           </div>
-          <p className="text-amber-400 text-sm font-medium mt-4">{photo.restaurant} — Studio quality in seconds</p>
-          <p className="text-zinc-600 text-xs mt-1">Scroll back up to try again</p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

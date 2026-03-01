@@ -49,12 +49,12 @@ function SectionLoader({ label }: { label: string }) {
 }
 
 const concepts = [
-  { id: "3a", label: "3A: Glow-Up Machine", color: "from-violet-500 to-amber-500" },
-  { id: "3b", label: "3B: Portal Drop", color: "from-emerald-500 to-teal-500" },
-  { id: "3c", label: "3C: Assembly Line", color: "from-red-500 to-amber-500" },
-  { id: "4a", label: "4A: Money Plate", color: "from-amber-500 to-emerald-500" },
-  { id: "4b", label: "4B: Hero Dish", color: "from-orange-500 to-amber-500" },
-  { id: "4c", label: "4C: Before & After", color: "from-zinc-500 to-amber-500" },
+  { id: "3a", label: "3A: Glow-Up", color: "from-violet-500 to-amber-500" },
+  { id: "3b", label: "3B: Portal", color: "from-emerald-500 to-teal-500" },
+  { id: "3c", label: "3C: Pipeline", color: "from-red-500 to-amber-500" },
+  { id: "4a", label: "4A: Revenue", color: "from-amber-500 to-emerald-500" },
+  { id: "4b", label: "4B: Hero", color: "from-orange-500 to-amber-500" },
+  { id: "4c", label: "4C: Slider", color: "from-zinc-500 to-amber-500" },
 ];
 
 export default function FoodShotShowcase() {
@@ -113,9 +113,8 @@ export default function FoodShotShowcase() {
             </span>
           </h1>
           <p className="text-zinc-400 text-lg max-w-2xl mx-auto mb-8">
-            6 interactive 3D hero sections for the FoodShot homepage.
-            Each one uses live Spline scenes, Framer Motion, and runtime API manipulation.
-            Scroll through all of them.
+            6 full-bleed hero sections showcasing real restaurant before/after photography.
+            Scroll-driven animations, interactive sliders, and immersive food visuals.
           </p>
 
           {/* Concept grid */}
@@ -149,12 +148,12 @@ export default function FoodShotShowcase() {
       {/* Divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
 
-      {/* Section: Pipeline Concepts (3A, 3B, 3C) */}
+      {/* Pipeline Concepts (3A, 3B, 3C) */}
       <section className="relative">
         <div className="sticky top-16 z-40 py-3 px-6 bg-black/80 backdrop-blur-md border-b border-zinc-900">
           <div className="max-w-7xl mx-auto">
             <span className="text-zinc-600 text-xs uppercase tracking-wider">
-              Concept Series 3 — Phone-to-Studio Pipeline
+              Series 3 — Phone-to-Studio Pipeline
             </span>
           </div>
         </div>
@@ -178,12 +177,12 @@ export default function FoodShotShowcase() {
 
       <div className="h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
 
-      {/* Section: Plate Concepts (4A, 4B, 4C) */}
+      {/* Plate Concepts (4A, 4B, 4C) */}
       <section className="relative">
         <div className="sticky top-16 z-40 py-3 px-6 bg-black/80 backdrop-blur-md border-b border-zinc-900">
           <div className="max-w-7xl mx-auto">
             <span className="text-zinc-600 text-xs uppercase tracking-wider">
-              Concept Series 4 — The Plate That Sells
+              Series 4 — The Plate That Sells
             </span>
           </div>
         </div>
@@ -209,7 +208,7 @@ export default function FoodShotShowcase() {
       <footer className="relative z-10 py-12 px-6 border-t border-zinc-900">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 mb-4">
-            6 concepts, 8+ live Spline 3D scenes, runtime API manipulation, scroll-driven animations
+            6 concepts, full-bleed food photography, scroll-driven animations, interactive sliders
           </p>
           <div className="flex gap-4 justify-center">
             <Link
@@ -228,7 +227,7 @@ export default function FoodShotShowcase() {
           <p className="text-zinc-700 text-sm mt-8">
             Built with{" "}
             <GradientText gradient="from-amber-400 to-orange-400">
-              Spline + Framer Motion + FoodShot
+              Framer Motion + FoodShot
             </GradientText>
           </p>
         </div>

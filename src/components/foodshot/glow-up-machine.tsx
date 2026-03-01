@@ -1,135 +1,155 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Suspense, lazy } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { foodPhotos } from "./photo-data";
 
-const Spline = lazy(() => import("@splinetool/react-spline"));
+export function GlowUpMachine() {
+  const [activeIdx, setActiveIdx] = useState(0);
 
-const photo = foodPhotos[0]; // Culinary Dropout
+  // Auto-cycle through restaurants
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIdx((i) => (i + 1) % foodPhotos.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
-function PhoneMockup({ variant }: { variant: "before" | "after" }) {
-  const isBefore = variant === "before";
-  const src = isBefore ? photo.before : photo.after;
+  const photo = foodPhotos[activeIdx];
+
   return (
-    <div className="relative w-[220px] h-[440px] mx-auto">
-      <div
-        className={`absolute inset-0 rounded-[2.5rem] border-2 ${
-          isBefore ? "border-zinc-700 bg-zinc-900" : "border-amber-500/30 bg-zinc-900"
-        } shadow-2xl overflow-hidden`}
-      >
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-b-2xl z-10" />
-        <div className="absolute inset-2 top-8 rounded-[2rem] overflow-hidden">
-          <Image
-            src={src}
-            alt={isBefore ? "Original restaurant photo" : "FoodShot enhanced photo"}
-            fill
-            className={`object-cover ${isBefore ? "brightness-75 saturate-50" : ""}`}
-            sizes="220px"
-          />
-          {isBefore && (
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-          )}
-          <div className="absolute bottom-3 left-0 right-0 text-center z-10">
-            {isBefore ? (
-              <>
-                <div className="text-zinc-400 text-[10px] font-mono">IMG_4832.jpg</div>
-                <div className="text-zinc-500 text-[8px]">Phone Camera • Bad Lighting</div>
-              </>
-            ) : (
-              <>
-                <div className="text-amber-400 text-[10px] font-mono">FOODSHOT_PRO.jpg</div>
-                <div className="text-amber-500/80 text-[8px]">Studio Quality • Enhanced</div>
-              </>
-            )}
+    <section className="relative w-full h-screen bg-black overflow-hidden">
+      {/* Left half — BEFORE (desaturated, dark) */}
+      <div className="absolute inset-y-0 left-0 w-1/2">
+        {foodPhotos.map((p, i) => (
+          <motion.div
+            key={i}
+            className="absolute inset-0"
+            initial={false}
+            animate={{ opacity: activeIdx === i ? 1 : 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <Image
+              src={p.before}
+              alt={`${p.restaurant} — Original`}
+              fill
+              className="object-cover brightness-[0.6] saturate-[0.3]"
+              sizes="50vw"
+              priority={i === 0}
+            />
+          </motion.div>
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/40" />
+
+        {/* Before label */}
+        <div className="absolute top-8 left-8 z-10">
+          <div className="px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-zinc-500/30">
+            <span className="text-zinc-300 text-sm font-bold uppercase tracking-wider">Before</span>
+          </div>
+        </div>
+
+        {/* Before metadata */}
+        <div className="absolute bottom-24 left-8 z-10">
+          <div className="text-zinc-500 text-xs font-mono">IMG_4832.jpg</div>
+          <div className="text-zinc-600 text-[10px] mt-1">Phone Camera • Bad Lighting • No Edit</div>
+        </div>
+      </div>
+
+      {/* Right half — AFTER (warm, vibrant) */}
+      <div className="absolute inset-y-0 right-0 w-1/2">
+        {foodPhotos.map((p, i) => (
+          <motion.div
+            key={i}
+            className="absolute inset-0"
+            initial={false}
+            animate={{ opacity: activeIdx === i ? 1 : 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <Image
+              src={p.after}
+              alt={`${p.restaurant} — Enhanced`}
+              fill
+              className="object-cover"
+              sizes="50vw"
+              priority={i === 0}
+            />
+          </motion.div>
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-l from-transparent to-black/20" />
+
+        {/* After label */}
+        <div className="absolute top-8 right-8 z-10">
+          <div className="px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-amber-500/30">
+            <span className="text-amber-400 text-sm font-bold uppercase tracking-wider">After — FoodShot</span>
+          </div>
+        </div>
+
+        {/* After metadata */}
+        <div className="absolute bottom-24 right-8 z-10 text-right">
+          <div className="text-amber-400 text-xs font-mono">FOODSHOT_PRO.jpg</div>
+          <div className="text-amber-500/60 text-[10px] mt-1">Studio Quality • AI Enhanced • Magazine-Ready</div>
+        </div>
+      </div>
+
+      {/* Center divider line */}
+      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+        <div className="w-[2px] h-full bg-white/30 relative">
+          {/* Animated node */}
+          <motion.div
+            animate={{ y: ["-10%", "110%"] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+            className="absolute left-1/2 -translate-x-1/2"
+          >
+            <div className="w-3 h-3 rounded-full bg-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.6)]" />
+          </motion.div>
+
+          {/* Center badge */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <motion.div
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="px-4 py-2 rounded-full bg-black/80 backdrop-blur-md border border-amber-500/40 whitespace-nowrap"
+            >
+              <span className="text-amber-400 text-xs font-mono tracking-wider">AI ENHANCEMENT</span>
+            </motion.div>
           </div>
         </div>
       </div>
-      {!isBefore && (
-        <div className="absolute -inset-4 rounded-[3rem] bg-amber-500/10 blur-xl -z-10" />
-      )}
-    </div>
-  );
-}
 
-export function GlowUpMachine() {
-  return (
-    <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col items-center justify-center px-6 py-20">
-      <div className="absolute inset-0 bg-gradient-to-b from-violet-950/20 via-black to-amber-950/20" />
+      {/* Bottom glass overlay */}
+      <div className="absolute bottom-0 left-0 right-0 z-30">
+        <div className="bg-black/60 backdrop-blur-xl border-t border-white/10 px-6 py-5">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-center sm:text-left">
+              <h2 className="text-2xl md:text-4xl font-bold text-white">
+                Your phone photo →{" "}
+                <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+                  Studio quality
+                </span>
+              </h2>
+              <p className="text-zinc-500 text-sm mt-1">
+                Real photo from <span className="text-zinc-300">{photo.restaurant}</span>. Same dish. Completely different energy.
+              </p>
+            </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="relative z-10 text-center mb-12"
-      >
-        <span className="inline-block px-4 py-1.5 text-xs font-medium rounded-full bg-gradient-to-r from-violet-500 to-amber-500 text-white mb-4">
-          Concept 3A — The Glow-Up Machine
-        </span>
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-3">
-          Your phone photo →{" "}
-          <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-            Studio quality
-          </span>
-        </h2>
-        <p className="text-zinc-500 max-w-xl mx-auto">
-          Real photo from {photo.restaurant}. Same dish. Completely different energy.
-        </p>
-      </motion.div>
-
-      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center gap-0 w-full max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="flex-shrink-0"
-        >
-          <div className="text-center mb-4">
-            <span className="text-zinc-600 text-xs uppercase tracking-widest">Before</span>
+            {/* Restaurant dots */}
+            <div className="flex gap-2">
+              {foodPhotos.map((p, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveIdx(i)}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    activeIdx === i
+                      ? "bg-amber-500 scale-125 shadow-lg shadow-amber-500/40"
+                      : "bg-white/20 hover:bg-white/40"
+                  }`}
+                  title={p.restaurant}
+                />
+              ))}
+            </div>
           </div>
-          <PhoneMockup variant="before" />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="flex-1 min-w-[300px] h-[400px] relative mx-[-40px] lg:mx-0"
-        >
-          <Suspense
-            fallback={
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
-              </div>
-            }
-          >
-            <Spline
-              scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"
-              className="w-full h-full"
-            />
-          </Suspense>
-          <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black to-transparent pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black to-transparent pointer-events-none" />
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-zinc-600 text-[10px] font-mono tracking-wider">
-            AI ENHANCEMENT ENGINE
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="flex-shrink-0"
-        >
-          <div className="text-center mb-4">
-            <span className="text-amber-400 text-xs uppercase tracking-widest">After</span>
-          </div>
-          <PhoneMockup variant="after" />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

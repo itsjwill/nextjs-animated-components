@@ -17,7 +17,7 @@ export function BeforeAfterTheater() {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = clientX - rect.left;
-    const pct = Math.max(5, Math.min(95, (x / rect.width) * 100));
+    const pct = Math.max(2, Math.min(98, (x / rect.width) * 100));
     setSliderPos(pct);
   }, []);
 
@@ -31,54 +31,11 @@ export function BeforeAfterTheater() {
   }, [handleMove]);
 
   return (
-    <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col items-center justify-center px-6 py-20">
-      <div className="absolute inset-0"
-        style={{
-          background: `linear-gradient(to right, rgba(60,60,70,0.1) 0%, rgba(60,60,70,0.1) ${sliderPos}%, rgba(255,107,53,0.05) ${sliderPos}%, rgba(255,107,53,0.05) 100%)`,
-        }}
-      />
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="relative z-10 text-center mb-6"
-      >
-        <span className="inline-block px-4 py-1.5 text-xs font-medium rounded-full bg-gradient-to-r from-zinc-500 to-amber-500 text-white mb-4">
-          Concept 4C — Before & After Theater
-        </span>
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-3">
-          Drag to see the{" "}
-          <span className="bg-gradient-to-r from-zinc-400 to-amber-400 bg-clip-text text-transparent">
-            difference
-          </span>
-        </h2>
-        <p className="text-zinc-500 max-w-lg mx-auto">
-          Real restaurant photos. Same dish. Drag the slider.
-        </p>
-      </motion.div>
-
-      {/* Restaurant selector */}
-      <div className="relative z-10 flex gap-2 mb-6">
-        {foodPhotos.map((p, i) => (
-          <button
-            key={i}
-            onClick={() => { setActiveIdx(i); setSliderPos(50); }}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-              activeIdx === i
-                ? "bg-amber-500 text-black"
-                : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
-            }`}
-          >
-            {p.restaurant}
-          </button>
-        ))}
-      </div>
-
-      {/* Before/After Container */}
+    <section className="relative w-full h-screen bg-black overflow-hidden">
+      {/* Full-viewport slider container */}
       <div
         ref={containerRef}
-        className="relative z-10 w-full max-w-5xl h-[550px] rounded-2xl overflow-hidden border border-zinc-800 cursor-ew-resize select-none"
+        className="absolute inset-0 cursor-ew-resize select-none"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
@@ -86,42 +43,44 @@ export function BeforeAfterTheater() {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleMouseUp}
       >
-        {/* AFTER layer — full width (behind) */}
+        {/* AFTER layer — full viewport (behind) */}
         <div className="absolute inset-0">
           <Image
             src={photo.after}
             alt={`${photo.restaurant} — FoodShot enhanced`}
             fill
             className="object-cover"
-            sizes="(max-width: 1280px) 100vw, 1280px"
+            sizes="100vw"
             priority
           />
-          <div className="absolute top-4 right-4 z-30">
-            <div className="px-3 py-1.5 rounded-lg bg-amber-500/20 backdrop-blur-sm border border-amber-500/30">
-              <span className="text-amber-400 text-xs font-bold uppercase tracking-wider">After — FoodShot</span>
-            </div>
-          </div>
         </div>
 
         {/* BEFORE layer — clipped by slider */}
         <div
-          className="absolute inset-0 overflow-hidden"
+          className="absolute inset-0"
           style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
         >
-          <div className="absolute inset-0 w-full h-full">
-            <Image
-              src={photo.before}
-              alt={`${photo.restaurant} — Original`}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1280px) 100vw, 1280px"
-              priority
-            />
+          <Image
+            src={photo.before}
+            alt={`${photo.restaurant} — Original`}
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+          {/* Desaturate overlay on before */}
+          <div className="absolute inset-0 bg-black/10" />
+        </div>
+
+        {/* Before / After labels */}
+        <div className="absolute top-6 left-6 z-30">
+          <div className="px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-zinc-500/30">
+            <span className="text-zinc-300 text-sm font-bold uppercase tracking-wider">Before — Original</span>
           </div>
-          <div className="absolute top-4 left-4 z-30">
-            <div className="px-3 py-1.5 rounded-lg bg-zinc-500/20 backdrop-blur-sm border border-zinc-500/30">
-              <span className="text-zinc-300 text-xs font-bold uppercase tracking-wider">Before — Original</span>
-            </div>
+        </div>
+        <div className="absolute top-6 right-6 z-30">
+          <div className="px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-amber-500/30">
+            <span className="text-amber-400 text-sm font-bold uppercase tracking-wider">After — FoodShot</span>
           </div>
         </div>
 
@@ -130,32 +89,69 @@ export function BeforeAfterTheater() {
           className="absolute top-0 bottom-0 z-30 pointer-events-none"
           style={{ left: `${sliderPos}%`, transform: "translateX(-50%)" }}
         >
-          <div className="w-0.5 h-full bg-white/80 mx-auto relative">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg shadow-white/20 flex items-center justify-center">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M7 4L3 10L7 16" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M13 4L17 10L13 16" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <div className="w-[2px] h-full bg-white/90 mx-auto relative shadow-[0_0_12px_rgba(255,255,255,0.4)]">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white shadow-lg shadow-white/30 flex items-center justify-center">
+              <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
+                <path d="M7 4L3 10L7 16" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M13 4L17 10L13 16" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom labels */}
+      {/* Glass overlay bar at bottom */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="relative z-10 flex justify-between w-full max-w-5xl mt-4"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="absolute bottom-0 left-0 right-0 z-40"
       >
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-zinc-600" />
-          <span className="text-zinc-500 text-sm">Phone photo • Bad lighting • Amateur</span>
+        <div className="bg-black/60 backdrop-blur-xl border-t border-white/10">
+          <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            {/* Restaurant selector */}
+            <div className="flex gap-2 flex-wrap justify-center">
+              {foodPhotos.map((p, i) => (
+                <button
+                  key={i}
+                  onClick={() => { setActiveIdx(i); setSliderPos(50); }}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                    activeIdx === i
+                      ? "bg-amber-500 text-black shadow-lg shadow-amber-500/25"
+                      : "bg-white/10 text-zinc-400 hover:bg-white/20 hover:text-white"
+                  }`}
+                >
+                  {p.restaurant}
+                </button>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <button className="px-8 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap">
+              Get Your Photos Enhanced →
+            </button>
+          </div>
+
+          {/* Bottom labels */}
+          <div className="max-w-7xl mx-auto px-6 pb-4 flex justify-between">
+            <span className="text-zinc-500 text-xs">Phone photo • Bad lighting • Amateur</span>
+            <span className="text-amber-400/70 text-xs">Studio quality • Cinematic • Professional</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-amber-400 text-sm">Studio quality • Cinematic • Professional</span>
-          <div className="w-3 h-3 rounded-full bg-amber-500" />
-        </div>
+      </motion.div>
+
+      {/* Title overlay */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="absolute top-20 left-1/2 -translate-x-1/2 z-30 text-center pointer-events-none"
+      >
+        <h2 className="text-3xl md:text-5xl font-bold text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)]">
+          Drag to see the{" "}
+          <span className="bg-gradient-to-r from-zinc-300 to-amber-400 bg-clip-text text-transparent">
+            difference
+          </span>
+        </h2>
       </motion.div>
     </section>
   );

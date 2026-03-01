@@ -1,58 +1,34 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Suspense, lazy, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
-import type { Application, SPEObject } from "@splinetool/runtime";
 import { foodPhotos } from "./photo-data";
 
-const Spline = lazy(() => import("@splinetool/react-spline"));
-
-const NEXBOT_URL = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
-
-const FOOD_THEME = {
-  body: "#1a0f08",
-  accent: "#d4a574",
-  glow: "#ff6b35",
-};
-
-function recolorForFood(obj: SPEObject) {
-  const name = (obj.name || "").toLowerCase();
-  try {
-    if (
-      name.includes("eye") || name.includes("light") || name.includes("glow") ||
-      name.includes("emit") || name.includes("visor") || name.includes("screen") ||
-      name.includes("led")
-    ) {
-      obj.color = FOOD_THEME.glow;
-    } else if (
-      name.includes("accent") || name.includes("detail") || name.includes("stripe") ||
-      name.includes("line") || name.includes("trim") || name.includes("button") ||
-      name.includes("joint") || name.includes("antenna")
-    ) {
-      obj.color = FOOD_THEME.accent;
-    } else if (
-      name.includes("body") || name.includes("torso") || name.includes("arm") ||
-      name.includes("leg") || name.includes("head") || name.includes("chest") ||
-      name.includes("robot") || name.includes("main") || name.includes("hull") ||
-      name.includes("shell") || name.includes("frame") || name.includes("base") ||
-      name.includes("shoulder") || name.includes("hand") || name.includes("foot") ||
-      name.includes("neck")
-    ) {
-      obj.color = FOOD_THEME.body;
-    }
-  } catch {}
-}
-
 export function HeroDish() {
-  const onLoad = useCallback((app: Application) => {
-    try {
-      for (const obj of app.getAllObjects()) recolorForFood(obj);
-    } catch {}
+  const [sliderPos, setSliderPos] = useState(50);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+
+  const photo = foodPhotos[activeIdx];
+
+  const handleMove = useCallback((clientX: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const pct = Math.max(2, Math.min(98, (x / rect.width) * 100));
+    setSliderPos(pct);
   }, []);
 
-  // Show 3 before/after pairs
-  const showcase = foodPhotos.slice(0, 3);
+  const handleMouseDown = useCallback(() => { isDragging.current = true; }, []);
+  const handleMouseUp = useCallback(() => { isDragging.current = false; }, []);
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (isDragging.current) handleMove(e.clientX);
+  }, [handleMove]);
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    handleMove(e.touches[0].clientX);
+  }, [handleMove]);
 
   return (
     <section className="relative w-full min-h-screen bg-black overflow-hidden">
@@ -62,17 +38,13 @@ export function HeroDish() {
       </div>
 
       <div className="relative z-10 flex flex-col lg:flex-row items-center min-h-screen">
-        {/* Left: Copy + Before/After Grid */}
+        {/* Left: Copy */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           className="flex-1 px-8 md:px-16 py-20 lg:py-0 flex flex-col justify-center"
         >
-          <span className="inline-block px-4 py-1.5 text-xs font-medium rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white mb-6 w-fit">
-            Concept 4B — The Hero Dish
-          </span>
-
           <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
             Your food photos
             <br />
@@ -89,34 +61,7 @@ export function HeroDish() {
             Bad photos = empty tables. We fix that — automatically.
           </p>
 
-          {/* Real before/after thumbnails */}
-          <div className="flex gap-3 mb-8">
-            {showcase.map((p, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 + i * 0.15 }}
-                className="flex gap-1"
-              >
-                <div className="w-16 h-16 rounded-lg overflow-hidden relative border border-zinc-700">
-                  <Image src={p.before} alt={`${p.restaurant} before`} fill className="object-cover brightness-75 saturate-50" sizes="64px" />
-                  <div className="absolute bottom-0 inset-x-0 bg-black/70 text-center">
-                    <span className="text-zinc-500 text-[7px]">Before</span>
-                  </div>
-                </div>
-                <div className="w-16 h-16 rounded-lg overflow-hidden relative border border-amber-500/30">
-                  <Image src={p.after} alt={`${p.restaurant} after`} fill className="object-cover" sizes="64px" />
-                  <div className="absolute bottom-0 inset-x-0 bg-black/70 text-center">
-                    <span className="text-amber-400 text-[7px]">After</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-3 mb-10">
             <button className="px-8 py-3.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity">
               See Your Photos Enhanced →
             </button>
@@ -125,7 +70,7 @@ export function HeroDish() {
             </button>
           </div>
 
-          <div className="flex gap-8 mt-10">
+          <div className="flex gap-8">
             {[
               { value: "2,400+", label: "Restaurants" },
               { value: "1.2M", label: "Photos Enhanced" },
@@ -139,44 +84,93 @@ export function HeroDish() {
           </div>
         </motion.div>
 
-        {/* Right: Food-Themed Robot */}
+        {/* Right: Large embedded before/after slider */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="flex-1 relative min-h-[500px] lg:min-h-screen"
+          className="flex-1 px-6 lg:px-12 py-10 lg:py-0 flex flex-col items-center justify-center"
         >
-          <Suspense
-            fallback={
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="w-8 h-8 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
+          {/* Slider container */}
+          <div
+            ref={containerRef}
+            className="relative w-full max-w-[640px] aspect-[4/3] rounded-2xl overflow-hidden cursor-ew-resize select-none shadow-2xl shadow-black/50"
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleMouseUp}
+          >
+            {/* AFTER layer (behind) */}
+            <div className="absolute inset-0">
+              <Image
+                src={photo.after}
+                alt={`${photo.restaurant} — Enhanced`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
+              <div className="absolute top-3 right-3 z-20">
+                <div className="px-3 py-1.5 rounded-lg bg-amber-500/20 backdrop-blur-sm border border-amber-500/30">
+                  <span className="text-amber-400 text-xs font-bold uppercase tracking-wider">After</span>
+                </div>
               </div>
-            }
-          >
-            <Spline scene={NEXBOT_URL} className="w-full h-full absolute inset-0" onLoad={onLoad} />
-          </Suspense>
+            </div>
 
-          <motion.div
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-[20%] right-[15%] px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-amber-500/20"
-          >
-            <span className="text-amber-400 text-xs font-mono">AI-Powered</span>
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, -6, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-[30%] left-[10%] px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-orange-500/20"
-          >
-            <span className="text-orange-400 text-xs font-mono">Studio Quality</span>
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute top-[40%] left-[5%] px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-emerald-500/20"
-          >
-            <span className="text-emerald-400 text-xs font-mono">+127% Revenue</span>
-          </motion.div>
+            {/* BEFORE layer (clipped) */}
+            <div
+              className="absolute inset-0"
+              style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
+            >
+              <Image
+                src={photo.before}
+                alt={`${photo.restaurant} — Original`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
+              <div className="absolute top-3 left-3 z-20">
+                <div className="px-3 py-1.5 rounded-lg bg-zinc-500/20 backdrop-blur-sm border border-zinc-500/30">
+                  <span className="text-zinc-300 text-xs font-bold uppercase tracking-wider">Before</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Slider handle */}
+            <div
+              className="absolute top-0 bottom-0 z-20 pointer-events-none"
+              style={{ left: `${sliderPos}%`, transform: "translateX(-50%)" }}
+            >
+              <div className="w-[2px] h-full bg-white/80 mx-auto relative">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg shadow-white/20 flex items-center justify-center">
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                    <path d="M7 4L3 10L7 16" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M13 4L17 10L13 16" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Restaurant selector tabs */}
+          <div className="flex gap-2 mt-5 flex-wrap justify-center">
+            {foodPhotos.map((p, i) => (
+              <button
+                key={i}
+                onClick={() => { setActiveIdx(i); setSliderPos(50); }}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                  activeIdx === i
+                    ? "bg-amber-500 text-black"
+                    : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
+                }`}
+              >
+                {p.restaurant}
+              </button>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
