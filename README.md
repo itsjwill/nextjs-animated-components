@@ -9,7 +9,7 @@
 ![Components](https://img.shields.io/badge/Components-155+-purple?style=for-the-badge)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge)
 
-**[Live Demo](https://motion-primitives.dev)** | **[Browse Components](https://motion-primitives.dev/components)** | **[Showcase](https://motion-primitives.dev/showcase)**
+**[Live Demo](https://nextjs-animated-components.vercel.app)** | **[Browse Components](https://nextjs-animated-components.vercel.app/components)** | **[Showcase](https://nextjs-animated-components.vercel.app/showcase)**
 
 </div>
 
@@ -23,15 +23,16 @@
 
 | Page | What You'll See |
 |------|----------------|
-| **[Homepage](https://motion-primitives.dev)** | Full showcase with all sections, direction picker, interactive demos |
-| **[Component Browser](https://motion-primitives.dev/components)** | Browse all 155+ components by category with live previews |
-| **[Showcase](https://motion-primitives.dev/showcase)** | Full-page component exhibition |
-| **[Scroll Animations](https://motion-primitives.dev/demos/scroll)** | **10 GSAP ScrollTrigger demos — orchestrator, clip-path, velocity, parallax, horizontal scroll** |
-| **[SaaS Demo](https://motion-primitives.dev/demos/saas)** | Complete SaaS landing page built with these components |
-| **[Agency Demo](https://motion-primitives.dev/demos/agency)** | Agency site template with animations |
-| **[Portfolio Demo](https://motion-primitives.dev/demos/portfolio)** | Portfolio template with 3D and scroll effects |
-| **[Interactive 3D](https://motion-primitives.dev/demos/interactive-3d)** | **3 Spline 3D scenes — interactive robot, draggable Earth globe, morphing crystal** |
-| **[Neural Demo](https://motion-primitives.dev/neural)** | Three.js neural network visualization |
+| **[Homepage](https://nextjs-animated-components.vercel.app)** | Full showcase with all sections, direction picker, interactive demos |
+| **[Component Browser](https://nextjs-animated-components.vercel.app/components)** | Browse all 155+ components by category with live previews |
+| **[Showcase](https://nextjs-animated-components.vercel.app/showcase)** | Full-page component exhibition |
+| **[Scroll Animations](https://nextjs-animated-components.vercel.app/demos/scroll)** | **10 GSAP ScrollTrigger demos — orchestrator, clip-path, velocity, parallax, horizontal scroll** |
+| **[SaaS Demo](https://nextjs-animated-components.vercel.app/demos/saas)** | Complete SaaS landing page built with these components |
+| **[Agency Demo](https://nextjs-animated-components.vercel.app/demos/agency)** | Agency site template with animations |
+| **[Portfolio Demo](https://nextjs-animated-components.vercel.app/demos/portfolio)** | Portfolio template with 3D and scroll effects |
+| **[Spline Worlds](https://nextjs-animated-components.vercel.app/demos/spline-worlds)** | **6 interactive Spline 3D scenes — cursor-tracking robot, morphing shapes, kinetic sculptures** |
+| **[Interactive 3D](https://nextjs-animated-components.vercel.app/demos/interactive-3d)** | **6 experimental R3F scenes — gravity well, swarm intelligence, sound fabric, ferrofluid** |
+| **[Neural Demo](https://nextjs-animated-components.vercel.app/neural)** | Three.js neural network visualization |
 
 ---
 
@@ -430,7 +431,7 @@ Use the **DirectionPicker** component (bottom-right corner in demo) to try all 4
 |---------|--------------|----------|---------------|---------------|
 | Price | $49-149/yr | $49/yr | Free | **Free (MIT)** |
 | Components | ~50 | ~40 | ~20 | **155+** |
-| Live Demo | Yes | Yes | Limited | **[Yes — 8 pages](https://motion-primitives.dev)** |
+| Live Demo | Yes | Yes | Limited | **[Yes — 8 pages](https://nextjs-animated-components.vercel.app)** |
 | Design Systems | 1 | 1 | 1 | **4 (runtime switchable)** |
 | 3D Components | Few | None | None | **5 (Three.js)** |
 | GSAP ScrollTrigger | No | No | No | **Yes** |
