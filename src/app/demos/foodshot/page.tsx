@@ -7,75 +7,75 @@ import { GradientText } from "@/components/text/gradient-text";
 import { AnimatedNavLink } from "@/components/navigation";
 import { ScrollProgress } from "@/components/scroll";
 
-const GlowUpMachine = dynamic(
-  () => import("@/components/foodshot/glow-up-machine").then((m) => m.GlowUpMachine),
-  { ssr: false, loading: () => <SectionLoader label="Glow-Up Machine" /> }
-);
-
-const PortalDrop = dynamic(
-  () => import("@/components/foodshot/portal-drop").then((m) => m.PortalDrop),
-  { ssr: false, loading: () => <SectionLoader label="Portal Drop" /> }
-);
-
-const AssemblyLine = dynamic(
-  () => import("@/components/foodshot/assembly-line").then((m) => m.AssemblyLine),
-  { ssr: false, loading: () => <SectionLoader label="Assembly Line" /> }
-);
-
-const MoneyPlate = dynamic(
-  () => import("@/components/foodshot/money-plate").then((m) => m.MoneyPlate),
-  { ssr: false, loading: () => <SectionLoader label="Money Plate" /> }
-);
-
-const HeroDish = dynamic(
-  () => import("@/components/foodshot/hero-dish").then((m) => m.HeroDish),
-  { ssr: false, loading: () => <SectionLoader label="Hero Dish" /> }
-);
-
-const BeforeAfterTheater = dynamic(
+const TastingMenu = dynamic(
   () => import("@/components/foodshot/before-after-theater").then((m) => m.BeforeAfterTheater),
-  { ssr: false, loading: () => <SectionLoader label="Before & After Theater" /> }
+  { ssr: false, loading: () => <SectionLoader label="Tasting Menu" /> }
+);
+
+const TheProof = dynamic(
+  () => import("@/components/foodshot/glow-up-machine").then((m) => m.GlowUpMachine),
+  { ssr: false, loading: () => <SectionLoader label="The Proof" /> }
+);
+
+const TheSlider = dynamic(
+  () => import("@/components/foodshot/hero-dish").then((m) => m.HeroDish),
+  { ssr: false, loading: () => <SectionLoader label="The Slider" /> }
+);
+
+const TheProcess = dynamic(
+  () => import("@/components/foodshot/assembly-line").then((m) => m.AssemblyLine),
+  { ssr: false, loading: () => <SectionLoader label="The Process" /> }
+);
+
+const ThePitch = dynamic(
+  () => import("@/components/foodshot/money-plate").then((m) => m.MoneyPlate),
+  { ssr: false, loading: () => <SectionLoader label="The Pitch" /> }
+);
+
+const TheWall = dynamic(
+  () => import("@/components/foodshot/portal-drop").then((m) => m.PortalDrop),
+  { ssr: false, loading: () => <SectionLoader label="The Wall" /> }
 );
 
 function SectionLoader({ label }: { label: string }) {
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-black">
+    <div className="w-full min-h-screen flex items-center justify-center bg-[#0a0a0a]">
       <div className="flex flex-col items-center gap-3">
         <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
-        <span className="text-zinc-500 text-sm">Loading {label}...</span>
+        <span className="text-zinc-600 text-sm">Loading {label}...</span>
       </div>
     </div>
   );
 }
 
 const concepts = [
-  { id: "3a", label: "3A: Glow-Up", color: "from-violet-500 to-amber-500" },
-  { id: "3b", label: "3B: Portal", color: "from-emerald-500 to-teal-500" },
-  { id: "3c", label: "3C: Pipeline", color: "from-red-500 to-amber-500" },
-  { id: "4a", label: "4A: Revenue", color: "from-amber-500 to-emerald-500" },
-  { id: "4b", label: "4B: Hero", color: "from-orange-500 to-amber-500" },
-  { id: "4c", label: "4C: Slider", color: "from-zinc-500 to-amber-500" },
+  { id: "tasting-menu", label: "Tasting Menu", desc: "Editorial Gallery" },
+  { id: "the-proof", label: "The Proof", desc: "Side-by-Side" },
+  { id: "the-slider", label: "The Slider", desc: "Interactive" },
+  { id: "the-process", label: "The Process", desc: "Scroll Pipeline" },
+  { id: "the-pitch", label: "The Pitch", desc: "Homepage Hero" },
+  { id: "the-wall", label: "The Wall", desc: "Portfolio Grid" },
 ];
 
 export default function FoodShotShowcase() {
   return (
-    <main className="relative bg-black text-white">
+    <main className="relative bg-[#0a0a0a] text-white">
       <ScrollProgress />
 
       {/* Nav */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-black/80 backdrop-blur-md border-b border-zinc-900">
+      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-zinc-900">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link href="/" className="text-xl font-bold">
             <GradientText gradient="from-amber-400 to-orange-500">
               FoodShot
             </GradientText>
           </Link>
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-1.5">
             {concepts.map((c) => (
               <a
                 key={c.id}
                 href={`#${c.id}`}
-                className="px-2.5 py-1 text-[10px] font-medium rounded-full border border-zinc-800 text-zinc-500 hover:text-white hover:border-zinc-600 transition-colors"
+                className="px-3 py-1.5 text-[10px] font-medium rounded-full border border-zinc-800 text-zinc-500 hover:text-amber-400 hover:border-amber-500/30 transition-colors"
               >
                 {c.label}
               </a>
@@ -93,141 +93,120 @@ export default function FoodShotShowcase() {
 
       {/* Hero Intro */}
       <section className="relative min-h-[80vh] flex items-center justify-center px-6 pt-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-amber-950/10 via-black to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-amber-950/5 via-[#0a0a0a] to-[#0a0a0a]" />
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="relative z-10 text-center max-w-4xl"
+          className="relative z-10 text-center max-w-3xl"
         >
-          <span className="inline-block px-4 py-1.5 text-xs font-medium rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-6">
-            6 Hero Concepts — FoodShot Homepage
+          <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-8">
+            6 Hero Concepts for FoodShot
           </span>
-          <h1 className="text-5xl md:text-8xl font-bold mb-6 leading-tight">
+          <h1 className="text-5xl md:text-8xl font-bold mb-6 leading-[1.05] tracking-tight">
             <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
               FoodShot
             </span>
             <br />
-            <span className="text-white text-4xl md:text-6xl">
+            <span className="text-white text-3xl md:text-5xl font-medium">
               Homepage Hero Concepts
             </span>
           </h1>
-          <p className="text-zinc-400 text-lg max-w-2xl mx-auto mb-8">
-            6 full-bleed hero sections showcasing real restaurant before/after photography.
-            Scroll-driven animations, interactive sliders, and immersive food visuals.
+          <p className="text-zinc-500 text-lg max-w-xl mx-auto mb-10">
+            6 distinct visual experiences, each selling FoodShot from a unique angle.
+            Real restaurant photos. No stock imagery.
           </p>
 
-          {/* Concept grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-2xl mx-auto">
+          {/* Concept pills */}
+          <div className="flex flex-wrap justify-center gap-2 max-w-xl mx-auto">
             {concepts.map((c, i) => (
               <motion.a
                 key={c.id}
                 href={`#${c.id}`}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + i * 0.1 }}
-                className={`px-4 py-3 rounded-xl bg-gradient-to-r ${c.color} text-white text-sm font-medium hover:opacity-80 transition-opacity`}
+                transition={{ delay: 0.4 + i * 0.08 }}
+                className="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-amber-500/30 transition-colors group"
               >
-                {c.label}
+                <span className="text-white text-sm font-medium">{c.label}</span>
+                <span className="text-zinc-600 text-[10px] ml-2 group-hover:text-amber-400/60 transition-colors">{c.desc}</span>
               </motion.a>
             ))}
           </div>
 
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="mt-12 text-zinc-600"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity }}
+            className="mt-14 text-zinc-700"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mx-auto">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mx-auto">
               <path d="M12 5v14M19 12l-7 7-7-7" />
             </svg>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
-
-      {/* Pipeline Concepts (3A, 3B, 3C) */}
-      <section className="relative">
-        <div className="sticky top-16 z-40 py-3 px-6 bg-black/80 backdrop-blur-md border-b border-zinc-900">
-          <div className="max-w-7xl mx-auto">
-            <span className="text-zinc-600 text-xs uppercase tracking-wider">
-              Series 3 — Phone-to-Studio Pipeline
-            </span>
-          </div>
+      {/* Concepts */}
+      <div className="space-y-0">
+        <div id="tasting-menu">
+          <TastingMenu />
         </div>
 
-        <div id="3a">
-          <GlowUpMachine />
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-proof">
+          <TheProof />
         </div>
 
-        <div className="h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
 
-        <div id="3b">
-          <PortalDrop />
+        <div id="the-slider">
+          <TheSlider />
         </div>
 
-        <div className="h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
 
-        <div id="3c">
-          <AssemblyLine />
-        </div>
-      </section>
-
-      <div className="h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
-
-      {/* Plate Concepts (4A, 4B, 4C) */}
-      <section className="relative">
-        <div className="sticky top-16 z-40 py-3 px-6 bg-black/80 backdrop-blur-md border-b border-zinc-900">
-          <div className="max-w-7xl mx-auto">
-            <span className="text-zinc-600 text-xs uppercase tracking-wider">
-              Series 4 — The Plate That Sells
-            </span>
-          </div>
+        <div id="the-process">
+          <TheProcess />
         </div>
 
-        <div id="4a">
-          <MoneyPlate />
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-pitch">
+          <ThePitch />
         </div>
 
-        <div className="h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
 
-        <div id="4b">
-          <HeroDish />
+        <div id="the-wall">
+          <TheWall />
         </div>
-
-        <div className="h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
-
-        <div id="4c">
-          <BeforeAfterTheater />
-        </div>
-      </section>
+      </div>
 
       {/* Footer */}
-      <footer className="relative z-10 py-12 px-6 border-t border-zinc-900">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-zinc-500 mb-4">
-            6 concepts, full-bleed food photography, scroll-driven animations, interactive sliders
+      <footer className="relative z-10 py-16 px-6 border-t border-zinc-900">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-zinc-600 text-sm mb-6">
+            6 concepts • Real restaurant photography • Contained images at proper resolution
           </p>
           <div className="flex gap-4 justify-center">
             <Link
               href="/demos/spline-worlds"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-violet-500 to-purple-600 rounded-lg text-white font-medium hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-zinc-300 hover:border-zinc-600 transition-colors text-sm"
             >
               ← Spline Worlds
             </Link>
             <Link
               href="/demos"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-700 rounded-lg text-zinc-300 hover:border-zinc-500 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-800 rounded-xl text-zinc-300 hover:border-zinc-600 transition-colors text-sm"
             >
               All Demos
             </Link>
           </div>
-          <p className="text-zinc-700 text-sm mt-8">
+          <p className="text-zinc-800 text-xs mt-10">
             Built with{" "}
             <GradientText gradient="from-amber-400 to-orange-400">
-              Framer Motion + FoodShot
+              Framer Motion + FoodShot AI
             </GradientText>
           </p>
         </div>

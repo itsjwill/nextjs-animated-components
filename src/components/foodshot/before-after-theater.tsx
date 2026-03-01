@@ -1,157 +1,126 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useRef, useCallback } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { foodPhotos } from "./photo-data";
 
-export function BeforeAfterTheater() {
-  const [sliderPos, setSliderPos] = useState(50);
-  const [activeIdx, setActiveIdx] = useState(3); // CAPO PIZZA
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
+// Asymmetric grid sizes — some cards larger for editorial feel
+const gridConfig = [
+  { colSpan: "md:col-span-2", height: "h-[480px]" },  // Culinary Dropout — large
+  { colSpan: "md:col-span-1", height: "h-[360px]" },  // Tokyo Hana — medium
+  { colSpan: "md:col-span-1", height: "h-[360px]" },  // El Jefe — medium
+  { colSpan: "md:col-span-1", height: "h-[300px]" },  // CAPO PIZZA — compact
+  { colSpan: "md:col-span-2", height: "h-[420px]" },  // Mega Burgers — large
+  { colSpan: "md:col-span-1", height: "h-[300px]" },  // Roost — compact
+];
 
-  const photo = foodPhotos[activeIdx];
-
-  const handleMove = useCallback((clientX: number) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const pct = Math.max(2, Math.min(98, (x / rect.width) * 100));
-    setSliderPos(pct);
-  }, []);
-
-  const handleMouseDown = useCallback(() => { isDragging.current = true; }, []);
-  const handleMouseUp = useCallback(() => { isDragging.current = false; }, []);
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (isDragging.current) handleMove(e.clientX);
-  }, [handleMove]);
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    handleMove(e.touches[0].clientX);
-  }, [handleMove]);
+function GalleryCard({ photo, index, config }: {
+  photo: typeof foodPhotos[0];
+  index: number;
+  config: typeof gridConfig[0];
+}) {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section className="relative w-full h-screen bg-black overflow-hidden">
-      {/* Full-viewport slider container */}
-      <div
-        ref={containerRef}
-        className="absolute inset-0 cursor-ew-resize select-none"
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        onMouseMove={handleMouseMove}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleMouseUp}
-      >
-        {/* AFTER layer — full viewport (behind) */}
-        <div className="absolute inset-0">
-          <Image
-            src={photo.after}
-            alt={`${photo.restaurant} — FoodShot enhanced`}
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority
-          />
-        </div>
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ delay: index * 0.1, duration: 0.6 }}
+      className={`${config.colSpan}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className={`relative ${config.height} rounded-2xl overflow-hidden border border-amber-500/10 bg-zinc-900 cursor-pointer group`}>
+        {/* After photo (default) */}
+        <Image
+          src={photo.after}
+          alt={`${photo.restaurant} — Enhanced`}
+          fill
+          className={`object-cover transition-all duration-700 ${
+            isHovered ? "opacity-0 scale-105" : "opacity-100 scale-100"
+          }`}
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
 
-        {/* BEFORE layer — clipped by slider */}
-        <div
-          className="absolute inset-0"
-          style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
-        >
-          <Image
-            src={photo.before}
-            alt={`${photo.restaurant} — Original`}
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority
-          />
-          {/* Desaturate overlay on before */}
-          <div className="absolute inset-0 bg-black/10" />
-        </div>
+        {/* Before photo (on hover) */}
+        <Image
+          src={photo.before}
+          alt={`${photo.restaurant} — Original`}
+          fill
+          className={`object-cover brightness-[0.7] saturate-[0.4] transition-all duration-700 ${
+            isHovered ? "opacity-100 scale-100" : "opacity-0 scale-95"
+          }`}
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
 
-        {/* Before / After labels */}
-        <div className="absolute top-6 left-6 z-30">
-          <div className="px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-zinc-500/30">
-            <span className="text-zinc-300 text-sm font-bold uppercase tracking-wider">Before — Original</span>
-          </div>
-        </div>
-        <div className="absolute top-6 right-6 z-30">
-          <div className="px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-amber-500/30">
-            <span className="text-amber-400 text-sm font-bold uppercase tracking-wider">After — FoodShot</span>
+        {/* Hover overlay label */}
+        <div className={`absolute inset-0 flex items-center justify-center z-10 transition-opacity duration-500 ${
+          isHovered ? "opacity-100" : "opacity-0"
+        }`}>
+          <div className="px-4 py-2 rounded-lg bg-black/60 backdrop-blur-sm border border-zinc-500/30">
+            <span className="text-zinc-300 text-xs font-mono uppercase tracking-wider">See Original</span>
           </div>
         </div>
 
-        {/* Slider handle */}
-        <div
-          className="absolute top-0 bottom-0 z-30 pointer-events-none"
-          style={{ left: `${sliderPos}%`, transform: "translateX(-50%)" }}
-        >
-          <div className="w-[2px] h-full bg-white/90 mx-auto relative shadow-[0_0_12px_rgba(255,255,255,0.4)]">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white shadow-lg shadow-white/30 flex items-center justify-center">
-              <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
-                <path d="M7 4L3 10L7 16" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M13 4L17 10L13 16" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-          </div>
+        {/* Bottom gradient + name */}
+        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-5 z-10">
+          <p className="text-white font-semibold text-base">{photo.restaurant}</p>
+          <p className={`text-xs font-mono uppercase tracking-wider mt-1 transition-colors duration-500 ${
+            isHovered ? "text-zinc-400" : "text-amber-400/70"
+          }`}>
+            {isHovered ? "Original phone photo" : "Enhanced by FoodShot"}
+          </p>
         </div>
       </div>
+    </motion.div>
+  );
+}
 
-      {/* Glass overlay bar at bottom */}
+export function BeforeAfterTheater() {
+  return (
+    <section className="relative w-full bg-[#0a0a0a] overflow-hidden px-6 md:px-12 py-24">
+      {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="absolute bottom-0 left-0 right-0 z-40"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-center mb-16 max-w-3xl mx-auto"
       >
-        <div className="bg-black/60 backdrop-blur-xl border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-            {/* Restaurant selector */}
-            <div className="flex gap-2 flex-wrap justify-center">
-              {foodPhotos.map((p, i) => (
-                <button
-                  key={i}
-                  onClick={() => { setActiveIdx(i); setSliderPos(50); }}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    activeIdx === i
-                      ? "bg-amber-500 text-black shadow-lg shadow-amber-500/25"
-                      : "bg-white/10 text-zinc-400 hover:bg-white/20 hover:text-white"
-                  }`}
-                >
-                  {p.restaurant}
-                </button>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <button className="px-8 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap">
-              Get Your Photos Enhanced →
-            </button>
-          </div>
-
-          {/* Bottom labels */}
-          <div className="max-w-7xl mx-auto px-6 pb-4 flex justify-between">
-            <span className="text-zinc-500 text-xs">Phone photo • Bad lighting • Amateur</span>
-            <span className="text-amber-400/70 text-xs">Studio quality • Cinematic • Professional</span>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Title overlay */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="absolute top-20 left-1/2 -translate-x-1/2 z-30 text-center pointer-events-none"
-      >
-        <h2 className="text-3xl md:text-5xl font-bold text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)]">
-          Drag to see the{" "}
-          <span className="bg-gradient-to-r from-zinc-300 to-amber-400 bg-clip-text text-transparent">
-            difference
+        <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
+          Every dish deserves its{" "}
+          <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
+            moment
           </span>
         </h2>
+        <p className="text-zinc-500 text-base">
+          Hover over any photo to see the original. Same dish. Completely different energy.
+        </p>
+      </motion.div>
+
+      {/* Asymmetric editorial grid */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+        {foodPhotos.map((photo, i) => (
+          <GalleryCard
+            key={i}
+            photo={photo}
+            index={i}
+            config={gridConfig[i]}
+          />
+        ))}
+      </div>
+
+      {/* Bottom CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-center mt-16"
+      >
+        <button className="px-8 py-3.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-amber-500/20">
+          Transform Your Menu Photos →
+        </button>
       </motion.div>
     </section>
   );

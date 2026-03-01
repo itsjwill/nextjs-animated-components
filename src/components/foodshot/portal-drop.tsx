@@ -1,152 +1,135 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import Image from "next/image";
 import { foodPhotos } from "./photo-data";
 
-const photo = foodPhotos[1]; // Tokyo Hana
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.08 },
+  },
+};
 
-export function PortalDrop() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
 
-  // Clip circle shrinks to reveal the after photo underneath
-  const clipRadius = useTransform(scrollYProgress, [0, 0.4, 0.7], [100, 50, 0]);
-  const afterOpacity = useTransform(scrollYProgress, [0.5, 0.75], [0, 1]);
-  const captionOpacity1 = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const captionOpacity2 = useTransform(scrollYProgress, [0.3, 0.45, 0.6, 0.75], [0, 1, 1, 0]);
-  const captionOpacity3 = useTransform(scrollYProgress, [0.75, 0.9], [0, 1]);
+function PortfolioCard({ photo }: { photo: typeof foodPhotos[0] }) {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative bg-black"
-      style={{ height: "250vh" }}
+    <motion.div
+      variants={cardVariants}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group cursor-pointer"
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
-        {/* BEFORE photo — full viewport, gets clipped away */}
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            clipPath: useTransform(clipRadius, (r) =>
-              `circle(${r}% at 50% 50%)`
-            ),
-          }}
-        >
-          <Image
-            src={photo.before}
-            alt={`${photo.restaurant} — Original`}
-            fill
-            className="object-cover brightness-[0.7] saturate-[0.4]"
-            sizes="100vw"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/20" />
-        </motion.div>
+      <div className="relative rounded-2xl overflow-hidden border border-amber-500/10 bg-zinc-900/80 shadow-lg hover:shadow-xl hover:shadow-amber-900/10 transition-shadow duration-500"
+        style={{ aspectRatio: "3 / 4" }}
+      >
+        {/* After photo (default) */}
+        <Image
+          src={photo.after}
+          alt={`${photo.restaurant} — Enhanced`}
+          fill
+          className={`object-cover transition-all duration-600 ${
+            isHovered ? "opacity-0 scale-105" : "opacity-100 scale-100"
+          }`}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
 
-        {/* AFTER photo — revealed underneath as circle shrinks */}
-        <motion.div
-          className="absolute inset-0"
-          style={{ opacity: afterOpacity }}
-        >
-          <Image
-            src={photo.after}
-            alt={`${photo.restaurant} — Enhanced`}
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority
-          />
-        </motion.div>
+        {/* Before photo (hover) */}
+        <Image
+          src={photo.before}
+          alt={`${photo.restaurant} — Original`}
+          fill
+          className={`object-cover brightness-[0.7] saturate-[0.4] transition-all duration-600 ${
+            isHovered ? "opacity-100 scale-100" : "opacity-0 scale-95"
+          }`}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
 
-        {/* Stage 1 caption: Start */}
-        <motion.div
-          style={{ opacity: captionOpacity1 }}
-          className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
-        >
-          <div className="text-center">
-            <h2 className="text-4xl md:text-7xl font-bold text-white drop-shadow-[0_2px_30px_rgba(0,0,0,0.8)]">
-              Drop your photo.
-            </h2>
-            <p className="text-zinc-400 text-lg mt-3 drop-shadow-lg">
-              {photo.restaurant} — scroll to transform
-            </p>
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="mt-8 text-zinc-500"
-            >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mx-auto">
-                <path d="M12 5v14M19 12l-7 7-7-7" />
-              </svg>
-            </motion.div>
-          </div>
-        </motion.div>
+        {/* Hover label */}
+        <div className={`absolute inset-0 flex items-center justify-center z-10 transition-opacity duration-400 ${
+          isHovered ? "opacity-100" : "opacity-0"
+        }`}>
+          <span className="px-4 py-2 rounded-lg bg-black/60 backdrop-blur-sm border border-zinc-500/30 text-zinc-300 text-xs font-mono uppercase tracking-wider">
+            See Original
+          </span>
+        </div>
 
-        {/* Stage 2 caption: Processing */}
-        <motion.div
-          style={{ opacity: captionOpacity2 }}
-          className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
-        >
-          <motion.div
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="px-8 py-4 rounded-2xl bg-black/60 backdrop-blur-md border border-amber-500/30"
-          >
-            <span className="text-amber-400 text-lg font-mono tracking-wider">ENHANCING...</span>
-          </motion.div>
-        </motion.div>
+        {/* Bottom name */}
+        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent p-4 z-10">
+          <p className="text-white font-medium text-sm">{photo.restaurant}</p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
-        {/* Stage 3 caption: Result */}
-        <motion.div
-          style={{ opacity: captionOpacity3 }}
-          className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none"
-        >
-          <div className="bg-black/50 backdrop-blur-xl border-t border-white/10 px-6 py-6">
-            <div className="max-w-4xl mx-auto text-center">
-              <h3 className="text-3xl md:text-5xl font-bold text-white mb-2">
-                <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                  Watch the magic.
-                </span>
-              </h3>
-              <p className="text-amber-400 text-sm font-medium">
-                {photo.restaurant} — Studio quality in seconds
-              </p>
+export function PortalDrop() {
+  return (
+    <section className="relative w-full bg-[#0a0a0a] overflow-hidden px-6 md:px-12 py-24">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-center mb-16 max-w-3xl mx-auto"
+      >
+        <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
+          Real restaurants.{" "}
+          <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
+            Real transformations.
+          </span>
+        </h2>
+        <p className="text-zinc-500 text-base">
+          Hover to see the originals. Every photo enhanced by FoodShot AI.
+        </p>
+      </motion.div>
+
+      {/* 3-column grid */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+      >
+        {foodPhotos.map((photo, i) => (
+          <PortfolioCard key={i} photo={photo} />
+        ))}
+      </motion.div>
+
+      {/* Stats bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="max-w-3xl mx-auto mt-16"
+      >
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16 px-8 py-6 rounded-2xl bg-zinc-900/60 backdrop-blur-sm border border-white/5">
+          {[
+            { value: "+127%", label: "Avg. Revenue Increase" },
+            { value: "+340%", label: "More Google Clicks" },
+            { value: "+89%", label: "Customer Conversion" },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-amber-400 text-2xl font-bold">{stat.value}</div>
+              <div className="text-zinc-600 text-[10px] uppercase tracking-wider mt-1">{stat.label}</div>
             </div>
-          </div>
-        </motion.div>
+          ))}
+        </div>
+      </motion.div>
 
-        {/* Before/After corner badges */}
-        <div className="absolute top-6 left-6 z-30">
-          <motion.div
-            style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [1, 0]) }}
-            className="px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-zinc-500/30"
-          >
-            <span className="text-zinc-300 text-sm font-bold uppercase tracking-wider">Original</span>
-          </motion.div>
-        </div>
-        <div className="absolute top-6 right-6 z-30">
-          <motion.div
-            style={{ opacity: useTransform(scrollYProgress, [0.7, 0.85], [0, 1]) }}
-            className="px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-amber-500/30"
-          >
-            <span className="text-amber-400 text-sm font-bold uppercase tracking-wider">Enhanced</span>
-          </motion.div>
-        </div>
-
-        {/* Scroll progress bar */}
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 z-30">
-          <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-            <motion.div
-              style={{ scaleX: scrollYProgress }}
-              className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 origin-left"
-            />
-          </div>
-        </div>
+      {/* CTA */}
+      <div className="text-center mt-10">
+        <button className="px-8 py-3.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-amber-500/20">
+          Get Your Photos Enhanced →
+        </button>
       </div>
     </section>
   );
