@@ -182,6 +182,41 @@ const TheCube = dynamic(
   { ssr: false, loading: () => <SectionLoader label="The Cube" /> }
 );
 
+const TheNoir = dynamic(
+  () => import("@/components/foodshot/film-noir").then((m) => m.FilmNoir),
+  { ssr: false, loading: () => <SectionLoader label="The Noir" /> }
+);
+
+const TheNeon = dynamic(
+  () => import("@/components/foodshot/neon-sign").then((m) => m.NeonSign),
+  { ssr: false, loading: () => <SectionLoader label="The Neon" /> }
+);
+
+const TheShatter = dynamic(
+  () => import("@/components/foodshot/glass-shatter").then((m) => m.GlassShatter),
+  { ssr: false, loading: () => <SectionLoader label="The Shatter" /> }
+);
+
+const TheSlots = dynamic(
+  () => import("@/components/foodshot/slot-machine").then((m) => m.SlotMachine),
+  { ssr: false, loading: () => <SectionLoader label="The Slots" /> }
+);
+
+const TheConstellation = dynamic(
+  () => import("@/components/foodshot/constellation").then((m) => m.Constellation),
+  { ssr: false, loading: () => <SectionLoader label="The Constellation" /> }
+);
+
+const TheSplit = dynamic(
+  () => import("@/components/foodshot/split-typography").then((m) => m.SplitTypography),
+  { ssr: false, loading: () => <SectionLoader label="The Split" /> }
+);
+
+const TheLiquid = dynamic(
+  () => import("@/components/foodshot/liquid-morph").then((m) => m.LiquidMorph),
+  { ssr: false, loading: () => <SectionLoader label="The Liquid" /> }
+);
+
 function SectionLoader({ label }: { label: string }) {
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-[#0a0a0a]">
@@ -229,6 +264,13 @@ const concepts = [
   { id: "the-ripple", label: "The Ripple", desc: "Click Ripple" },
   { id: "the-typewriter", label: "The Typewriter", desc: "Terminal Stats" },
   { id: "the-cube", label: "The Cube", desc: "3D Cube" },
+  { id: "the-noir", label: "The Noir", desc: "Film Noir" },
+  { id: "the-neon", label: "The Neon", desc: "Neon Sign" },
+  { id: "the-shatter", label: "The Shatter", desc: "Glass Break" },
+  { id: "the-slots", label: "The Slots", desc: "Slot Machine" },
+  { id: "the-constellation", label: "The Constellation", desc: "Star Map" },
+  { id: "the-split", label: "The Split", desc: "Torn Typography" },
+  { id: "the-liquid", label: "The Liquid", desc: "Blob Morph" },
 ];
 
 export default function FoodShotShowcase() {
@@ -275,7 +317,7 @@ export default function FoodShotShowcase() {
           className="relative z-10 text-center max-w-3xl"
         >
           <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-8">
-            35 Hero Concepts for FoodShot
+            42 Hero Concepts for FoodShot
           </span>
           <h1 className="text-5xl md:text-8xl font-bold mb-6 leading-[1.05] tracking-tight">
             <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
@@ -287,7 +329,7 @@ export default function FoodShotShowcase() {
             </span>
           </h1>
           <p className="text-zinc-500 text-lg max-w-xl mx-auto mb-10">
-            35 distinct visual experiences, each selling FoodShot from a unique angle.
+            42 distinct visual experiences, each selling FoodShot from a unique angle.
             Real restaurant photos. No stock imagery.
           </p>
 
@@ -570,13 +612,63 @@ export default function FoodShotShowcase() {
         <div id="the-cube">
           <TheCube />
         </div>
+
+        {/* === BATCH 7: 7 MORE CONCEPTS === */}
+        <div className="relative py-20 px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent mb-12" />
+            <span className="inline-block px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">
+              7 More Concepts
+            </span>
+          </div>
+        </div>
+
+        <div id="the-noir">
+          <TheNoir />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-neon">
+          <TheNeon />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-shatter">
+          <TheShatter />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-slots">
+          <TheSlots />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-constellation">
+          <TheConstellation />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-split">
+          <TheSplit />
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+
+        <div id="the-liquid">
+          <TheLiquid />
+        </div>
       </div>
 
       {/* Footer */}
       <footer className="relative z-10 py-16 px-6 border-t border-zinc-900">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-zinc-600 text-sm mb-6">
-            35 concepts • Real restaurant photography • Contained images at proper resolution
+            42 concepts • Real restaurant photography • Contained images at proper resolution
           </p>
           <div className="flex gap-4 justify-center">
             <Link
