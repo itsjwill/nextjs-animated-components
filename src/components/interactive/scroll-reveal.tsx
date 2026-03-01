@@ -39,7 +39,6 @@ interface StaggerRevealProps {
 
 // ─── Animation Variants ─────────────────────────────────────────────────────
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const variants: Record<AnimationVariant, { initial: any; animate: any }> = {
   "fade-up": {
     initial: { opacity: 0, y: 40 },

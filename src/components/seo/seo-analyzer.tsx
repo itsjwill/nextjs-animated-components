@@ -45,7 +45,6 @@ export function SEOAnalyzer({
 
   // Don't show in production unless explicitly enabled
   const isDev = process.env.NODE_ENV === "development";
-  if (!isDev && !showInProduction) return null;
 
   const runAnalysis = useCallback(() => {
     setIsAnalyzing(true);
@@ -333,6 +332,8 @@ export function SEOAnalyzer({
       runAnalysis();
     }
   }, [isOpen, analysis, runAnalysis]);
+
+  if (!isDev && !showInProduction) return null;
 
   const positionClasses = {
     "bottom-right": "bottom-4 right-4",

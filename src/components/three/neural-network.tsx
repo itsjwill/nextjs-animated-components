@@ -206,16 +206,18 @@ function TravelingImpulse({
   const fromNeuron = neurons.find((n) => n.id === impulse.from);
   const toNeuron = neurons.find((n) => n.id === impulse.to);
 
-  if (!fromNeuron || !toNeuron) return null;
-
   const position = useMemo(() => {
+    if (!fromNeuron || !toNeuron) return new THREE.Vector3();
     return fromNeuron.position.clone().lerp(toNeuron.position, impulse.progress);
   }, [fromNeuron, toNeuron, impulse.progress]);
 
   const trailPosition = useMemo(() => {
+    if (!fromNeuron || !toNeuron) return new THREE.Vector3();
     const trailProgress = Math.max(0, impulse.progress - 0.1);
     return fromNeuron.position.clone().lerp(toNeuron.position, trailProgress);
   }, [fromNeuron, toNeuron, impulse.progress]);
+
+  if (!fromNeuron || !toNeuron) return null;
 
   return (
     <group>

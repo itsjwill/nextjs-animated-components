@@ -25,7 +25,6 @@ import type {
 // =============================================================================
 // Type-safe structured data using Google's schema-dts
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface JsonLdProps {
   data: Record<string, any> | Record<string, any>[];
 }
