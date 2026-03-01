@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Suspense, useRef, useState, useEffect, useCallback } from "react";
+import { Suspense } from "react";
 import { TextGenerateEffect } from "@/components/text/text-generate";
 import { GradientText } from "@/components/text/gradient-text";
 import { FadeIn, ScrollProgress } from "@/components/scroll";
@@ -19,6 +19,28 @@ const SplineScene = dynamic(
   }
 );
 
+const NeonSamurai = dynamic(
+  () =>
+    import("@/components/three/robots/neon-samurai").then(
+      (m) => m.NeonSamurai
+    ),
+  { ssr: false, loading: () => <SceneLoader /> }
+);
+
+const BubbleBot = dynamic(
+  () =>
+    import("@/components/three/robots/bubble-bot").then((m) => m.BubbleBot),
+  { ssr: false, loading: () => <SceneLoader /> }
+);
+
+const ChromeTitan = dynamic(
+  () =>
+    import("@/components/three/robots/chrome-titan").then(
+      (m) => m.ChromeTitan
+    ),
+  { ssr: false, loading: () => <SceneLoader /> }
+);
+
 function SceneLoader() {
   return (
     <div className="w-full h-full min-h-[500px] flex items-center justify-center">
@@ -30,9 +52,6 @@ function SceneLoader() {
   );
 }
 
-const ROBOT_URL =
-  "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
-
 const scenes = [
   {
     id: "nexbot",
@@ -40,7 +59,7 @@ const scenes = [
     subtitle: "Cursor-Tracking Character",
     description:
       "A 3D robot character that follows your cursor in real-time. Move your mouse around the scene — it tracks you. Built entirely in Spline with cursor-follow states and hover reactions.",
-    splineUrl: ROBOT_URL,
+    splineUrl: "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode",
     gradient: "from-violet-500 to-purple-600",
     spotlightColor: "white",
     tech: "Cursor Tracking • Character Animation • State Machines",
@@ -135,311 +154,41 @@ const scenes = [
   },
 ];
 
-/* ─── VARIANT SCENES: Same robot, radically different CSS treatments ─── */
-
-function HologramRobot() {
-  return (
-    <FadeIn delay={0.1}>
-      <Card className="w-full bg-black/[0.96] relative overflow-hidden border-zinc-800">
-        <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="#06b6d4" />
-        <div className="flex flex-col lg:flex-row min-h-[550px]">
-          <div className="flex-1 p-8 md:p-12 relative z-10 flex flex-col justify-center">
-            <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 text-white w-fit mb-4">
-              Scene 10 — Hologram
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-2 text-cyan-50">
-              Hologram Projection
-            </h2>
-            <p className="text-zinc-500 text-sm uppercase tracking-wider mb-4">
-              Transmitted Signal
-            </p>
-            <p className="text-zinc-400 leading-relaxed mb-6 max-w-md">
-              The same robot — but beamed in as a holographic projection. Scan
-              lines sweep across the scene, the image flickers with signal
-              interference, and a cyan glow bleeds from every edge. Move your
-              cursor — the robot still tracks you through the static.
-            </p>
-            <span className="text-xs text-zinc-600 font-mono">
-              CSS Scan Lines • Signal Flicker • Hologram Glow • Live Interaction
-            </span>
-          </div>
-
-          <div className="flex-1 relative min-h-[400px]">
-            {/* Hologram effect layers */}
-            <div className="absolute inset-0 z-20 pointer-events-none">
-              {/* Scan lines */}
-              <div
-                className="absolute inset-0 opacity-30"
-                style={{
-                  backgroundImage:
-                    "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(6,182,212,0.08) 2px, rgba(6,182,212,0.08) 4px)",
-                }}
-              />
-              {/* Horizontal sweep line */}
-              <div
-                className="absolute left-0 right-0 h-[2px] bg-cyan-400/60"
-                style={{
-                  animation: "hologramSweep 3s linear infinite",
-                }}
-              />
-              {/* Edge glow */}
-              <div className="absolute inset-0 shadow-[inset_0_0_60px_rgba(6,182,212,0.3)]" />
-              {/* Top/bottom fade */}
-              <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-cyan-900/30 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-cyan-900/30 to-transparent" />
-            </div>
-
-            {/* Color treatment */}
-            <div
-              className="absolute inset-0 z-10 pointer-events-none mix-blend-color"
-              style={{ backgroundColor: "rgba(6,182,212,0.25)" }}
-            />
-
-            {/* Flicker overlay */}
-            <div
-              className="absolute inset-0 z-10 pointer-events-none"
-              style={{ animation: "hologramFlicker 4s ease-in-out infinite" }}
-            />
-
-            <Suspense fallback={<SceneLoader />}>
-              <SplineScene scene={ROBOT_URL} className="w-full h-full absolute inset-0" />
-            </Suspense>
-
-            {/* Projection base */}
-            <div className="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent z-20" />
-          </div>
-        </div>
-      </Card>
-
-      <style jsx>{`
-        @keyframes hologramSweep {
-          0% { top: -2px; }
-          100% { top: 100%; }
-        }
-        @keyframes hologramFlicker {
-          0%, 100% { opacity: 0; }
-          48% { opacity: 0; }
-          49% { opacity: 0.08; background: rgba(6,182,212,0.15); }
-          51% { opacity: 0; }
-          78% { opacity: 0; }
-          79% { opacity: 0.05; background: rgba(6,182,212,0.1); }
-          81% { opacity: 0; }
-        }
-      `}</style>
-    </FadeIn>
-  );
-}
-
-function GlitchRobot() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [glitchActive, setGlitchActive] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setGlitchActive(true);
-      setTimeout(() => setGlitchActive(false), 150 + Math.random() * 200);
-    }, 2000 + Math.random() * 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <FadeIn delay={0.1}>
-      <Card className="w-full bg-black/[0.96] relative overflow-hidden border-zinc-800">
-        <Spotlight className="-top-40 right-0 md:right-60 md:-top-20" fill="#f43f5e" />
-        <div className="flex flex-col lg:flex-row-reverse min-h-[550px]">
-          <div className="flex-1 p-8 md:p-12 relative z-10 flex flex-col justify-center">
-            <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r from-rose-500 to-red-600 text-white w-fit mb-4">
-              Scene 11 — Glitch
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-2">
-              Corrupted Signal
-            </h2>
-            <p className="text-zinc-500 text-sm uppercase tracking-wider mb-4">
-              Cyberpunk Distortion
-            </p>
-            <p className="text-zinc-400 leading-relaxed mb-6 max-w-md">
-              The robot is glitching. RGB channels split and stagger. Random
-              bursts of chromatic aberration tear across the frame. Noise
-              artifacts corrupt the signal. But through all that chaos — the
-              robot still watches you. Still follows your cursor. Unbroken.
-            </p>
-            <span className="text-xs text-zinc-600 font-mono">
-              RGB Split • Chromatic Aberration • Signal Noise • Glitch Bursts
-            </span>
-          </div>
-
-          <div className="flex-1 relative min-h-[400px]" ref={containerRef}>
-            {/* Glitch RGB split layers */}
-            <div
-              className="absolute inset-0 z-20 pointer-events-none transition-opacity duration-75"
-              style={{
-                opacity: glitchActive ? 1 : 0,
-                background:
-                  "repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(255,0,0,0.03) 3px, rgba(255,0,0,0.03) 4px)",
-              }}
-            />
-
-            {/* Chromatic aberration effect */}
-            <div
-              className="absolute inset-0 z-20 pointer-events-none"
-              style={{
-                opacity: glitchActive ? 0.7 : 0,
-                boxShadow: glitchActive
-                  ? "inset 3px 0 0 rgba(255,0,0,0.5), inset -3px 0 0 rgba(0,255,255,0.5)"
-                  : "none",
-                transition: "opacity 50ms",
-              }}
-            />
-
-            {/* Horizontal tear lines */}
-            {glitchActive && (
-              <>
-                <div
-                  className="absolute left-0 right-0 h-[3px] z-30 pointer-events-none"
-                  style={{
-                    top: `${20 + Math.random() * 60}%`,
-                    background: "rgba(255,0,100,0.4)",
-                    transform: `translateX(${Math.random() * 10 - 5}px)`,
-                  }}
-                />
-                <div
-                  className="absolute left-0 right-0 h-[2px] z-30 pointer-events-none"
-                  style={{
-                    top: `${40 + Math.random() * 40}%`,
-                    background: "rgba(0,255,200,0.3)",
-                    transform: `translateX(${Math.random() * 8 - 4}px)`,
-                  }}
-                />
-              </>
-            )}
-
-            {/* Permanent noise texture */}
-            <div
-              className="absolute inset-0 z-10 pointer-events-none opacity-[0.04]"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
-              }}
-            />
-
-            {/* Vignette */}
-            <div className="absolute inset-0 z-10 pointer-events-none shadow-[inset_0_0_80px_rgba(0,0,0,0.7)]" />
-
-            <Suspense fallback={<SceneLoader />}>
-              <SplineScene scene={ROBOT_URL} className="w-full h-full absolute inset-0" />
-            </Suspense>
-          </div>
-        </div>
-      </Card>
-    </FadeIn>
-  );
-}
-
-function PortalRobot() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      setMousePos({ x, y });
-    },
-    []
-  );
-
-  return (
-    <FadeIn delay={0.1}>
-      <Card className="w-full bg-black/[0.96] relative overflow-hidden border-zinc-800">
-        <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="#a855f7" />
-        <div className="flex flex-col lg:flex-row min-h-[550px]">
-          <div className="flex-1 p-8 md:p-12 relative z-10 flex flex-col justify-center">
-            <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r from-purple-500 to-violet-600 text-white w-fit mb-4">
-              Scene 12 — Portal
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-2">
-              Portal Window
-            </h2>
-            <p className="text-zinc-500 text-sm uppercase tracking-wider mb-4">
-              Dimensional Reveal
-            </p>
-            <p className="text-zinc-400 leading-relaxed mb-6 max-w-md">
-              The robot exists in another dimension — visible only through a
-              circular portal that follows your cursor. Move your mouse to drag
-              the window across the void. The portal reveals the robot underneath,
-              glowing at the edges, pulsing with energy. Peek through. It sees you back.
-            </p>
-            <span className="text-xs text-zinc-600 font-mono">
-              Cursor Portal • Radial Mask • Edge Glow • Dimensional Reveal
-            </span>
-          </div>
-
-          <div
-            className="flex-1 relative min-h-[400px]"
-            ref={containerRef}
-            onMouseMove={handleMouseMove}
-          >
-            {/* Portal mask — reveals robot through a cursor-following circle */}
-            <div
-              className="absolute inset-0 z-20 pointer-events-none"
-              style={{
-                background: `radial-gradient(circle 140px at ${mousePos.x}% ${mousePos.y}%, transparent 0%, transparent 60%, rgba(0,0,0,0.97) 100%)`,
-                transition: "background 0.1s ease-out",
-              }}
-            />
-
-            {/* Portal ring glow */}
-            <div
-              className="absolute inset-0 z-30 pointer-events-none"
-              style={{
-                background: `radial-gradient(circle 142px at ${mousePos.x}% ${mousePos.y}%, transparent 56%, rgba(168,85,247,0.6) 59%, rgba(168,85,247,0.3) 62%, transparent 70%)`,
-                transition: "background 0.1s ease-out",
-              }}
-            />
-
-            {/* Outer particles / energy dots */}
-            <div
-              className="absolute inset-0 z-30 pointer-events-none"
-              style={{
-                background: `radial-gradient(circle 200px at ${mousePos.x}% ${mousePos.y}%, transparent 65%, rgba(139,92,246,0.08) 70%, transparent 80%)`,
-                transition: "background 0.15s ease-out",
-              }}
-            />
-
-            {/* Ambient pulse rings */}
-            <div
-              className="absolute inset-0 z-25 pointer-events-none"
-              style={{
-                background: `radial-gradient(circle 160px at ${mousePos.x}% ${mousePos.y}%, transparent 55%, rgba(168,85,247,0.15) 58%, transparent 63%)`,
-                transition: "background 0.1s ease-out",
-                animation: "portalPulse 2s ease-in-out infinite",
-              }}
-            />
-
-            {/* "VOID" text when not hovering portal area */}
-            <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-              <span className="text-zinc-800 text-lg font-mono tracking-[0.5em] uppercase select-none">
-                Move cursor to reveal
-              </span>
-            </div>
-
-            <Suspense fallback={<SceneLoader />}>
-              <SplineScene scene={ROBOT_URL} className="w-full h-full absolute inset-0" />
-            </Suspense>
-          </div>
-        </div>
-      </Card>
-
-      <style jsx>{`
-        @keyframes portalPulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.3; }
-        }
-      `}</style>
-    </FadeIn>
-  );
-}
+const robotVariants = [
+  {
+    id: "neon-samurai",
+    title: "Neon Samurai",
+    subtitle: "Cyberpunk Warrior",
+    description:
+      "Angular samurai armor forged from pure darkness. Neon green visor slits pulse with scanning energy. Red blade wings extend from the helmet. Wrist-mounted beam katanas glow at the forearms. This robot was built to hunt — and it's locked onto your cursor.",
+    gradient: "from-emerald-400 to-cyan-500",
+    spotlightColor: "#00ffaa",
+    tech: "Samurai Armor • Neon Accents • Wrist Blades • Visor Tracking",
+    Component: NeonSamurai,
+  },
+  {
+    id: "bubble-bot",
+    title: "Bubble Bot",
+    subtitle: "Friendly Companion",
+    description:
+      "All soft curves and pastel warmth. Big round eyes that blink. Rosy cheeks that glow. A glowing antenna bobbing on top. Arms that wave at you. This robot doesn't fight — it makes you smile. Bounces gently in place, tilts its head when curious, and never stops watching you with those giant doe eyes.",
+    gradient: "from-purple-400 to-pink-400",
+    spotlightColor: "#c084fc",
+    tech: "Sphere Geometry • Blinking Eyes • Arm Animation • Head Tilt",
+    Component: BubbleBot,
+  },
+  {
+    id: "chrome-titan",
+    title: "Chrome Titan",
+    subtitle: "Heavy Artillery Unit",
+    description:
+      "Pure chrome. Massive shoulders. Gold trim on every edge. A blue reactor core pulses in the chest. This is the final boss — 8 feet of reflective metal that barely moves because it doesn't need to. Slow, deliberate head tracking. Blue slit eyes that see everything. Built like a tank, polished like a trophy.",
+    gradient: "from-blue-400 to-indigo-500",
+    spotlightColor: "#3b82f6",
+    tech: "Chrome PBR • Gold Accents • Reactor Core • Heavy Chassis",
+    Component: ChromeTitan,
+  },
+];
 
 function SceneCard({
   scene,
@@ -467,7 +216,6 @@ function SceneCard({
             isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
           } min-h-[550px]`}
         >
-          {/* Content Side */}
           <div className="flex-1 p-8 md:p-12 relative z-10 flex flex-col justify-center">
             <span
               className={`inline-block px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r ${scene.gradient} text-white w-fit mb-4`}
@@ -488,7 +236,6 @@ function SceneCard({
             </span>
           </div>
 
-          {/* 3D Scene Side */}
           <div className="flex-1 relative min-h-[400px]">
             <Suspense fallback={<SceneLoader />}>
               <SplineScene
@@ -496,6 +243,67 @@ function SceneCard({
                 className="w-full h-full absolute inset-0"
               />
             </Suspense>
+          </div>
+        </div>
+      </Card>
+    </FadeIn>
+  );
+}
+
+function RobotCard({
+  robot,
+  index,
+}: {
+  robot: (typeof robotVariants)[0];
+  index: number;
+}) {
+  const isReversed = index % 2 === 1;
+  const sceneNumber = scenes.length + index + 1;
+
+  return (
+    <FadeIn delay={0.1}>
+      <Card className="w-full bg-black/[0.96] relative overflow-hidden border-zinc-800">
+        <Spotlight
+          className={
+            isReversed
+              ? "-top-40 right-0 md:right-60 md:-top-20"
+              : "-top-40 left-0 md:left-60 md:-top-20"
+          }
+          fill={robot.spotlightColor}
+        />
+
+        <div
+          className={`flex flex-col ${
+            isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
+          } min-h-[600px]`}
+        >
+          <div className="flex-1 p-8 md:p-12 relative z-10 flex flex-col justify-center">
+            <div className="flex items-center gap-2 mb-4">
+              <span
+                className={`inline-block px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r ${robot.gradient} text-white w-fit`}
+              >
+                Scene {sceneNumber}
+              </span>
+              <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-zinc-400 border border-zinc-700 w-fit">
+                Custom R3F
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-2">
+              {robot.title}
+            </h2>
+            <p className="text-zinc-500 text-sm uppercase tracking-wider mb-4">
+              {robot.subtitle}
+            </p>
+            <p className="text-zinc-400 leading-relaxed mb-6 max-w-md">
+              {robot.description}
+            </p>
+            <span className="text-xs text-zinc-600 font-mono">
+              {robot.tech}
+            </span>
+          </div>
+
+          <div className="flex-1 relative min-h-[500px]">
+            <robot.Component className="w-full h-full absolute inset-0" />
           </div>
         </div>
       </Card>
@@ -535,7 +343,7 @@ export default function SplineWorldsPage() {
             className="mb-6"
           >
             <span className="px-4 py-2 text-sm font-medium text-violet-400 bg-violet-500/10 rounded-full border border-violet-500/20">
-              Spline 3D • Interactive Worlds
+              Spline 3D + Custom R3F Robots
             </span>
           </motion.div>
 
@@ -549,14 +357,14 @@ export default function SplineWorldsPage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            Twelve interactive 3D scenes powered by Spline — including three
-            robot variations with hologram, glitch, and portal effects that
-            nobody has built before. Move your cursor to interact.
+            Twelve interactive 3D scenes. Nine Spline worlds plus three
+            hand-coded robot characters — each built from scratch in React Three
+            Fiber with their own design, personality, and cursor tracking.
           </motion.p>
         </div>
       </section>
 
-      {/* Standard Scenes */}
+      {/* Standard Spline Scenes */}
       <section className="relative z-10 pb-12 px-6">
         <div className="max-w-7xl mx-auto space-y-12">
           {scenes.map((scene, i) => (
@@ -565,30 +373,30 @@ export default function SplineWorldsPage() {
         </div>
       </section>
 
-      {/* Robot Variants Section */}
+      {/* Custom Robot Characters Section */}
       <section className="relative z-10 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <FadeIn>
             <div className="text-center mb-16">
               <span className="px-4 py-2 text-sm font-medium text-rose-400 bg-rose-500/10 rounded-full border border-rose-500/20">
-                Same Robot • Three Dimensions
+                Hand-Coded • Zero Dependencies • Pure Three.js
               </span>
               <h2 className="text-4xl md:text-5xl font-bold mt-6 mb-4">
-                One Robot. Three Realities.
+                Custom Robot Characters
               </h2>
               <p className="text-zinc-400 max-w-2xl mx-auto">
-                The same cursor-tracking robot from Scene 1 — but each one lives
-                in a completely different visual reality. CSS effects layered on
-                top of a live, interactive 3D scene. The robot still follows your
-                cursor through every effect.
+                Three standing robot characters built entirely from code — no
+                Spline, no imported models, no shortcuts. Every joint, every
+                glow, every animation is hand-crafted geometry. Each one tracks
+                your cursor with its own personality.
               </p>
             </div>
           </FadeIn>
 
           <div className="space-y-12">
-            <HologramRobot />
-            <GlitchRobot />
-            <PortalRobot />
+            {robotVariants.map((robot, i) => (
+              <RobotCard key={robot.id} robot={robot} index={i} />
+            ))}
           </div>
         </div>
       </section>
