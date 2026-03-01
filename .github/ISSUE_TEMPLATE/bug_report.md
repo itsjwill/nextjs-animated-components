@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a bug in MotionCraft
+about: Report a bug in Motion Primitives
 title: "[Bug] "
 labels: bug
 ---

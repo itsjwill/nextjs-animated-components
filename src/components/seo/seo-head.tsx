@@ -14,12 +14,12 @@ import {
 // =============================================================================
 
 const siteConfig = {
-  name: "MotionCraft",
+  name: "Motion Primitives",
   description:
     "The ultimate web animation toolkit. GSAP + Framer Motion + Lenis + Three.js + 95+ premium components.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://motioncraft.dev",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://motion-primitives.dev",
   links: {
-    github: "https://github.com/itsjwill/motioncraft",
+    github: "https://github.com/itsjwill/motion-primitives-website",
   },
 };
 

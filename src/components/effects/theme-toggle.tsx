@@ -38,7 +38,7 @@ interface ThemeProviderProps {
 export function ThemeProvider({
   children,
   defaultTheme = "dark",
-  storageKey = "motioncraft-theme",
+  storageKey = "motion-primitives-theme",
 }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("dark");

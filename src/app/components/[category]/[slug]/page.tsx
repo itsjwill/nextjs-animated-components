@@ -22,10 +22,10 @@ export function generateMetadata({ params }: Props): Metadata {
   if (!component) return { title: "Not Found" };
 
   return {
-    title: `${component.name} — MotionCraft`,
+    title: `${component.name} — Motion Primitives`,
     description: component.description,
     openGraph: {
-      title: `${component.name} — MotionCraft Component`,
+      title: `${component.name} — Motion Primitives Component`,
       description: component.description,
       type: "article",
     },

@@ -654,7 +654,7 @@ function CTASection() {
               </MagneticButton>
             </Link>
             <a
-              href="https://github.com/itsjwill/nextjs-animated-components"
+              href="https://github.com/itsjwill/motion-primitives-website"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -685,7 +685,7 @@ export default function ScrollShowcasePage() {
             href="/"
             className="text-sm font-medium text-zinc-500 hover:text-white transition-colors"
           >
-            MotionCraft
+            Motion Primitives
           </Link>
           <AnimatedNavLink
             href="/demos"
@@ -735,7 +735,7 @@ export default function ScrollShowcasePage() {
           <p className="text-zinc-700 text-xs">
             Built with{" "}
             <GradientText gradient="from-purple-400 to-pink-400">
-              MotionCraft
+              Motion Primitives
             </GradientText>
           </p>
         </div>

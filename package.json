@@ -1,15 +1,15 @@
 {
-  "name": "nextjs-animated-components",
+  "name": "motion-primitives-website",
   "version": "2.0.0",
   "description": "110+ free animated React components for Next.js. Framer Motion, GSAP, Three.js, Tailwind CSS. Dock, Spotlight Cards, Glassmorphism, Scroll Animations, 3D effects. Copy-paste ready.",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/itsjwill/nextjs-animated-components"
+    "url": "https://github.com/itsjwill/motion-primitives-website"
   },
-  "homepage": "https://nextjs-animated-components.vercel.app",
+  "homepage": "https://motion-primitives.dev",
   "bugs": {
-    "url": "https://github.com/itsjwill/nextjs-animated-components/issues"
+    "url": "https://github.com/itsjwill/motion-primitives-website/issues"
   },
   "scripts": {
     "dev": "next dev",
@@ -19,33 +19,35 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^9.105.0",
+    "@react-three/fiber": "^8.16.0",
+    "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^1.12.61",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.0.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.0",
+    "mini-svg-data-uri": "^1.4.4",
     "next": "^14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
-    "gsap": "^3.12.5",
-    "framer-motion": "^11.0.0",
-    "lenis": "^1.1.0",
-    "@react-three/fiber": "^8.16.0",
-    "@react-three/drei": "^9.105.0",
-    "three": "^0.164.0",
-    "clsx": "^2.1.0",
+    "schema-dts": "^1.1.2",
     "tailwind-merge": "^2.3.0",
-    "class-variance-authority": "^0.7.0",
-    "mini-svg-data-uri": "^1.4.4",
-    "schema-dts": "^1.1.2"
+    "three": "^0.164.0"
   },
   "devDependencies": {
     "@types/node": "^20.12.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@types/three": "^0.164.0",
-    "typescript": "^5.4.0",
-    "tailwindcss": "^3.4.0",
-    "postcss": "^8.4.0",
     "autoprefixer": "^10.4.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.0",
-    "next-sitemap": "^4.2.3"
+    "next-sitemap": "^4.2.3",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.4.0"
   },
   "keywords": [
     "animated-components",

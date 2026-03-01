@@ -44,6 +44,14 @@ const demos = [
     gradient: "from-red-500 to-orange-500",
     features: ["Horizontal Scroll", "Custom Cursor", "Aurora Background", "Text Effects"],
   },
+  {
+    title: "Interactive 3D",
+    subtitle: "Spline Scenes — Live",
+    description: "Three completely different interactive 3D experiences powered by Spline. A cursor-tracking robot, a draggable Earth globe, and a morphing crystal hero. No WebGL code.",
+    href: "/demos/interactive-3d",
+    gradient: "from-indigo-500 to-violet-600",
+    features: ["Spline 3D", "Cursor Tracking", "Globe Visualization", "Product Hero", "Zero Config"],
+  },
 ];
 
 export default function DemosPage() {
@@ -57,7 +65,7 @@ export default function DemosPage() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link href="/" className="text-xl font-bold">
             <GradientText gradient="from-purple-400 to-pink-400">
-              MotionCraft
+              Motion Primitives
             </GradientText>
           </Link>
           <AnimatedNavLink href="/" variant="underline" className="text-zinc-400">
@@ -89,7 +97,7 @@ export default function DemosPage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            See what&apos;s possible with MotionCraft. These are complete website
+            See what&apos;s possible with Motion Primitives. These are complete website
             templates showcasing the components in action.
           </motion.p>
         </div>
@@ -182,7 +190,7 @@ export default function DemosPage() {
                 </MagneticButton>
               </Link>
               <a
-                href="https://github.com/itsjwill/motioncraft"
+                href="https://github.com/itsjwill/motion-primitives-website"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -201,7 +209,7 @@ export default function DemosPage() {
           <p className="text-zinc-600 text-sm">
             Built with{" "}
             <GradientText gradient="from-purple-400 to-pink-400">
-              MotionCraft
+              Motion Primitives
             </GradientText>
             {" "}• The ultimate animation toolkit
           </p>

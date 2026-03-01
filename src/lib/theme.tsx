@@ -62,8 +62,8 @@ export const DIRECTION_META: Record<
   },
 };
 
-const STORAGE_KEY_DIRECTION = "motioncraft-direction";
-const STORAGE_KEY_MODE = "motioncraft-mode";
+const STORAGE_KEY_DIRECTION = "motion-primitives-direction";
+const STORAGE_KEY_MODE = "motion-primitives-mode";
 
 // =============================================================================
 // Context

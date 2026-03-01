@@ -1,12 +1,12 @@
-# Contributing to MotionCraft
+# Contributing to Motion Primitives
 
 Thanks for your interest in contributing! Here's how to get started.
 
 ## Development Setup
 
 ```bash
-git clone https://github.com/itsjwill/motioncraft.git
-cd motioncraft
+git clone https://github.com/itsjwill/motion-primitives-website.git
+cd motion-primitives-website
 npm install
 npm run dev
 ```

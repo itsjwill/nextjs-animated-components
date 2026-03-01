@@ -31,18 +31,18 @@ export interface PageSEO {
 // =============================================================================
 
 export const siteConfig: SiteConfig = {
-  name: "MotionCraft",
+  name: "Motion Primitives",
   description:
     "The ultimate web animation toolkit. GSAP + Framer Motion + Lenis + Three.js + 95+ premium components. Build award-winning sites.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://motioncraft.dev",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://motion-primitives.dev",
   ogImage: "/og-image.png",
   links: {
     twitter: "https://twitter.com/itsjwill",
-    github: "https://github.com/itsjwill/motioncraft",
+    github: "https://github.com/itsjwill/motion-primitives-website",
   },
   creator: "itsjwill",
   keywords: [
-    "motioncraft",
+    "motion-primitives",
     "animation",
     "react",
     "nextjs",

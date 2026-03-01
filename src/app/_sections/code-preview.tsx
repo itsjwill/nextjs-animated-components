@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { useTheme, DIRECTION_META } from "@/lib/theme";
 
-const CODE_EXAMPLE = `import { TiltCard, MagneticButton, FadeIn } from "motioncraft";
+const CODE_EXAMPLE = `import { TiltCard, MagneticButton, FadeIn } from "motion-primitives-website";
 
 export default function Hero() {
   return (

@@ -56,14 +56,14 @@ function LuxuryCTA({ isInView, accent }: { isInView: boolean; accent: string }) 
       </p>
       <div className="flex items-center justify-center gap-12">
         <a
-          href="https://github.com/itsjwill/motioncraft"
+          href="https://github.com/itsjwill/motion-primitives-website"
           className="group relative text-sm font-light tracking-[0.25em] uppercase text-foreground/40 hover:text-foreground/80 transition-all duration-1000"
         >
           Get Started
           <span className="absolute -bottom-2 left-0 w-0 h-px group-hover:w-full transition-all duration-1000" style={{ backgroundColor: accent }} />
         </a>
         <a
-          href="https://github.com/itsjwill/motioncraft"
+          href="https://github.com/itsjwill/motion-primitives-website"
           className="group relative text-sm font-light tracking-[0.25em] uppercase text-foreground/30 hover:text-foreground/60 transition-all duration-1000"
         >
           GitHub
@@ -94,7 +94,7 @@ function CyberpunkCTA({ isInView, accent }: { isInView: boolean; accent: string 
       </p>
       <div className="flex flex-wrap items-center gap-4 pt-4">
         <a
-          href="https://github.com/itsjwill/motioncraft"
+          href="https://github.com/itsjwill/motion-primitives-website"
           className="px-8 py-3 font-mono text-sm font-bold tracking-wider text-black hover:scale-105 transition-transform duration-150"
           style={{
             backgroundColor: accent,
@@ -102,10 +102,10 @@ function CyberpunkCTA({ isInView, accent }: { isInView: boolean; accent: string 
             boxShadow: `0 0 20px ${accent}50`,
           }}
         >
-          npm install motioncraft
+          npm install motion-primitives-website
         </a>
         <a
-          href="https://github.com/itsjwill/motioncraft"
+          href="https://github.com/itsjwill/motion-primitives-website"
           className="inline-flex items-center gap-2 px-6 py-3 font-mono text-xs tracking-wider border border-border hover:border-[#00FFD1]/40 transition-colors duration-150"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-[#00FFD1]">
@@ -135,7 +135,7 @@ function KineticCTA({ isInView, accent }: { isInView: boolean; accent: string })
       </p>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
         <motion.a
-          href="https://github.com/itsjwill/motioncraft"
+          href="https://github.com/itsjwill/motion-primitives-website"
           whileHover={{ scale: 1.08, y: -3 }}
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
@@ -145,7 +145,7 @@ function KineticCTA({ isInView, accent }: { isInView: boolean; accent: string })
           Get Started Free
         </motion.a>
         <motion.a
-          href="https://github.com/itsjwill/motioncraft"
+          href="https://github.com/itsjwill/motion-primitives-website"
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
@@ -177,14 +177,14 @@ function FreestyleCTA({ isInView, accent }: { isInView: boolean; accent: string 
         </h2>
         <div className="flex flex-wrap items-center gap-4">
           <a
-            href="https://github.com/itsjwill/motioncraft"
+            href="https://github.com/itsjwill/motion-primitives-website"
             className="px-10 py-4 text-lg font-black uppercase text-black hover:scale-105 transition-transform duration-200"
             style={{ backgroundColor: accent }}
           >
             GET IT NOW →
           </a>
           <a
-            href="https://github.com/itsjwill/motioncraft"
+            href="https://github.com/itsjwill/motion-primitives-website"
             className="px-8 py-4 text-lg font-black uppercase border-4 border-foreground text-foreground hover:bg-foreground hover:text-background transition-all duration-200 inline-flex items-center gap-2"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">

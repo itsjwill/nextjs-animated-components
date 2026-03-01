@@ -295,7 +295,7 @@ function CyberpunkButtons({ accent, isInView }: { accent: string; isInView: bool
         </button>
         <button className="px-6 py-2.5 bg-surface border border-border font-mono text-xs hover:border-[#00FFD1]/50 transition-colors duration-150 group">
           <span className="text-muted-foreground group-hover:text-[#00FFD1]">$ </span>
-          <span className="text-foreground">npx motioncraft init</span>
+          <span className="text-foreground">npx motion-primitives-website init</span>
         </button>
       </motion.div>
 

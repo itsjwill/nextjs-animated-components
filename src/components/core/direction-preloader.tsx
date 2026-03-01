@@ -86,7 +86,7 @@ function LuxuryPreloader({ accent }: { accent: string }) {
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       >
         <h1 className="text-4xl md:text-6xl font-heading font-bold whitespace-nowrap" style={{ color: accent }}>
-          MotionCraft
+          Motion Primitives
         </h1>
       </motion.div>
       <motion.div
@@ -119,7 +119,7 @@ function CyberpunkPreloader({ accent }: { accent: string }) {
 
   useEffect(() => {
     const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-    const texts = ["INITIALIZING", "LOADING_NODES", "SYNCING_UI", "MOTIONCRAFT"];
+    const texts = ["INITIALIZING", "LOADING_NODES", "SYNCING_UI", "MOTION_PRIMITIVES"];
     let idx = 0;
     let scrambleInterval: ReturnType<typeof setInterval> | null = null;
 

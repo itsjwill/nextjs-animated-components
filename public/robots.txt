@@ -14,7 +14,7 @@ User-agent: Bingbot
 Allow: /
 
 # Host
-Host: https://motioncraft.dev
+Host: https://motion-primitives.dev
 
 # Sitemaps
-Sitemap: https://motioncraft.dev/sitemap.xml
+Sitemap: https://motion-primitives.dev/sitemap.xml

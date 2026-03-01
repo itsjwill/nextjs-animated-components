@@ -445,7 +445,7 @@ emergency.on("detected", async (call) => {
             <span className="text-sm text-zinc-500 font-mono">SYSTEM ALIVE</span>
           </div>
           <span className="text-sm text-zinc-600">
-            motioncraft / showcase
+            motion-primitives / showcase
           </span>
         </div>
       </footer>

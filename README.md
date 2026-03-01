@@ -1,19 +1,19 @@
-# Next.js Animated Components — 150+ Free React Animation Components
+# Motion Primitives — 155+ Free React Animation Components
 
 ### The free, open-source alternative to Aceternity UI, Magic UI, 21st.dev, and Shadcn Motion
 
 <div align="center">
 
-![Stars](https://img.shields.io/github/stars/itsjwill/nextjs-animated-components?style=for-the-badge)
+![Stars](https://img.shields.io/github/stars/itsjwill/motion-primitives-website?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Components](https://img.shields.io/badge/Components-150+-purple?style=for-the-badge)
+![Components](https://img.shields.io/badge/Components-155+-purple?style=for-the-badge)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge)
 
-**[Live Demo](https://nextjs-animated-components.vercel.app)** | **[Browse Components](https://nextjs-animated-components.vercel.app/components)** | **[Showcase](https://nextjs-animated-components.vercel.app/showcase)**
+**[Live Demo](https://motion-primitives.dev)** | **[Browse Components](https://motion-primitives.dev/components)** | **[Showcase](https://motion-primitives.dev/showcase)**
 
 </div>
 
-> **150+ copy-paste animated components for React & Next.js.** Framer Motion, GSAP, Three.js, Tailwind CSS. Apple Liquid Glass, Stripe Mesh Gradients, SVG Path Animations, Animated Chat UI, Scroll Orchestration, 3D effects, and more. Zero paid dependencies.
+> **155+ copy-paste animated components for React & Next.js.** Framer Motion, GSAP, Three.js, Tailwind CSS. Apple Liquid Glass, Stripe Mesh Gradients, SVG Path Animations, Animated Chat UI, Scroll Orchestration, 3D effects, and more. Zero paid dependencies.
 
 ---
 
@@ -23,22 +23,23 @@
 
 | Page | What You'll See |
 |------|----------------|
-| **[Homepage](https://nextjs-animated-components.vercel.app)** | Full showcase with all sections, direction picker, interactive demos |
-| **[Component Browser](https://nextjs-animated-components.vercel.app/components)** | Browse all 150+ components by category with live previews |
-| **[Showcase](https://nextjs-animated-components.vercel.app/showcase)** | Full-page component exhibition |
-| **[Scroll Animations](https://nextjs-animated-components.vercel.app/demos/scroll)** | **10 GSAP ScrollTrigger demos — orchestrator, clip-path, velocity, parallax, horizontal scroll** |
-| **[SaaS Demo](https://nextjs-animated-components.vercel.app/demos/saas)** | Complete SaaS landing page built with these components |
-| **[Agency Demo](https://nextjs-animated-components.vercel.app/demos/agency)** | Agency site template with animations |
-| **[Portfolio Demo](https://nextjs-animated-components.vercel.app/demos/portfolio)** | Portfolio template with 3D and scroll effects |
-| **[Neural Demo](https://nextjs-animated-components.vercel.app/neural)** | Three.js neural network visualization |
+| **[Homepage](https://motion-primitives.dev)** | Full showcase with all sections, direction picker, interactive demos |
+| **[Component Browser](https://motion-primitives.dev/components)** | Browse all 155+ components by category with live previews |
+| **[Showcase](https://motion-primitives.dev/showcase)** | Full-page component exhibition |
+| **[Scroll Animations](https://motion-primitives.dev/demos/scroll)** | **10 GSAP ScrollTrigger demos — orchestrator, clip-path, velocity, parallax, horizontal scroll** |
+| **[SaaS Demo](https://motion-primitives.dev/demos/saas)** | Complete SaaS landing page built with these components |
+| **[Agency Demo](https://motion-primitives.dev/demos/agency)** | Agency site template with animations |
+| **[Portfolio Demo](https://motion-primitives.dev/demos/portfolio)** | Portfolio template with 3D and scroll effects |
+| **[Interactive 3D](https://motion-primitives.dev/demos/interactive-3d)** | **3 Spline 3D scenes — interactive robot, draggable Earth globe, morphing crystal** |
+| **[Neural Demo](https://motion-primitives.dev/neural)** | Three.js neural network visualization |
 
 ---
 
 ## Run It Locally
 
 ```bash
-git clone https://github.com/itsjwill/nextjs-animated-components.git
-cd nextjs-animated-components
+git clone https://github.com/itsjwill/motion-primitives-website.git
+cd motion-primitives-website
 npm install
 npm run dev
 ```
@@ -189,9 +190,9 @@ Magnetic Button, Magnetic Gallery, Custom Cursor (6 variants), Fluid Cursor (met
 
 Shader Distortion, Ink Bleed, Cloth, Portal, Swarm, Liquid Metal, Reactive Shadow, Sticker Peel, Thermal, Momentum
 
-### 3D Components (5 components)
+### 3D Components (6 components)
 
-Floating Shapes, Interactive Globe, Neural Network, Particle Morph, Scroll Progress 3D
+Floating Shapes, Interactive Globe, Neural Network, Particle Morph, Scroll Progress 3D, **SplineScene** (Spline 3D integration with lazy loading + Suspense)
 
 ### Layout & Navigation (5 components)
 
@@ -240,6 +241,28 @@ import { TextScramble, SpringText } from "@/components/text";
 import { SvgPathDraw, SvgGooeyBlob } from "@/components/svg";
 import { ChatContainer, ChatBubble, StreamingText } from "@/components/chat";
 import { ScrollOrchestrator, ScrollStage, ImageSequenceScroll } from "@/components/scroll";
+```
+
+### Spline 3D Scene (Interactive)
+
+```tsx
+import { SplineScene } from "@/components/ui/splite";
+import { Card } from "@/components/ui/card";
+import { Spotlight } from "@/components/backgrounds/spotlight";
+
+<Card className="w-full h-[500px] bg-black/[0.96] relative overflow-hidden">
+  <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
+  <div className="flex h-full">
+    <div className="flex-1 p-8 z-10 flex flex-col justify-center">
+      <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+        Interactive 3D
+      </h1>
+    </div>
+    <div className="flex-1 relative">
+      <SplineScene scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" className="w-full h-full" />
+    </div>
+  </div>
+</Card>
 ```
 
 ### Apple Liquid Glass (iOS 26)
@@ -394,6 +417,7 @@ Use the **DirectionPicker** component (bottom-right corner in demo) to try all 4
 | **Framer Motion 11** | Declarative animations, gestures, layout animations |
 | **GSAP 3.12** | Complex timelines, ScrollTrigger, pin/scrub effects |
 | **Three.js / React Three Fiber** | 3D scenes (globe, particles, neural network) |
+| **Spline** | Interactive 3D scenes with cursor tracking, drag, and scroll |
 | **Lenis** | Smooth scrolling with momentum |
 | **Tailwind CSS 3.4** | Utility styling with direction-aware CSS variables |
 | **TypeScript 5.4** | Full type safety, prop interfaces for every component |
@@ -405,8 +429,8 @@ Use the **DirectionPicker** component (bottom-right corner in demo) to try all 4
 | Feature | Aceternity UI | Magic UI | Shadcn Motion | **This Repo** |
 |---------|--------------|----------|---------------|---------------|
 | Price | $49-149/yr | $49/yr | Free | **Free (MIT)** |
-| Components | ~50 | ~40 | ~20 | **150+** |
-| Live Demo | Yes | Yes | Limited | **[Yes — 8 pages](https://nextjs-animated-components.vercel.app)** |
+| Components | ~50 | ~40 | ~20 | **155+** |
+| Live Demo | Yes | Yes | Limited | **[Yes — 8 pages](https://motion-primitives.dev)** |
 | Design Systems | 1 | 1 | 1 | **4 (runtime switchable)** |
 | 3D Components | Few | None | None | **5 (Three.js)** |
 | GSAP ScrollTrigger | No | No | No | **Yes** |
@@ -414,7 +438,8 @@ Use the **DirectionPicker** component (bottom-right corner in demo) to try all 4
 | Audio Reactive | No | No | No | **Yes** |
 | Fluid Cursor | No | No | No | **Metaball cursor** |
 | SEO Toolkit | None | None | None | **15 JSON-LD schemas** |
-| Page Templates | None | None | None | **3 (SaaS, Agency, Portfolio)** |
+| Spline 3D | No | No | No | **Yes (3 interactive scenes)** |
+| Page Templates | None | None | None | **4 (SaaS, Agency, Portfolio, 3D)** |
 | Preloader | None | None | None | **4 direction-specific variants** |
 | SVG Animations | No | No | No | **12 components + 4 hooks** |
 | Animated Chat UI | No | No | No | **8 components** |
@@ -456,7 +481,8 @@ src/
 │   ├── templates/        # 3 page templates (landing, about, pricing)
 │   ├── text/             # 7 text animations (generate, reveal, gradient, scramble, spring, variable font...)
 │   ├── three/            # 5 Three.js 3D components (globe, particles, neural network...)
-│   └── transitions/      # 3 page transitions (noise dissolve, preloader variants)
+│   ├── transitions/      # 3 page transitions (noise dissolve, preloader variants)
+│   └── ui/               # Shadcn-style primitives (Card, SplineScene)
 ├── hooks/
 │   ├── use-gsap.ts           # GSAP ScrollTrigger integration
 │   ├── use-lenis.ts          # Smooth scroll with Lenis

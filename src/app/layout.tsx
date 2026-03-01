@@ -9,7 +9,7 @@ import { DirectionPreloader } from "@/components/core/direction-preloader";
 // Site Configuration
 // =============================================================================
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://motioncraft.dev";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://motion-primitives.dev";
 
 // =============================================================================
 // Metadata
@@ -18,13 +18,13 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://motioncraft.dev";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "MotionCraft - Premium Animation Components for React",
-    template: "%s | MotionCraft",
+    default: "Motion Primitives - Premium Animation Components for React",
+    template: "%s | Motion Primitives",
   },
   description:
     "The ultimate web animation toolkit. 95+ premium components across 4 design directions. GSAP + Framer Motion + Lenis + Three.js. Build award-winning sites in minutes.",
   keywords: [
-    "motioncraft",
+    "motion-primitives",
     "animation",
     "react",
     "nextjs",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "itsjwill" }],
   creator: "itsjwill",
-  publisher: "MotionCraft",
+  publisher: "Motion Primitives",
   robots: {
     index: true,
     follow: true,
@@ -63,22 +63,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    title: "MotionCraft - Premium Animation Components for React",
+    title: "Motion Primitives - Premium Animation Components for React",
     description:
       "95+ animation components. 4 design directions. Zero compromise. Build award-winning websites.",
-    siteName: "MotionCraft",
+    siteName: "Motion Primitives",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MotionCraft - 4 Design Directions",
+        alt: "Motion Primitives - 4 Design Directions",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MotionCraft - Premium Animation Components",
+    title: "Motion Primitives - Premium Animation Components",
     description:
       "95+ animation components. 4 design directions. Build award-winning websites.",
     images: ["/og-image.png"],
