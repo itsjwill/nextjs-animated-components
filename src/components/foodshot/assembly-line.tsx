@@ -2,8 +2,12 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, Suspense, lazy } from "react";
+import Image from "next/image";
+import { foodPhotos } from "./photo-data";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
+
+const photo = foodPhotos[2]; // El Jefe
 
 function SplineLoader() {
   return (
@@ -42,10 +46,8 @@ export function AssemblyLine() {
       style={{ height: "400vh" }}
     >
       <div className="sticky top-0 h-screen overflow-hidden">
-        {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-r from-red-950/10 via-black to-amber-950/10" />
 
-        {/* Header */}
         <div className="absolute top-6 left-6 z-20">
           <span className="inline-block px-4 py-1.5 text-xs font-medium rounded-full bg-gradient-to-r from-red-500 to-amber-500 text-white mb-2">
             Concept 3C — The Assembly Line
@@ -56,39 +58,34 @@ export function AssemblyLine() {
               FoodShot Factory
             </span>
           </h2>
-          <p className="text-zinc-500 text-sm mt-1">Scroll to move through the pipeline →</p>
+          <p className="text-zinc-500 text-sm mt-1">Scroll to move {photo.restaurant} through the pipeline →</p>
         </div>
 
-        {/* Conveyor belt line */}
         <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent -translate-y-1/2 z-10" />
 
-        {/* Horizontal scroll track */}
-        <motion.div
-          style={{ x }}
-          className="flex items-center h-full"
-          // 4 stages side by side
-        >
-          {/* Stage 1: Input — Bad Photo */}
+        <motion.div style={{ x }} className="flex items-center h-full">
+          {/* Stage 1: Input — Real before photo in phone */}
           <div className="flex-shrink-0 w-screen h-full flex items-center justify-center relative">
             <StageLabel number="1" label="INPUT" color="zinc" />
             <div className="flex flex-col items-center">
               <div className="w-[200px] h-[400px] rounded-[2.5rem] border-2 border-zinc-700 bg-zinc-900 shadow-2xl overflow-hidden relative">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-b-xl z-10" />
-                <div className="absolute inset-2 top-7 rounded-[2rem] bg-zinc-800 overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center flex-col gap-2">
-                    <div className="w-24 h-24 rounded bg-gradient-to-br from-yellow-900/30 to-zinc-800 relative">
-                      <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle,transparent_30%,black)]" />
-                    </div>
-                    <span className="text-zinc-600 text-[9px] font-mono">potato_quality.jpg</span>
-                  </div>
+                <div className="absolute inset-2 top-7 rounded-[2rem] overflow-hidden">
+                  <Image
+                    src={photo.before}
+                    alt="Original restaurant photo"
+                    fill
+                    className="object-cover brightness-75 saturate-50"
+                    sizes="200px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 </div>
               </div>
               <div className="mt-4 text-zinc-600 text-xs text-center">
-                Dark • Blurry • 2MP<br />
-                <span className="text-zinc-700">Taken at 11pm under fluorescent lights</span>
+                {photo.restaurant}<br />
+                <span className="text-zinc-700">Original phone photo</span>
               </div>
             </div>
-            {/* Arrow */}
             <div className="absolute right-8 top-1/2 -translate-y-1/2 text-zinc-700 text-4xl animate-pulse">→</div>
           </div>
 
@@ -130,39 +127,38 @@ export function AssemblyLine() {
             <div className="absolute right-8 top-1/2 -translate-y-1/2 text-zinc-700 text-4xl animate-pulse">→</div>
           </div>
 
-          {/* Stage 4: Output — Final Result */}
+          {/* Stage 4: Output — Real after photo on monitor */}
           <div className="flex-shrink-0 w-screen h-full flex items-center justify-center relative">
             <StageLabel number="4" label="OUTPUT" color="amber" />
             <div className="flex flex-col items-center">
               <div className="w-[500px] h-[340px] rounded-2xl border border-amber-500/30 bg-zinc-950 shadow-2xl overflow-hidden relative">
-                {/* Monitor frame */}
-                <div className="absolute top-0 inset-x-0 h-8 bg-zinc-900 border-b border-zinc-800 flex items-center px-3 gap-1.5">
+                <div className="absolute top-0 inset-x-0 h-8 bg-zinc-900 border-b border-zinc-800 flex items-center px-3 gap-1.5 z-10">
                   <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
                   <span className="ml-3 text-zinc-600 text-[10px] font-mono">foodshot_studio_output.jpg</span>
                 </div>
-                <div className="absolute inset-0 top-8 bg-gradient-to-br from-amber-900/20 to-orange-900/15 flex items-center justify-center">
-                  <div className="w-48 h-48 rounded-xl bg-gradient-to-br from-amber-500/40 to-red-500/25 relative overflow-hidden">
-                    <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-amber-400/50 blur-sm" />
-                    <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-black/20 to-transparent" />
-                    <div className="absolute top-2 left-2 w-3 h-3 rounded-full bg-white/20 blur-[1px]" />
-                  </div>
+                <div className="absolute inset-0 top-8">
+                  <Image
+                    src={photo.after}
+                    alt="FoodShot enhanced photo"
+                    fill
+                    className="object-cover"
+                    sizes="500px"
+                  />
                 </div>
                 <div className="absolute -inset-6 bg-amber-500/5 blur-2xl -z-10" />
               </div>
-              {/* Monitor stand */}
               <div className="w-20 h-8 bg-zinc-800 rounded-b-lg" />
               <div className="w-40 h-2 bg-zinc-800 rounded-full" />
               <div className="mt-6 text-center">
-                <p className="text-amber-400 font-medium">Studio-Quality Output</p>
-                <p className="text-zinc-600 text-xs mt-1">8K • Professionally Lit • Magazine-Ready</p>
+                <p className="text-amber-400 font-medium">{photo.restaurant} — Studio-Quality Output</p>
+                <p className="text-zinc-600 text-xs mt-1">Enhanced • Professionally Lit • Magazine-Ready</p>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Progress bar */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-48 z-20">
           <div className="h-1 bg-zinc-800 rounded-full overflow-hidden">
             <motion.div

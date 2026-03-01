@@ -2,17 +2,18 @@
 
 import { motion } from "framer-motion";
 import { Suspense, lazy, useCallback } from "react";
+import Image from "next/image";
 import type { Application, SPEObject } from "@splinetool/runtime";
+import { foodPhotos } from "./photo-data";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
 const NEXBOT_URL = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 
-// Warm food palette — transforms the tech robot into a food industry mascot
 const FOOD_THEME = {
-  body: "#1a0f08",    // Deep espresso brown
-  accent: "#d4a574",  // Warm caramel
-  glow: "#ff6b35",    // Sizzling orange
+  body: "#1a0f08",
+  accent: "#d4a574",
+  glow: "#ff6b35",
 };
 
 function recolorForFood(obj: SPEObject) {
@@ -40,33 +41,28 @@ function recolorForFood(obj: SPEObject) {
     ) {
       obj.color = FOOD_THEME.body;
     }
-  } catch {
-    // Some objects don't support color
-  }
+  } catch {}
 }
 
 export function HeroDish() {
   const onLoad = useCallback((app: Application) => {
     try {
-      const objects = app.getAllObjects();
-      for (const obj of objects) {
-        recolorForFood(obj);
-      }
-    } catch {
-      // Silent fail
-    }
+      for (const obj of app.getAllObjects()) recolorForFood(obj);
+    } catch {}
   }, []);
+
+  // Show 3 before/after pairs
+  const showcase = foodPhotos.slice(0, 3);
 
   return (
     <section className="relative w-full min-h-screen bg-black overflow-hidden">
-      {/* Warm ambient glow */}
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-orange-500/5 blur-[120px]" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-amber-900/10 blur-[80px]" />
       </div>
 
       <div className="relative z-10 flex flex-col lg:flex-row items-center min-h-screen">
-        {/* Left: Copy */}
+        {/* Left: Copy + Before/After Grid */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -92,6 +88,33 @@ export function HeroDish() {
             87% of diners check photos before choosing a restaurant.
             Bad photos = empty tables. We fix that — automatically.
           </p>
+
+          {/* Real before/after thumbnails */}
+          <div className="flex gap-3 mb-8">
+            {showcase.map((p, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + i * 0.15 }}
+                className="flex gap-1"
+              >
+                <div className="w-16 h-16 rounded-lg overflow-hidden relative border border-zinc-700">
+                  <Image src={p.before} alt={`${p.restaurant} before`} fill className="object-cover brightness-75 saturate-50" sizes="64px" />
+                  <div className="absolute bottom-0 inset-x-0 bg-black/70 text-center">
+                    <span className="text-zinc-500 text-[7px]">Before</span>
+                  </div>
+                </div>
+                <div className="w-16 h-16 rounded-lg overflow-hidden relative border border-amber-500/30">
+                  <Image src={p.after} alt={`${p.restaurant} after`} fill className="object-cover" sizes="64px" />
+                  <div className="absolute bottom-0 inset-x-0 bg-black/70 text-center">
+                    <span className="text-amber-400 text-[7px]">After</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
             <button className="px-8 py-3.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity">
@@ -130,14 +153,9 @@ export function HeroDish() {
               </div>
             }
           >
-            <Spline
-              scene={NEXBOT_URL}
-              className="w-full h-full absolute inset-0"
-              onLoad={onLoad}
-            />
+            <Spline scene={NEXBOT_URL} className="w-full h-full absolute inset-0" onLoad={onLoad} />
           </Suspense>
 
-          {/* Floating badges around the robot */}
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}

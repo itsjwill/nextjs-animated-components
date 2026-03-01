@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Suspense, lazy, useEffect, useState, useCallback } from "react";
-import type { Application } from "@splinetool/runtime";
+import { Suspense, lazy, useEffect, useState } from "react";
+import Image from "next/image";
+import { foodPhotos } from "./photo-data";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
@@ -14,31 +15,18 @@ const floatingItems = [
   { emoji: "★★★★★", color: "text-amber-400", delay: 2, x: -60, speed: 5 },
   { emoji: "♥", color: "text-pink-400", delay: 0.3, x: 60, speed: 4.2 },
   { emoji: "$$$", color: "text-emerald-300", delay: 2.5, x: 0, speed: 3.2 },
-  { emoji: "📍", color: "text-red-300", delay: 1.8, x: -150, speed: 4.5 },
   { emoji: "+127%", color: "text-emerald-400", delay: 3, x: 140, speed: 3.8 },
   { emoji: "♥ 2.4K", color: "text-pink-400", delay: 0.8, x: -40, speed: 4.8 },
 ];
 
-function FloatingParticle({
-  item,
-}: {
-  item: (typeof floatingItems)[0];
-}) {
+function FloatingParticle({ item }: { item: (typeof floatingItems)[0] }) {
   return (
     <motion.div
       className={`absolute pointer-events-none ${item.color} text-sm font-bold select-none`}
       style={{ left: `calc(50% + ${item.x}px)` }}
       initial={{ opacity: 0, y: 0 }}
-      animate={{
-        opacity: [0, 0.8, 0.8, 0],
-        y: [0, -200, -350, -500],
-      }}
-      transition={{
-        duration: item.speed,
-        delay: item.delay,
-        repeat: Infinity,
-        ease: "easeOut",
-      }}
+      animate={{ opacity: [0, 0.8, 0.8, 0], y: [0, -200, -350, -500] }}
+      transition={{ duration: item.speed, delay: item.delay, repeat: Infinity, ease: "easeOut" }}
     >
       {item.emoji}
     </motion.div>
@@ -47,6 +35,7 @@ function FloatingParticle({
 
 export function MoneyPlate() {
   const [counter, setCounter] = useState(0);
+  const [photoIdx, setPhotoIdx] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -55,37 +44,19 @@ export function MoneyPlate() {
     return () => clearInterval(interval);
   }, []);
 
-  const onSplineLoad = useCallback((app: Application) => {
-    try {
-      const objects = app.getAllObjects();
-      for (const obj of objects) {
-        const name = (obj.name || "").toLowerCase();
-        try {
-          if (name.includes("light") || name.includes("glow") || name.includes("emit")) {
-            obj.color = "#ff8c00";
-          } else if (name.includes("accent") || name.includes("detail") || name.includes("trim")) {
-            obj.color = "#fbbf24";
-          } else if (name) {
-            obj.color = "#8b4513";
-          }
-        } catch {
-          // Some objects don't support color
-        }
-      }
-    } catch {
-      // Silent fail
-    }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPhotoIdx((i) => (i + 1) % foodPhotos.length);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col items-center justify-center px-6 py-20">
-      {/* Warm ambient glow */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-500/5 blur-[100px]" />
-        <div className="absolute top-1/3 left-1/3 w-[300px] h-[300px] rounded-full bg-orange-500/5 blur-[80px]" />
       </div>
 
-      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -106,8 +77,8 @@ export function MoneyPlate() {
         </p>
       </motion.div>
 
-      {/* 3D Scene + Floating Revenue */}
-      <div className="relative z-10 w-full max-w-2xl h-[500px]">
+      {/* 3D Scene + Floating Revenue + Rotating real photos */}
+      <div className="relative z-10 w-full max-w-3xl h-[500px]">
         {/* Floating revenue indicators */}
         <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
           {floatingItems.map((item, i) => (
@@ -115,7 +86,7 @@ export function MoneyPlate() {
           ))}
         </div>
 
-        {/* Spline Scene — warm-recolored */}
+        {/* Spline Scene */}
         <Suspense
           fallback={
             <div className="w-full h-full flex items-center justify-center">
@@ -126,9 +97,48 @@ export function MoneyPlate() {
           <Spline
             scene="https://prod.spline.design/KFonZGtsoUXP-qx7/scene.splinecode"
             className="w-full h-full"
-            onLoad={onSplineLoad}
           />
         </Suspense>
+
+        {/* Rotating food photo gallery overlay */}
+        <div className="absolute top-4 right-4 z-20 pointer-events-none">
+          <div className="w-32 h-32 rounded-xl overflow-hidden border border-amber-500/30 shadow-xl relative">
+            {foodPhotos.map((p, i) => (
+              <motion.div
+                key={i}
+                className="absolute inset-0"
+                initial={false}
+                animate={{ opacity: photoIdx === i ? 1 : 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Image src={p.after} alt={p.restaurant} fill className="object-cover" sizes="128px" />
+              </motion.div>
+            ))}
+            <div className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-sm px-2 py-1 z-10">
+              <span className="text-amber-400 text-[9px] font-mono">{foodPhotos[photoIdx].restaurant}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Before photo comparison */}
+        <div className="absolute top-4 left-4 z-20 pointer-events-none">
+          <div className="w-32 h-32 rounded-xl overflow-hidden border border-zinc-700 shadow-xl relative">
+            {foodPhotos.map((p, i) => (
+              <motion.div
+                key={i}
+                className="absolute inset-0"
+                initial={false}
+                animate={{ opacity: photoIdx === i ? 1 : 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Image src={p.before} alt={`${p.restaurant} original`} fill className="object-cover brightness-75 saturate-50" sizes="128px" />
+              </motion.div>
+            ))}
+            <div className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-sm px-2 py-1 z-10">
+              <span className="text-zinc-500 text-[9px] font-mono">ORIGINAL</span>
+            </div>
+          </div>
+        </div>
 
         {/* Revenue counter */}
         <motion.div
