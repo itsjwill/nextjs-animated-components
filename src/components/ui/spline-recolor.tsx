@@ -17,24 +17,53 @@ export interface ColorTheme {
   glow: string;
 }
 
+export interface TransformRule {
+  /** Object name pattern to match (case-insensitive, partial match) */
+  match: string;
+  /** Scale multiplier — e.g. { x: 1.5, y: 1, z: 1.5 } to widen */
+  scale?: { x: number; y: number; z: number };
+  /** Position offset — added to current position */
+  positionOffset?: { x: number; y: number; z: number };
+  /** Rotation offset in radians — added to current rotation */
+  rotationOffset?: { x: number; y: number; z: number };
+  /** Override color specifically for this part */
+  color?: string;
+  /** Hide this part entirely */
+  visible?: boolean;
+}
+
 interface SplineRecolorProps {
   theme: ColorTheme;
+  transforms?: TransformRule[];
   className?: string;
 }
 
-export function SplineRecolor({ theme, className }: SplineRecolorProps) {
+export function SplineRecolor({
+  theme,
+  transforms,
+  className,
+}: SplineRecolorProps) {
   const onLoad = useCallback(
     (splineApp: Application) => {
       try {
         const allObjects = splineApp.getAllObjects();
+
+        // Apply color theme
         for (const obj of allObjects) {
           recolorObject(obj, theme);
         }
+
+        // Apply transforms if provided
+        if (transforms && transforms.length > 0) {
+          for (const obj of allObjects) {
+            applyTransforms(obj, transforms);
+          }
+        }
       } catch {
-        // Silently fail if recolor doesn't work — robot still displays normally
+        // Silently fail — robot still displays normally
       }
     },
-    [theme]
+    [theme, transforms]
   );
 
   return (
@@ -54,7 +83,6 @@ function recolorObject(obj: SPEObject, theme: ColorTheme) {
   const name = (obj.name || "").toLowerCase();
 
   try {
-    // Eyes, lights, glowing parts → glow color
     if (
       name.includes("eye") ||
       name.includes("light") ||
@@ -65,9 +93,7 @@ function recolorObject(obj: SPEObject, theme: ColorTheme) {
       name.includes("led")
     ) {
       obj.color = theme.glow;
-    }
-    // Accent/detail parts → accent color
-    else if (
+    } else if (
       name.includes("accent") ||
       name.includes("detail") ||
       name.includes("stripe") ||
@@ -78,9 +104,7 @@ function recolorObject(obj: SPEObject, theme: ColorTheme) {
       name.includes("antenna")
     ) {
       obj.color = theme.accent;
-    }
-    // Main body parts → body color
-    else if (
+    } else if (
       name.includes("body") ||
       name.includes("torso") ||
       name.includes("arm") ||
@@ -92,11 +116,59 @@ function recolorObject(obj: SPEObject, theme: ColorTheme) {
       name.includes("hull") ||
       name.includes("shell") ||
       name.includes("frame") ||
-      name.includes("base")
+      name.includes("base") ||
+      name.includes("shoulder") ||
+      name.includes("hand") ||
+      name.includes("foot") ||
+      name.includes("neck")
     ) {
       obj.color = theme.body;
     }
   } catch {
     // Some objects might not support color changes
+  }
+}
+
+function applyTransforms(obj: SPEObject, transforms: TransformRule[]) {
+  const name = (obj.name || "").toLowerCase();
+
+  for (const rule of transforms) {
+    if (!name.includes(rule.match.toLowerCase())) continue;
+
+    try {
+      if (rule.visible === false) {
+        obj.visible = false;
+      }
+
+      if (rule.scale) {
+        obj.scale = {
+          x: obj.scale.x * rule.scale.x,
+          y: obj.scale.y * rule.scale.y,
+          z: obj.scale.z * rule.scale.z,
+        };
+      }
+
+      if (rule.positionOffset) {
+        obj.position = {
+          x: obj.position.x + rule.positionOffset.x,
+          y: obj.position.y + rule.positionOffset.y,
+          z: obj.position.z + rule.positionOffset.z,
+        };
+      }
+
+      if (rule.rotationOffset) {
+        obj.rotation = {
+          x: obj.rotation.x + rule.rotationOffset.x,
+          y: obj.rotation.y + rule.rotationOffset.y,
+          z: obj.rotation.z + rule.rotationOffset.z,
+        };
+      }
+
+      if (rule.color) {
+        obj.color = rule.color;
+      }
+    } catch {
+      // Some properties might not be writable
+    }
   }
 }

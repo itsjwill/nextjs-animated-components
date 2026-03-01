@@ -10,7 +10,10 @@ import { FadeIn, ScrollProgress } from "@/components/scroll";
 import { AnimatedNavLink } from "@/components/navigation";
 import { Spotlight } from "@/components/backgrounds/spotlight";
 import { Card } from "@/components/ui/card";
-import type { ColorTheme } from "@/components/ui/spline-recolor";
+import type {
+  ColorTheme,
+  TransformRule,
+} from "@/components/ui/spline-recolor";
 
 const SplineScene = dynamic(
   () => import("@/components/ui/splite").then((m) => m.SplineScene),
@@ -148,37 +151,8 @@ const robotVariants: {
   spotlightColor: string;
   tech: string;
   theme: ColorTheme;
+  transforms?: TransformRule[];
 }[] = [
-  {
-    id: "midnight",
-    title: "Midnight Edition",
-    subtitle: "Stealth Operative",
-    description:
-      "The same interactive robot — recolored in deep midnight blue with electric cyan accents and ice-white eyes. Darker, sleeker, with a cold precision vibe. Same smooth cursor tracking, same personality — different attitude.",
-    gradient: "from-blue-500 to-indigo-600",
-    spotlightColor: "#3b82f6",
-    tech: "Runtime Recolor • Spline API • Same Interaction • New Identity",
-    theme: {
-      body: "#1a1a3e",
-      accent: "#06b6d4",
-      glow: "#e0f2ff",
-    },
-  },
-  {
-    id: "ember",
-    title: "Ember Edition",
-    subtitle: "Volcanic Core",
-    description:
-      "The robot runs hot. Deep charcoal body with molten orange accents and burning red eyes. Same smooth design, same cursor tracking — but this one looks like it was forged in a volcano. Move your cursor and watch it lock on with those ember-glow eyes.",
-    gradient: "from-orange-500 to-red-600",
-    spotlightColor: "#f97316",
-    tech: "Runtime Recolor • Spline API • Same Interaction • New Identity",
-    theme: {
-      body: "#2a1a1a",
-      accent: "#f97316",
-      glow: "#ff3333",
-    },
-  },
   {
     id: "frost",
     title: "Frost Edition",
@@ -193,6 +167,58 @@ const robotVariants: {
       accent: "#14b8a6",
       glow: "#38bdf8",
     },
+  },
+  {
+    id: "titan",
+    title: "Titan Class",
+    subtitle: "Heavy Assault Frame",
+    description:
+      "Same robot — but built different. Shoulders scaled 1.6x wider, arms thickened, torso expanded. The proportions are shifted to make it look like a heavy assault mech. Deep gunmetal body with gold trim and burning amber eyes. This thing looks like it weighs 2 tons. Still tracks your cursor though — slowly, deliberately.",
+    gradient: "from-amber-500 to-yellow-600",
+    spotlightColor: "#fbbf24",
+    tech: "Runtime Transform • Scaled Proportions • Spline API • Body Morph",
+    theme: {
+      body: "#2a2a30",
+      accent: "#fbbf24",
+      glow: "#ff8800",
+    },
+    transforms: [
+      { match: "shoulder", scale: { x: 1.6, y: 1.3, z: 1.6 } },
+      { match: "arm", scale: { x: 1.35, y: 1.1, z: 1.35 } },
+      { match: "hand", scale: { x: 1.4, y: 1.4, z: 1.4 } },
+      { match: "torso", scale: { x: 1.25, y: 1.1, z: 1.2 } },
+      { match: "chest", scale: { x: 1.25, y: 1.1, z: 1.2 } },
+      { match: "body", scale: { x: 1.2, y: 1.05, z: 1.15 } },
+      { match: "head", scale: { x: 0.9, y: 0.9, z: 0.9 } },
+      { match: "leg", scale: { x: 1.2, y: 0.95, z: 1.2 } },
+      { match: "foot", scale: { x: 1.3, y: 1.0, z: 1.3 } },
+    ],
+  },
+  {
+    id: "specter",
+    title: "Specter Unit",
+    subtitle: "Reconnaissance Phantom",
+    description:
+      "Stretched tall and razor-thin. The same robot but elongated vertically — head pushed up, limbs narrowed, body compressed laterally. It looks like a surveillance drone that learned to stand. Matte black with deep violet accents and ghostly magenta eyes. Unsettlingly slim. Watches you from a higher vantage point.",
+    gradient: "from-violet-500 to-fuchsia-600",
+    spotlightColor: "#a855f7",
+    tech: "Runtime Transform • Stretched Proportions • Spline API • Body Morph",
+    theme: {
+      body: "#111118",
+      accent: "#7c3aed",
+      glow: "#e879f9",
+    },
+    transforms: [
+      { match: "head", scale: { x: 0.85, y: 1.1, z: 0.85 }, positionOffset: { x: 0, y: 15, z: 0 } },
+      { match: "torso", scale: { x: 0.75, y: 1.3, z: 0.8 } },
+      { match: "chest", scale: { x: 0.75, y: 1.3, z: 0.8 } },
+      { match: "body", scale: { x: 0.8, y: 1.25, z: 0.85 } },
+      { match: "shoulder", scale: { x: 0.7, y: 1.1, z: 0.7 } },
+      { match: "arm", scale: { x: 0.7, y: 1.25, z: 0.7 } },
+      { match: "hand", scale: { x: 0.8, y: 1.1, z: 0.8 } },
+      { match: "leg", scale: { x: 0.75, y: 1.2, z: 0.75 } },
+      { match: "foot", scale: { x: 0.85, y: 1.0, z: 1.1 } },
+    ],
   },
 ];
 
@@ -311,6 +337,7 @@ function RobotVariantCard({
           <div className="flex-1 relative min-h-[400px]">
             <SplineRecolor
               theme={variant.theme}
+              transforms={variant.transforms}
               className="w-full h-full absolute inset-0"
             />
           </div>
