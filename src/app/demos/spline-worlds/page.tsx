@@ -97,6 +97,39 @@ const scenes = [
     spotlightColor: "#ef4444",
     tech: "Organic Motion • Mechanical Design • Energy Flow",
   },
+  {
+    id: "sentinel",
+    title: "Sentinel Droid",
+    subtitle: "Autonomous Guardian",
+    description:
+      "A fully-articulated sentinel robot with smooth idle animations and interactive state changes. Hover to trigger alert mode — the droid tracks your cursor, shifts posture, and locks on. Industrial design meets personality.",
+    splineUrl: "https://prod.spline.design/DUBEkd7gs71gjVCS/scene.splinecode",
+    gradient: "from-sky-500 to-indigo-600",
+    spotlightColor: "#38bdf8",
+    tech: "State Machines • Idle Animation • Industrial Design",
+  },
+  {
+    id: "phantom-unit",
+    title: "Phantom Unit",
+    subtitle: "Stealth Recon Bot",
+    description:
+      "A sleek reconnaissance drone that responds to your presence with fluid orbital motion. Move your cursor to guide its patrol path — it follows, orbits, and zooms with buttery smooth transitions. Zero latency tracking.",
+    splineUrl: "https://prod.spline.design/PBQQBw8bfXDhBo7w/scene.splinecode",
+    gradient: "from-fuchsia-500 to-purple-600",
+    spotlightColor: "#d946ef",
+    tech: "Follow Cursor • Orbital Motion • Stealth Design",
+  },
+  {
+    id: "nexus-core",
+    title: "Nexus Core",
+    subtitle: "AI Command Center",
+    description:
+      "An interactive 3D command interface with orbit controls and depth zoom. Rotate the scene to explore every angle of this sci-fi control hub. Scroll to zoom through dimensional layers of holographic UI panels.",
+    splineUrl: "https://prod.spline.design/U9O6K7fXziMEU7Wu/scene.splinecode",
+    gradient: "from-teal-500 to-cyan-600",
+    spotlightColor: "#14b8a6",
+    tech: "Orbit Controls • Zoom Interaction • Holographic UI",
+  },
 ];
 
 function SceneCard({
@@ -207,7 +240,7 @@ export default function SplineWorldsPage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            Six interactive 3D scenes powered by Spline. Each one is a
+            Nine interactive 3D scenes powered by Spline. Each one is a
             fully-realized world you can explore with your cursor. No WebGL
             code required — just drop in a URL.
           </motion.p>
